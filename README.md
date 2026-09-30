@@ -1,5 +1,7 @@
 # Thon sur thon
 
+<img src="doc/public/logo.png" alt="Logo Thon sur thon" width="250">
+
 Projet SMA – M2 ILIADE : un banc de thons en 3D (Godot) qui se disperse autour d'obstacles puis se reforme.
 
 pas trop verbeux pour le code par IA

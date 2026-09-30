@@ -4,7 +4,9 @@ export default defineConfig({
   lang: 'fr-FR',
   title: 'Thon sur thon',
   description: 'Projet SMA – M2 ILIADE : banc de thons, obstacles et émergence',
+  head: [['link', { rel: 'icon', href: '/logo.png' }]],
   themeConfig: {
+    logo: '/logo.png',
     nav: [
       { text: 'Accueil', link: '/' },
       { text: 'Le projet', link: '/idee-generale' },
