@@ -1,4 +1,4 @@
-# 3. Technique Claude (agents)
+# Technique Claude (agents)
 
 On code avec Claude Code en donnant chaque partie du projet à un agent spécialisé. Un coordinateur répartit le travail, un relecteur vérifie tout, et c'est vous qui validez. Un vrai banc d'agents, en somme.
 

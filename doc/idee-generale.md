@@ -1,4 +1,4 @@
-# 1. Idée générale
+# Idée générale
 
 *Projet SMA – M2 ILIADE. Un projet qui ne manque pas de thon.*
 
@@ -7,9 +7,11 @@ Un banc de thons nage dans un grand aquarium en 3D. Un obstacle le traverse, le 
 ## Le paysage
 
 - Un grand aquarium (un bocal) en 3D, avec des parois qui servent de murs. Pas de fuite possible : ici, on ne met pas les voiles.
-- **V1** : des tas d'algues fixes posés sur la route du banc. Il doit se séparer pour les contourner, puis se ressouder derrière. Les algues, elles, ne bougent pas : elles sont restées de marbre (enfin, de varech).
-- **V2** : un obstacle qui bouge. D'abord un simple objet qui traverse en ligne droite, puis un vrai prédateur qui chasse. Là, ça va thonner.
-- **Plus tard** : des rochers dans l'aquarium, puis éventuellement un courant. On ne va pas tout mettre à l'eau dès le début.
+- : des tas d'algues fixes posés sur la route du banc. Il doit se séparer pour les contourner, puis se ressouder derrière. Les algues, elles, ne bougent pas : elles sont restées de marbre (enfin, de varech).
+- un obstacle qui bouge. D'abord un simple objet qui traverse en ligne droite, puis un vrai prédateur qui chasse. Là, ça va thonner.
+- des rochers dans l'aquarium, puis éventuellement un courant. On ne va pas tout mettre à l'eau dès le début.
+
+Le détail de chaque version est dans [Versions](/versions).
 
 ## Les agents
 
