@@ -7,9 +7,6 @@ Le contenu et le critère de fin de chaque version sont dans `doc/versions.md` :
 ## Arborescence
 
 ```
-godot/                 projet Godot 4.7 (GDScript)
-  project.godot
-  main.tscn            scène principale
 doc/                   site VitePress (en français)
   .vitepress/          config.mts, thème (custom.css)
   public/              logo
@@ -30,13 +27,6 @@ Fichiers générés, jamais committés : `godot/.godot/`, `data/`, `node_modules
 ## Commandes
 
 ```bash
-# Ouvrir le projet dans l'éditeur Godot (godot = chemin de l'exécutable 4.7)
-godot --path godot -e
-# Lancer la simulation
-godot --path godot
-# Vérifier que le projet se charge, sans fenêtre
-godot --headless --path godot --quit-after 60
-
 # Doc en local
 cd doc && npm install && npm run dev
 ```
