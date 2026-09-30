@@ -14,9 +14,8 @@
 
 *VS Code, Claude Code, mise en place des agents Claude Code, ajout de skills pertinents.*
 
-- [ ] Installer Godot 4 chez tout le monde (même version), VS Code + extension godot-tools
-- [ ] Créer le projet Godot vide dans `godot/` et vérifier qu'il se lance chez chacun
-- [ ] Mettre en place un lanceur de tests headless (`godot/tests/`) avec un test bidon qui passe
+- [x] Installer Godot 4 chez tout le monde (même version), VS Code
+- [x] Créer le projet Godot vide dans `godot/` et vérifier qu'il se lance chez chacun
 - [ ] Compléter `CLAUDE.md` : description courte du projet, arborescence, commandes
 - [ ] Écrire les agents (`.claude/agents/`) : thon, environnement, obstacles, mesures, relecteur
 - [ ] Écrire les skills (`.claude/skills/`) : workflow d'une tâche, relecture, conventions GDScript, formules boids, mesures
@@ -26,34 +25,37 @@
 
 *Itérations, review de code, documentation via VitePress.*
 
-Chaque itération : tâches sur branches `feature/*`, relecture, PR vers la branche de version, mise à jour de la doc. Le contenu détaillé de chaque version est dans [versions](/versions).
+Une grande version par itération. Chaque petite version `vX.Y.Z` : tâches sur branches `feature/*`, relecture, PR vers la branche de version, validation à deux, fusion dans `main` avec son tag. Le contenu et le critère de fin de chaque version sont dans [versions](/versions).
 
-### Itération 1 — Un banc qui nage
+### V1 — L'aquarium
 
-- [ ] Aquarium 3D : parois, caméra, éclairage
-- [ ] Thon : déplacement avec vitesse bornée, évitement des parois
-- [ ] Les 3 forces (séparation, alignement, cohésion) + recherche des voisins
-- [ ] Test visuel : le banc se forme à partir de positions aléatoires
+- [ ] [v1.0.0](/versions#v1-0-0) : projet Godot et aquarium vide
+- [ ] [v1.1.0](/versions#v1-1-0) : sol de sable avec du relief, ambiance sous-marine
+- [ ] [v1.2.0](/versions#v1-2-0) : caméra qu'on peut déplacer
+- [ ] [v1.3.0](/versions#v1-3-0) : un thon qui nage
+- [ ] [v1.4.0](/versions#v1-4-0) : le thon évite les parois et le sol
 
-### Itération 2 — Algues et mesures
+### V2 — Le banc et le rocher
 
-- [ ] Algues fixes sur la trajectoire + force d'évitement
-- [ ] Mesures : alignement, nombre de sous-groupes
-- [ ] Détection « banc reformé » et temps de regroupement
-- [ ] Export CSV
+- [ ] [v2.0.0](/versions#v2-0-0) : plusieurs thons qui ne se cognent pas
+- [ ] [v2.1.0](/versions#v2-1-0) : les thons forment un banc
+- [ ] [v2.2.0](/versions#v2-2-0) : un rocher que le banc contourne
+- [ ] [v2.3.0](/versions#v2-3-0) : mesures du banc
+- [ ] [v2.4.0](/versions#v2-4-0) : temps de regroupement et export CSV
+- [ ] [v2.5.0](/versions#v2-5-0) : curseurs de réglage
 
-### Itération 3 — Obstacle mobile puis prédateur
+### V3 — Le requin et le bateau de pêche
 
-- [ ] Obstacle qui traverse en ligne droite
-- [ ] Prédateur qui chasse le thon le plus proche
-- [ ] Campagne de mesures : temps de regroupement selon taille / vitesse de l'obstacle
+- [ ] [v3.0.0](/versions#v3-0-0) : un requin qui nage
+- [ ] [v3.1.0](/versions#v3-1-0) : le requin chasse
+- [ ] [v3.2.0](/versions#v3-2-0) : les thons fuient le requin
+- [ ] [v3.3.0](/versions#v3-3-0) : un bateau de pêche qui traîne un filet
+- [ ] [v3.4.0](/versions#v3-4-0) : le filet attrape les thons, qui le fuient
+- [ ] [v3.5.0](/versions#v3-5-0) : campagne de mesures et graphiques
 
-### Itération 4 — Réglages et bonus
+### Si on a le temps
 
-- [ ] Curseurs dans l'interface pour les poids et paramètres
-- [ ] Graphiques à partir des CSV (script Python)
-- [ ] Performance : grille spatiale si trop de thons
-- [ ] Bonus : rochers, courant
+- [ ] Idées pour plus tard (voir [versions](/versions#idees-pour-plus-tard)) : plusieurs rochers et des algues, courant, grille spatiale
 
 ### En continu
 
