@@ -9,7 +9,7 @@ Les règles de numérotation (`vX.Y.Z`) sont dans les [pratiques git](/pratiques
 | --- | --- |
 | **V1** — L'aquarium | Un aquarium avec un sol de sable, et un thon qui y nage sans se cogner. |
 | **V2** — Le banc et le rocher | Un banc de thons qui se sépare pour contourner un rocher, puis se reforme derrière. |
-| **V3** — Le prédateur | Un requin chasse le banc, qui éclate puis se reforme. |
+| **V3** — Le requin et le bateau de pêche | Un requin chasse le banc, qui éclate puis se reforme. Un bateau de pêche traîne un filet que le banc doit éviter. |
 
 Chaque petite version ci-dessous est une étape qu'on peut montrer : on la développe sur sa branche `vX.Y.Z`, on la valide à deux, puis on la fusionne dans `main` avec son tag.
 
@@ -29,7 +29,9 @@ Chaque petite version ci-dessous est une étape qu'on peut montrer : on la déve
 | [v3.0.0](#v3-0-0) | Un requin qui nage | À faire |
 | [v3.1.0](#v3-1-0) | Le requin chasse | À faire |
 | [v3.2.0](#v3-2-0) | Les thons fuient le requin | À faire |
-| [v3.3.0](#v3-3-0) | Campagne de mesures et graphiques | À faire |
+| [v3.3.0](#v3-3-0) | Un bateau de pêche qui traîne un filet | À faire |
+| [v3.4.0](#v3-4-0) | Le filet attrape les thons, qui le fuient | À faire |
+| [v3.5.0](#v3-5-0) | Campagne de mesures et graphiques | À faire |
 
 ## V1 — L'aquarium
 
@@ -120,9 +122,9 @@ Les règles du banc sont détaillées dans la [technique mathématique](/techniq
 
 **Terminée quand** : chaque curseur change le comportement en direct, sans redémarrer.
 
-## V3 — Le prédateur
+## V3 — Le requin et le bateau de pêche
 
-**But** : un requin chasse les thons. Le banc éclate à son approche, puis se reforme une fois le danger passé.
+**But** : un requin chasse les thons, et un bateau de pêche traîne un filet dans l'aquarium. Le banc éclate à l'approche du danger, puis se reforme une fois qu'il est passé.
 
 ### v3.0.0 — Un requin qui nage {#v3-0-0}
 
@@ -144,9 +146,23 @@ Les règles du banc sont détaillées dans la [technique mathématique](/techniq
 
 **Terminée quand** : le banc éclate à l'approche du requin puis se reforme après son passage.
 
-### v3.3.0 — Campagne de mesures et graphiques {#v3-3-0}
+### v3.3.0 — Un bateau de pêche qui traîne un filet {#v3-3-0}
 
-- Plusieurs simulations lancées à la suite, sans affichage, en faisant varier un paramètre (taille du rocher, vitesse du requin, nombre de thons…).
+- Un bateau de pêche qui avance à la surface, d'un bout à l'autre de l'aquarium, puis repart.
+- Il traîne derrière lui un filet : une zone sous l'eau (une nappe ou une poche) qui suit le bateau.
+
+**Terminée quand** : le bateau traverse l'aquarium avec son filet, sans que les thons réagissent encore.
+
+### v3.4.0 — Le filet attrape les thons, qui le fuient {#v3-4-0}
+
+- Un thon qui entre dans le filet est capturé : il disparaît et on compte les prises.
+- Force de **fuite** face au filet, comme pour le requin : un thon qui voit le filet s'en éloigne.
+
+**Terminée quand** : le banc s'écarte au passage du filet, et les thons trop lents sont comptés comme pêchés.
+
+### v3.5.0 — Campagne de mesures et graphiques {#v3-5-0}
+
+- Plusieurs simulations lancées à la suite, sans affichage, en faisant varier un paramètre (taille du rocher, vitesse du requin, vitesse du bateau, nombre de thons…).
 - Script Python qui lit les CSV et trace le temps de regroupement selon ce paramètre.
 
 **Terminée quand** : une seule commande produit les graphiques de la soutenance.
