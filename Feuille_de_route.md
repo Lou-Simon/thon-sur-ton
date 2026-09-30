@@ -5,7 +5,7 @@
 *Choix et description exhaustive du projet, création du git, mise en place des conventions git.*
 
 - [x] Choisir le sujet (banc de thons, obstacles, émergence)
-- [x] Rédiger la doc : idée générale, technique mathématique, technique Claude
+- [x] Rédiger la doc : idée générale
 - [x] Créer le dépôt GitHub et la doc VitePress
 - [x] Écrire les conventions git ([PRATIQUES-GIT.md](PRATIQUES-GIT.md))
 - [ ] Fixer la date de rendu
