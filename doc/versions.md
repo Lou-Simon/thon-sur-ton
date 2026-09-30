@@ -41,7 +41,6 @@ Chaque petite version ci-dessous est une étape qu'on peut montrer : on la déve
 
 - Projet Godot 4 dans `godot/`, qui se lance chez chacun.
 - Scène principale : un aquarium en forme de boîte, avec des parois (invisibles ou en verre) et une lumière.
-- Lanceur de tests headless avec un premier test qui passe.
 
 **Terminée quand** : on lance le projet et on voit l'aquarium vide.
 
