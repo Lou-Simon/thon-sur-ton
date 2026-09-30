@@ -9,6 +9,9 @@ hero:
       text: Idée générale
       link: /idee-generale
     - theme: alt
+      text: Versions
+      link: /versions
+    - theme: alt
       text: Technique mathématique
       link: /technique-mathematique
 features:

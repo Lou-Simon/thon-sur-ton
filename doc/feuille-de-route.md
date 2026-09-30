@@ -7,10 +7,8 @@
 - [x] Choisir le sujet (banc de thons, obstacles, émergence)
 - [x] Rédiger la doc : idée générale
 - [x] Créer le dépôt GitHub et la doc VitePress
-- [x] Écrire les conventions git ([PRATIQUES-GIT.md](PRATIQUES-GIT.md))
-- [ ] Fixer la date de rendu
-- [ ] Répartir les rôles dans l'équipe (qui suit quelle partie : thon, environnement, obstacles, mesures)
-- [ ] Figer les choix restants : angle de vision, seuil « banc reformé », format des CSV
+- [x] Écrire les conventions git ([pratiques git](/pratiques-git))
+- [ ] Réfléchir aux différentes versions du projet ([versions](/versions))
 
 ## Étape 2 — Environnement de développement
 
@@ -28,7 +26,7 @@
 
 *Itérations, review de code, documentation via VitePress.*
 
-Chaque itération : tâches sur branches `tache/*`, relecture, PR vers `v1.0.0`, mise à jour de la doc.
+Chaque itération : tâches sur branches `feature/*`, relecture, PR vers la branche de version, mise à jour de la doc. Le contenu détaillé de chaque version est dans [versions](/versions).
 
 ### Itération 1 — Un banc qui nage
 
@@ -37,14 +35,14 @@ Chaque itération : tâches sur branches `tache/*`, relecture, PR vers `v1.0.0`,
 - [ ] Les 3 forces (séparation, alignement, cohésion) + recherche des voisins
 - [ ] Test visuel : le banc se forme à partir de positions aléatoires
 
-### Itération 2 — Algues (V1) et mesures
+### Itération 2 — Algues et mesures
 
 - [ ] Algues fixes sur la trajectoire + force d'évitement
 - [ ] Mesures : alignement, nombre de sous-groupes
 - [ ] Détection « banc reformé » et temps de regroupement
 - [ ] Export CSV
 
-### Itération 3 — Obstacle mobile puis prédateur (V2)
+### Itération 3 — Obstacle mobile puis prédateur
 
 - [ ] Obstacle qui traverse en ligne droite
 - [ ] Prédateur qui chasse le thon le plus proche
@@ -66,7 +64,7 @@ Chaque itération : tâches sur branches `tache/*`, relecture, PR vers `v1.0.0`,
 
 *Review global, travail sur le rendu, les démos et l'oral.*
 
-- [ ] Relecture globale du code, nettoyage, fusion `v1.0.0` → `main`
+- [ ] Relecture globale du code, nettoyage, fusion de la dernière version dans `main`
 - [ ] Préparer des scénarios de démo (réglages prêts, reproductibles)
 - [ ] Enregistrer une vidéo de secours si la démo en direct plante
 - [ ] Rapport : modèle, mesures, graphiques, résultats, usage des agents Claude
