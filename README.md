@@ -1,2 +1,3 @@
 # thon-sur-ton
-TODO
+
+pas trop verbeux pour le code par IA 
