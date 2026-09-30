@@ -1,6 +1,6 @@
 # Feuille de route
 
-## Étape 1 — Cadrage du projet et git
+## Étape 1 - Cadrage du projet et git
 
 *Choix et description exhaustive du projet, création du git, mise en place des conventions git.*
 
@@ -8,9 +8,9 @@
 - [x] Rédiger la doc : idée générale
 - [x] Créer le dépôt GitHub et la doc VitePress
 - [x] Écrire les conventions git ([pratiques git](/pratiques-git))
-- [ ] Réfléchir aux différentes versions du projet ([versions](/versions))
+- [x] Réfléchir aux différentes versions du projet ([versions](/versions))
 
-## Étape 2 — Environnement de développement
+## Étape 2 - Environnement de développement
 
 *VS Code, Claude Code, mise en place des agents Claude Code, ajout de skills pertinents.*
 
@@ -22,7 +22,7 @@
 - [ ] Écrire les skills (`.claude/skills/`) : workflow d'une tâche, relecture, conventions GDScript, formules boids, mesures
 - [ ] Tester le workflow sur une petite tâche (ex. scène vide + caméra) : branche → agent → relecture → PR
 
-## Étape 3 — Développement
+## Étape 3 - Développement
 
 *Itérations, review de code, documentation via VitePress.*
 
