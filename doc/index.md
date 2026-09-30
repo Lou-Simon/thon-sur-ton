@@ -4,10 +4,16 @@ hero:
   name: Thon sur thon
   text: Un banc de thons qui se disperse et se regroupe
   tagline: Projet SMA – M2 ILIADE. Un projet qui ne manque pas de thon.
+  image:
+    src: /logo.png
+    alt: Logo Thon sur thon
   actions:
     - theme: brand
       text: Idée générale
       link: /idee-generale
+    - theme: alt
+      text: Versions
+      link: /versions
     - theme: alt
       text: Technique mathématique
       link: /technique-mathematique

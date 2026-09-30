@@ -1,4 +1,4 @@
-# 2. Technique mathématique
+# Technique mathématique
 
 *Promis, pas de quoi se noyer dans les équations.*
 

@@ -1,3 +1,31 @@
+# Godot
 godot/.godot/
+build/
+
+# Données produites par la simulation
 data/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Node / VitePress
+node_modules/
+
+# Secrets
+.env
+.env.*
+*.pem
+*.key
+
+# Claude Code (réglages perso)
 .claude/settings.local.json
+
+# Éditeurs et système
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+*.swp

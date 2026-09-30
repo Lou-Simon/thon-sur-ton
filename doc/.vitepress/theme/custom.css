@@ -1,0 +1,45 @@
+/* Couleurs reprises du logo */
+:root {
+  --vp-c-brand-1: #1f6fd1;
+  --vp-c-brand-2: #3a86e0;
+  --vp-c-brand-3: #1f6fd1;
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: linear-gradient(120deg, #1f6fd1 30%, #f2c230);
+}
+
+.dark {
+  --vp-c-brand-1: #5aa2f0;
+  --vp-c-brand-2: #3a86e0;
+}
+
+/* Logo en grand sur la page d'accueil */
+.VPHero .image-container {
+  width: 320px;
+  height: 320px;
+}
+
+@media (min-width: 640px) {
+  .VPHero .image-container {
+    width: 400px;
+    height: 400px;
+  }
+}
+
+@media (min-width: 960px) {
+  .VPHero .image-container {
+    width: 480px;
+    height: 480px;
+  }
+}
+
+.VPHero .image-src {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 24px;
+  box-shadow: 0 12px 40px rgba(10, 30, 70, 0.35);
+}
+
+/* Pas de halo coloré derrière le logo */
+.VPHero .image-bg {
+  display: none;
+}
