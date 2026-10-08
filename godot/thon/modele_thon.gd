@@ -114,6 +114,9 @@ func _construire_corps() -> void:
 	# La couleur vient de chaque sommet : bleu sur le dos, argent sous le ventre.
 	peau.vertex_color_use_as_albedo = true
 	peau.vertex_color_is_srgb = true
+	# Rendu toon : la lumière tombe en aplats francs, comme sur le logo.
+	peau.diffuse_mode = BaseMaterial3D.DIFFUSE_TOON
+	peau.specular_mode = BaseMaterial3D.SPECULAR_TOON
 	maillage.surface_set_material(0, peau)
 	maillage.surface_set_material(1, _matiere_nageoires())
 

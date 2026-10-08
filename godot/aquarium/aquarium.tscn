@@ -6,21 +6,19 @@
 [ext_resource type="Script" uid="uid://dmf2ids5tiuth" path="res://aquarium/camera.gd" id="4_camera"]
 [ext_resource type="PackedScene" path="res://interface/interface.tscn" id="5_interface"]
 [ext_resource type="PackedScene" path="res://thon/thon.tscn" id="6_thon"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aretes"]
-shading_mode = 0
+[ext_resource type="Script" path="res://aquarium/rayons.gd" id="7_rayons"]
 
 [node name="Aquarium" type="Node3D" unique_id=1714103018]
 script = ExtResource("1_aquarium")
-
-[node name="Aretes" type="MeshInstance3D" parent="." unique_id=878041267]
-material_override = SubResource("StandardMaterial3D_aretes")
 
 [node name="Sol" type="MeshInstance3D" parent="." unique_id=1879288656]
 script = ExtResource("2_sol")
 
 [node name="Ambiance" type="WorldEnvironment" parent="." unique_id=49338162]
 script = ExtResource("3_ambiance")
+
+[node name="Rayons" type="Node3D" parent="."]
+script = ExtResource("7_rayons")
 
 [node name="Lumiere" type="DirectionalLight3D" parent="." unique_id=989570937]
 transform = Transform3D(0.70710677, -0.5, 0.5, 0, 0.70710677, 0.70710677, -0.70710677, -0.5, 0.5, 0, 0, 0)

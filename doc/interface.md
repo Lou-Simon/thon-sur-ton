@@ -55,6 +55,7 @@ Les contrôles sont décidés au fil des versions et notés ici, pour rester les
 - **Couleurs de l'interface** : celles du logo et du site, le bleu `#1f6fd1` et le jaune `#f2c230`, pour que l'application et la doc se ressemblent.
 - **Panneaux** : fond sombre semi-transparent, pour rester lisibles sur l'eau sans cacher la scène.
 - **Objets de la scène** : une couleur fixe par objet (thon, requin, filet, rocher), à décider quand l'objet arrive, puis notée ici.
+  - **Décor** (v1.6.0, choix de Simon) : océan ouvert sans arêtes, sable jusqu'à l'horizon, rendu toon de Godot (lumière en aplats), reflets de lumière blancs sur le sable, rayons blancs semi-transparents qui respirent.
   - **Thon** (v1.4.0, proposition à valider) : dos bleu nuit, ventre argenté, nageoires jaunes `#f2c230` sans ombre, pour que le sens de nage se lise de loin.
 - **Nombres** : arrondis à un nombre fixe de décimales, pour qu'ils ne sautent pas d'une largeur à l'autre.
 - **Vérification** : un test réel sur un vidéoprojecteur (ou un écran vu de loin) avant la soutenance.
