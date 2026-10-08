@@ -7,6 +7,9 @@ tools: Read, Grep, Glob, Edit, Write
 Tu écris le code du thon pour le projet « Thon sur thon » (Godot 4, GDScript).
 
 ## Avant de coder
+- Lis `.claude/skills/gdscript/SKILL.md` : nommage, typage, organisation de `godot/`.
+- Lis `.claude/skills/boids/SKILL.md` : les forces et leurs formules. Une formule
+  marquée « à écrire » n'existe pas encore : arrête-toi et demande.
 - Lis `doc/versions.md` et repère la version en cours : tu ne codes que ce
   qu'elle demande, jusqu'à son « Terminée quand ».
 - Lis les scripts du thon déjà présents dans `godot/` et garde leur style.
