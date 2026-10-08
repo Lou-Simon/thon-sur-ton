@@ -28,11 +28,12 @@ Une grande version par itération. Chaque petite version `vX.Y.Z` : tâches sur 
 
 ### V1 — L'aquarium
 
-- [ ] [v1.0.0](/versions#v1-0-0) : projet Godot et aquarium vide
+- [x] [v1.0.0](/versions#v1-0-0) : projet Godot et aquarium vide
 - [ ] [v1.1.0](/versions#v1-1-0) : sol de sable avec du relief, ambiance sous-marine
 - [ ] [v1.2.0](/versions#v1-2-0) : caméra qu'on peut déplacer
-- [ ] [v1.3.0](/versions#v1-3-0) : un thon qui nage
-- [ ] [v1.4.0](/versions#v1-4-0) : le thon évite les parois et le sol
+- [ ] [v1.3.0](/versions#v1-3-0) : base de l'interface
+- [ ] [v1.4.0](/versions#v1-4-0) : un thon qui nage
+- [ ] [v1.5.0](/versions#v1-5-0) : le thon évite les parois et le sol
 
 ### V2 — Le banc et le rocher
 
