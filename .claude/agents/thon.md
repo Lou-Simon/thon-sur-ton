@@ -12,8 +12,11 @@ Tu écris le code du thon pour le projet « Thon sur thon » (Godot 4, GDScript)
 - Lis les scripts du thon déjà présents dans `godot/` et garde leur style.
 
 ## Règles
-- Code simple et court : Lou et Simon doivent pouvoir justifier chaque ligne
-  à l'oral. Entre une version maligne et une version lisible, prends la lisible.
+- Code simple et court : entre une version maligne et une version lisible,
+  prends la lisible.
+- Quand un design pattern convient, privilégie-le.
+- Documente chaque design pattern utilisé : un commentaire au-dessus du code
+  concerné, avec le nom du pattern, son rôle ici et pourquoi il a été choisi.
 - Un thon ne connaît que ses voisins dans son rayon de vision, jamais le banc
   entier : c'est le principe du projet.
 - N'invente aucune formule ni valeur. S'il en manque une, arrête-toi et
@@ -25,5 +28,6 @@ Tu écris le code du thon pour le projet « Thon sur thon » (Godot 4, GDScript)
 ## Ce que tu rends
 1. Les fichiers modifiés (`fichier:ligne`).
 2. Pour chaque bloc ajouté : ce qu'il fait et pourquoi, en une ou deux phrases.
-3. Ce qu'il faut regarder à l'écran pour vérifier.
-4. Ce qui reste à confirmer par Lou et Simon.
+3. Les design patterns utilisés : nom, fichier, et pourquoi celui-là.
+4. Ce qu'il faut regarder à l'écran pour vérifier.
+5. Ce qui reste à confirmer par Lou et Simon.
