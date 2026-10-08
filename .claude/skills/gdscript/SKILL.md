@@ -58,6 +58,7 @@ godot/
   thon/         thon.tscn, thon.gd
   obstacles/    rocher, requin, bateau, filet
   interface/    curseurs, thème
+  mesures/      scripts de mesure sans fenêtre, hors du jeu (v2.1.0)
 ```
 
 Ces dossiers suivent le découpage des agents `environnement`, `thon`, `obstacles` et `interface`.
