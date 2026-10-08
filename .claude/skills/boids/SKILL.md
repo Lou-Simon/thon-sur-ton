@@ -24,8 +24,8 @@ demande. On n'invente ni formule, ni valeur, ni référence.
 | Errance | v1.4.0 | Le thon change doucement de direction au hasard. | voir [Errance](#errance) | Reynolds 1999, à vérifier |
 | Évitement | v1.5.0, v1.7.0, v2.2.0 | Plus le thon s'approche d'une paroi, du sol, d'une plante, d'un corail ou du rocher, plus il est repoussé. | parois et sol : voir [Évitement](#evitement) ; plantes et coraux : voir [Contournement](#contournement) ; rocher : à écrire | choix de Lou et Simon |
 | Séparation | v2.0.0 | Le thon s'écarte des voisins trop proches. | voir [Séparation](#separation) | choix de Lou, à valider par Simon |
-| Alignement | v2.1.0 | Le thon nage dans la même direction que ses voisins. | à écrire | à renseigner |
-| Cohésion | v2.1.0 | Le thon se rapproche du centre de ses voisins. | à écrire | à renseigner |
+| Alignement | v2.1.0 | Le thon nage dans la même direction que ses voisins. | voir [Alignement et cohésion](#alignement-cohesion) | Reynolds, à vérifier |
+| Cohésion | v2.1.0 | Le thon se rapproche du centre de ses voisins. | voir [Alignement et cohésion](#alignement-cohesion) | Reynolds, à vérifier |
 | Fuite | v3.2.0, v3.4.0 | Un thon qui voit le requin ou le filet s'en éloigne, d'autant plus fort qu'il est proche. | à écrire | à renseigner |
 
 ## Les paramètres
@@ -39,13 +39,15 @@ demande. On n'invente ni formule, ni valeur, ni référence.
 | Portée et poids de l'évitement | Distance où une paroi commence à repousser, et force de la poussée (voir [Évitement](#evitement)). | 4 et 30 (Simon, 8 oct. 2026, d'après des essais) |
 | Portée et poids du contournement | Plantes et coraux (voir [Contournement](#contournement)). | 4 et 30, comme les parois (Simon, 8 oct. 2026, d'après des essais) |
 | Distance et poids de la séparation | Distance sous laquelle un voisin repousse, et force de la poussée (voir [Séparation](#separation)). | 3 et 30 (Lou, 8 oct. 2026, proposition de Claude, à régler à l'écran) |
+| Poids de l'alignement et de la cohésion | Importance de chaque force dans la somme (voir [Alignement et cohésion](#alignement-cohesion)). | 6 et 1 (Lou, 8 oct. 2026, d'après des essais) |
 | Distance, rayon, hasard de l'errance | Forme de l'errance (voir [Errance](#errance)). | 2, 2 et 3 : proposition de Claude, à régler à l'écran |
-| Poids de chaque force | Importance de la force dans la somme. | à fixer |
+| Poids de l'errance | Importance de l'errance dans la somme. | 1 (valeur du code depuis la v1.4.0, source à noter par Lou et Simon) |
+| Poids de la fuite | Importance de la fuite dans la somme (v3). | à fixer |
 
 Les poids, les vitesses et le rayon de vision sont réglables par curseur (v2.3.0).
 
 ## Questions à trancher avant de coder
-- Évitement des plantes, des coraux et du rocher, et fuite : comment la force grandit quand l'obstacle se rapproche.
+- Évitement du rocher, et fuite : comment la force grandit quand l'obstacle se rapproche.
 
 Tranché par Lou le 8 octobre 2026 (v2.0.0) :
 - Somme des forces : simple somme pondérée.
@@ -137,6 +139,44 @@ Séparation, sur les voisins vus seulement, avec la même rampe linéaire que po
 | `d_s` | distance sous laquelle un voisin repousse | `distance_separation` |
 | `w_s` | poids de la séparation | `poids_separation` |
 
-Tous les thons décident avant qu'aucun ne bouge : chaque force est calculée sur les positions du même instant.
+Tous les thons décident avant qu'aucun ne bouge : chaque force est calculée sur les positions du même instant (et, depuis la v2.1.0, sur les vitesses du même instant).
 
 Source : pas d'article, la même rampe que pour les parois. Valeurs : propositions de Claude retenues par Lou, pas encore essayées à l'écran.
+
+### Alignement et cohésion {#alignement-cohesion}
+
+Choisies par Lou le 8 octobre 2026 (v2.1.0), à valider par Simon. Code : `_alignement()` et `_cohesion()` dans `godot/thon/thon.gd`.
+
+Sur les `n` voisins vus par le thon `i` (voir [Vision et séparation](#separation)) :
+
+- Alignement : `F_a = (1 / n) · Σ v_j - v_i`, l'écart entre la vitesse moyenne des voisins et celle du thon.
+- Cohésion : `F_c = (1 / n) · Σ p_j - p_i`, du thon vers le centre de ses voisins.
+
+Chacune s'ajoute avec son poids, `w_a` et `w_c`. Sans voisin vu (`n = 0`), les deux valent zéro.
+
+| Symbole | Sens | Variable |
+| --- | --- | --- |
+| `v_i`, `v_j` | vitesses du thon et d'un voisin vu | `_vitesse` |
+| `p_i`, `p_j` | positions du thon et d'un voisin vu | `position` |
+| `n` | nombre de voisins vus | `voisins.size()` |
+| `w_a` | poids de l'alignement | `poids_alignement` |
+| `w_c` | poids de la cohésion | `poids_cohesion` |
+
+L'alignement lit la vitesse des voisins : `decider` range donc la nouvelle vitesse dans `_vitesse_suivante`, et `avancer` l'applique, pour que tous les thons lisent les vitesses du même instant.
+
+Source : les deux règles sont attribuées à Craig Reynolds (alignement, ou *velocity matching*, et cohésion, ou *flock centering*). Référence et noms exacts à vérifier par Lou et Simon avant de les citer.
+
+Valeurs : essais sans fenêtre (Godot 4.7.2), 15 thons, 5 minutes simulées, 3 simulations par couple de poids. Faits par Claude avec `godot/mesures/mesure_banc.gd`, graines 1, 2 et 3 : la commande est en tête du script. « Un seul banc » : part de la dernière minute où tous les thons sont reliés de proche en proche à moins du rayon de vision. « Directions » : longueur de la moyenne des directions, 1 quand tous nagent dans le même sens.
+
+| `w_a` / `w_c` | Un seul banc | Directions | Distance la plus faible entre deux thons | Pas avec une paire sous 1,0 (sur 18 000) |
+| --- | --- | --- | --- | --- |
+| 0 / 0 | 0 % | 0,22 à 0,26 | 0,57 | 28 à 46 |
+| 1 / 1 | 17 à 39 % | 0,55 à 0,62 | 0,89 | 0 à 9 |
+| 1 / 3 | 100 % | 0,84 à 0,86 | 0,79 | 9 à 51 |
+| 3 / 1 | 50 à 74 % | 0,78 à 0,88 | 1,15 | 0 |
+| 3 / 3 | 100 % | 0,95 à 0,96 | 0,88 | 0 à 13 |
+| 6 / 1 | 100 % | 0,96 à 0,97 | 1,12 | 0 |
+| 6 / 3 | 100 % | 0,97 à 0,98 | 1,01 | 0 |
+| 6 / 6 | 100 % | 0,98 | 0,88 | 0 à 72 |
+
+Retenu : 6 et 1, le couple qui forme un seul banc en gardant les thons le plus écartés. Pas d'essai au-delà de 6, et pas encore regardé à l'écran.

@@ -2,10 +2,14 @@ extends Node3D
 class_name Thon
 ## Un thon du banc : il avance à une vitesse bornée, tourné dans le sens de sa nage,
 ## change doucement de direction grâce à l'errance, évite les parois et le sol,
-## contourne les plantes et les coraux, et s'écarte des voisins trop proches.
+## contourne les plantes et les coraux, et forme un banc avec ses voisins.
 ##
 ## Il ne connaît que ses voisins : les thons dans son rayon de vision, sauf ceux
 ## dans l'angle mort derrière lui. Il ne regarde jamais le banc entier.
+##
+## Trois forces viennent de ses voisins : la séparation l'écarte de ceux qui sont trop proches,
+## l'alignement le fait nager dans la même direction qu'eux, la cohésion le rapproche de leur centre.
+## Sans voisin, l'alignement et la cohésion valent zéro : il lui reste l'errance, l'évitement et le contournement.
 ##
 ## Errance de Reynolds : une cible glisse au hasard sur une sphère placée devant le thon,
 ## et le thon est attiré vers elle. Comme la cible bouge peu d'une image à l'autre,
@@ -13,6 +17,7 @@ class_name Thon
 ##
 ## Le thon ne bouge pas tout seul : à chaque pas, l'aquarium appelle `decider` sur tous
 ## les thons, puis `avancer` sur tous, pour qu'ils bougent en même temps (voir aquarium.gd).
+## `decider` range la nouvelle vitesse à part, et `avancer` l'applique.
 
 ## Vitesse la plus faible du thon, en unités Godot par seconde.
 @export var vitesse_min: float = 2.0
@@ -42,9 +47,17 @@ class_name Thon
 @export var distance_separation: float = 3.0
 ## Poids de la séparation dans la somme des forces.
 @export var poids_separation: float = 30.0
+## Poids de l'alignement dans la somme des forces.
+@export var poids_alignement: float = 6.0
+## Poids de la cohésion dans la somme des forces.
+@export var poids_cohesion: float = 1.0
 
 # Vitesse actuelle : sa direction est le sens de nage, sa longueur la vitesse.
 var _vitesse: Vector3
+# Vitesse calculée par `decider`, appliquée par `avancer`. Elle est rangée à part parce que
+# l'alignement lit `_vitesse` chez les voisins : tant que tous n'ont pas décidé, `_vitesse` ne
+# doit pas changer, sinon un thon lirait la vitesse d'un voisin qui a déjà décidé.
+var _vitesse_suivante: Vector3
 # Cible d'errance, repérée par rapport au centre de la sphère.
 var _cible_errance: Vector3
 # Demi-dimensions de l'aquarium, son sol et les obstacles du décor, reçus de l'aquarium.
@@ -59,6 +72,7 @@ func _ready() -> void:
 	# Chaque thon part dans une direction au hasard, à la vitesse la plus faible.
 	var direction: Vector3 = Vector3(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)).normalized()
 	_vitesse = direction * vitesse_min
+	_vitesse_suivante = _vitesse
 	_cible_errance = direction * rayon_errance
 
 
@@ -71,17 +85,22 @@ func installer(dimensions: Vector3, sol: Sol, obstacles: Array[Obstacle], banc: 
 	_banc = banc
 
 
-## Calcule la somme des forces et la nouvelle vitesse à partir des positions actuelles, sans bouger.
+## Calcule la somme des forces et la vitesse suivante à partir des positions et des vitesses
+## actuelles, sans bouger et sans changer `_vitesse`, que les voisins lisent pendant ce pas.
 ## À appeler à pas fixe (`_physics_process` de l'aquarium) : le hasard de l'errance ne dépend
 ## alors pas des images par seconde.
 func decider(delta: float) -> void:
+	# Les voisins sont cherchés une seule fois par pas, puis donnés aux trois forces du banc.
+	var voisins: Array[Thon] = _voisins()
 	var force: Vector3 = _errance(delta) * poids_errance + _evitement() * poids_evitement \
-			+ _contournement() * poids_obstacles + _separation() * poids_separation
-	_vitesse = _borner(_vitesse + force * delta)
+			+ _contournement() * poids_obstacles + _separation(voisins) * poids_separation \
+			+ _alignement(voisins) * poids_alignement + _cohesion(voisins) * poids_cohesion
+	_vitesse_suivante = _borner(_vitesse + force * delta)
 
 
-## Déplace le thon à la vitesse calculée par `decider` et le tourne dans le sens de sa nage.
+## Applique la vitesse calculée par `decider`, déplace le thon et le tourne dans le sens de sa nage.
 func avancer(delta: float) -> void:
+	_vitesse = _vitesse_suivante
 	position += _vitesse * delta
 	# Le modèle regarde vers -Z : on l'oriente vers le point où il va.
 	look_at(global_position + _vitesse)
@@ -105,12 +124,35 @@ func _voisins() -> Array[Thon]:
 
 # Force de séparation : chaque voisin vu et trop proche pousse le thon à l'opposé de lui,
 # avec la même rampe linéaire que les parois.
-func _separation() -> Vector3:
+func _separation(voisins: Array[Thon]) -> Vector3:
 	var force: Vector3 = Vector3.ZERO
-	for voisin: Thon in _voisins():
+	for voisin: Thon in voisins:
 		var ecart: Vector3 = position - voisin.position
 		force += ecart.normalized() * _poussee(ecart.length(), distance_separation)
 	return force
+
+
+# Force d'alignement : l'écart entre la vitesse moyenne des voisins vus et la vitesse du thon.
+# Elle le fait tourner et accélérer ou ralentir pour nager comme eux.
+func _alignement(voisins: Array[Thon]) -> Vector3:
+	# Sans voisin, pas de moyenne : la force est nulle (et on ne divise pas par zéro).
+	if voisins.is_empty():
+		return Vector3.ZERO
+	var somme: Vector3 = Vector3.ZERO
+	for voisin: Thon in voisins:
+		somme += voisin._vitesse
+	return somme / voisins.size() - _vitesse
+
+
+# Force de cohésion : du thon vers le centre de ses voisins vus, la moyenne de leurs positions.
+func _cohesion(voisins: Array[Thon]) -> Vector3:
+	# Sans voisin, pas de centre : la force est nulle (et on ne divise pas par zéro).
+	if voisins.is_empty():
+		return Vector3.ZERO
+	var somme: Vector3 = Vector3.ZERO
+	for voisin: Thon in voisins:
+		somme += voisin.position
+	return somme / voisins.size() - position
 
 
 # Force d'évitement : chaque paroi proche pousse le thon vers l'intérieur, le sol le pousse vers le haut.

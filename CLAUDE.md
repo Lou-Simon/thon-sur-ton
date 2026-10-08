@@ -32,6 +32,7 @@ godot/
   decor/      plantes, coraux, bulles, plancton ; obstacles que le thon contourne
   thon/       comportement (thon.gd) et apparence (modele_thon.gd) du thon
   interface/  thème, panneau de réglage, police Rubik Dirt (OFL)
+  mesures/    scripts de mesure sans fenêtre (hors du jeu), pour choisir les poids sur des chiffres
 ```
 
 Fichiers générés, jamais committés : `godot/.godot/`, `node_modules/`, `doc/.vitepress/cache|dist`.
@@ -44,6 +45,9 @@ cd doc && npm install && npm run dev
 
 # Vérifier que le site se construit (liens cassés compris)
 cd doc && npm run build
+
+# Mesurer le banc sans fenêtre (5 minutes simulées ; `godot` = le binaire Godot 4)
+godot --headless --path godot/ --fixed-fps 60 -s mesures/mesure_banc.gd -- pa=6 pc=1 graine=1 n=18000
 ```
 
 ## Conventions
