@@ -19,7 +19,7 @@ Chaque petite version ci-dessous est une étape qu'on peut montrer : on la déve
 | [v1.1.0](#v1-1-0) | Sol de sable avec du relief, ambiance sous-marine | Terminée |
 | [v1.2.0](#v1-2-0) | Caméra qu'on peut déplacer | Terminée |
 | [v1.3.0](#v1-3-0) | Base de l'interface | Terminée |
-| [v1.4.0](#v1-4-0) | Un thon qui nage | À faire |
+| [v1.4.0](#v1-4-0) | Un thon qui nage | Terminée |
 | [v1.5.0](#v1-5-0) | Le thon évite les parois et le sol | À faire |
 | [v2.0.0](#v2-0-0) | Plusieurs thons qui ne se cognent pas | À faire |
 | [v2.1.0](#v2-1-0) | Les thons forment un banc | À faire |
