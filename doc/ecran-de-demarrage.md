@@ -16,7 +16,8 @@ Tout est en **style cartoon**, dans l'esprit du logo : aplats de couleur, bleu n
 | --- | --- |
 | Style visuel | Cartoon, comme le logo |
 | Point de départ | Au-dessus de l'eau : ciel, horizon, surface |
-| Titre | Grand titre recréé au centre, animé finement ; le logo en petit |
+| Titre | Grand titre recréé au centre, qui tombe lettre par lettre puis flotte ; le logo en petit, détouré |
+| Animations | Entrée en scène, titre qui flotte, thons qui sautent, nuages et mouettes |
 | Boutons | **Plonger** et **Quitter** |
 | Crédits | Bandeau discret en bas de l'écran |
 | Contenu des crédits | Lou et Simon, M2 ILIADE ; Godot Engine |
@@ -24,11 +25,12 @@ Tout est en **style cartoon**, dans l'esprit du logo : aplats de couleur, bleu n
 | Plongée | Longue et cinématique (environ 8 à 10 secondes), qu'on peut passer |
 | Aquarium | Océan ouvert : plus d'arêtes visibles, les limites restent invisibles |
 | Décor | Rayons de lumière, reflets au sol, bulles et particules, plantes et coraux |
-| Ciel | Coucher de soleil |
+| Ciel | Coucher de soleil, en dégradé dessiné dans un petit shader |
+| Surface | Une mer qui ondule, dans un petit shader |
 | Plantes et coraux | Obstacles que les thons contournent |
 | Fin de la plongée | La vue de départ de la simulation (le thon seul avant la V2, le banc ensuite) |
-| Police du titre | Une police pinceau sous licence libre (SIL Open Font License), citée dans les crédits |
-| Sous-titre | « Ici, c'est le banc qui donne le thon. » |
+| Police du titre | Rubik Dirt, sous licence SIL Open Font License, citée dans les crédits |
+| Sous-titre | « le projet qui vous fait thon-ber par terre » |
 | Logo | Le logo complet, avec la mention du logo Godot (CC BY 4.0) dans les crédits |
 | Retour à l'accueil | `Échap` dans la simulation, avec une remontée à la surface |
 | Calendrier | Dans la V1, décor d'abord : [v1.6.0](/versions#v1-6-0) à [v1.9.0](/versions#v1-9-0) (voir [plus bas](#decoupage)) |
@@ -82,21 +84,20 @@ Tout le décor est fait dans le projet : aucun modèle 3D, aucune texture ni auc
 
 ## Textes affichés
 
-Proposition, à valider mot pour mot.
+Textes validés par Simon le 8 octobre 2026.
 
 | Élément | Texte |
 | --- | --- |
 | Titre | THON-SUR-THON |
-| Sous-titre | Ici, c'est le banc qui donne le thon. |
+| Sous-titre | le projet qui vous fait thon-ber par terre |
 | Bouton | Plonger |
 | Bouton | Quitter |
 | Crédits | Lou et Simon · M2 ILIADE · Fait avec Godot Engine |
+| Licences | Logo Godot : godotengine.org, CC BY 4.0 · Police Rubik Dirt : SIL Open Font License |
 
 ## À décider
 
-- **Police du titre** : laquelle, parmi les polices pinceau sous licence SIL Open Font License.
-- **Crédits** : ajouter l'université et l'année ?
-- **Mention du logo Godot** : texte exact de l'attribution CC BY 4.0, à vérifier sur le site de Godot.
+- **Mention du logo Godot** : la page presse de Godot confirme la licence CC BY 4.0, mais ne nomme pas d'auteur. Nom de l'auteur à trouver avant de le citer.
 - **Machine de soutenance** : vérifier que le décor reste fluide sur l'ordinateur et le vidéoprojecteur du jour.
 
 ## Découpage en versions {#decoupage}
@@ -118,7 +119,7 @@ Ce qui a été fait par rapport au découpage ci-dessus. Les choix sont ceux de 
 | --- | --- | --- | --- |
 | [v1.6.0](/versions#v1-6-0) | Océan ouvert, rendu cartoon, rayons, reflets | Plus d'arêtes ; sable jusqu'à l'horizon (dunes qui s'aplatissent, puis un grand plan effacé par le brouillard) ; mode toon de Godot sur le sable et le thon ; 18 rayons verticaux aux bords doux qui respirent ; reflets par un petit shader sur le sable | Pas de contour noir autour des objets (le mode toon n'en fait pas). Rayons verticaux, pas inclinés. En toon, le relief des dunes se voit moins. |
 | [v1.7.0](/versions#v1-7-0) | Bulles, particules, plantes et coraux que le thon contourne | 4 massifs dans l'aquarium (algues, coraux ronds et branchus, herbes) ; 40 éléments autour ; bulles et plancton ; contournement par la même rampe linéaire que les parois | Décor identique à chaque lancement (graine fixe). Les algues hautes (7 à 12) occupent une bonne part de l'aquarium : à revoir avec le banc de la V2. |
-| [v1.8.0](/versions#v1-8-0) | Ciel, surface, titre, sous-titre, logo, boutons, crédits | à faire | |
+| [v1.8.0](/versions#v1-8-0) | Ciel, surface, titre, sous-titre, logo, boutons, crédits | Scène d'accueil lancée au démarrage : ciel couchant et mer en deux petits shaders, caméra qui houle, logo détouré, boutons, crédits ; police Rubik Dirt. Animations demandées par Simon : entrée en scène (lettres du titre qui tombent avec un rebond, puis sous-titre et boutons), titre qui flotte en vague, thons qui sautent avec une gerbe d'écume, nuages et mouettes | « Plonger » ne fait rien tant que la plongée (v1.9.0) n'est pas faite : on lance l'aquarium seul depuis l'éditeur (F6). |
 | [v1.9.0](/versions#v1-9-0) | Plongée et remontée | à faire | |
 
 Les formules et leurs essais sont notés dans le skill `boids` du dépôt, les couleurs dans [Interface et ergonomie](/interface).
