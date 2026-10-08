@@ -53,6 +53,8 @@ Un dossier par partie, avec la scène et son script côte à côte **(choix du p
 godot/
   aquarium/     parois, sol, lumière, ambiance, caméra, rayons
   decor/        plantes, coraux, bulles, plancton (v1.7.0)
+  accueil/      écran d'accueil : ciel, mer, titre, sauts, nuages (v1.8.0)
+  jeu/          scène principale : accueil + aquarium, plongée (v1.9.0)
   thon/         thon.tscn, thon.gd
   obstacles/    rocher, requin, bateau, filet
   interface/    curseurs, thème

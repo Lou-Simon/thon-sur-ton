@@ -17,7 +17,7 @@
 - [x] Installer Godot 4 chez tout le monde (même version), VS Code
 - [x] Compléter `CLAUDE.md` : description courte du projet, arborescence, commandes
 - [x] Écrire les agents (`.claude/agents/`) : thon, environnement, obstacles, relecteur
-- [ ] Écrire les skills (`.claude/skills/`) : workflow d'une tâche, relecture, conventions GDScript, formules boids
+- [x] Écrire les skills (`.claude/skills/`) : workflow d'une tâche, relecture, conventions GDScript, formules boids
 - [ ] Tester le workflow sur une petite tâche (ex. scène vide + caméra) : branche → agent → relecture → PR
 
 ## Étape 3 - Développement
@@ -37,7 +37,7 @@ Une grande version par itération. Chaque petite version `vX.Y.Z` : tâches sur 
 - [x] [v1.6.0](/versions#v1-6-0) : embellir l'aquarium
 - [x] [v1.7.0](/versions#v1-7-0) : décor vivant
 - [x] [v1.8.0](/versions#v1-8-0) : écran d'accueil
-- [ ] [v1.9.0](/versions#v1-9-0) : la plongée
+- [x] [v1.9.0](/versions#v1-9-0) : la plongée
 
 ### V2 — Le banc et le rocher
 
