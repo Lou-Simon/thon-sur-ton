@@ -69,7 +69,7 @@ Un clic ou `Entrée` pendant la plongée la passe : on arrive directement à l'�
 
 ## L'aquarium embelli
 
-Aujourd'hui, l'aquarium se résume à 12 arêtes blanches dans un bleu uni. Il devient un **océan ouvert** :
+Avant la [v1.6.0](/versions#v1-6-0), l'aquarium se résumait à 12 arêtes blanches dans un bleu uni. Il devient un **océan ouvert** (voir l'[avancement](#avancement)) :
 
 - **Plus d'arêtes visibles** : les parois restent des limites que les thons évitent, mais on ne les voit pas. Le brouillard efface les bords.
 - **Rendu cartoon** : lumière en aplats, couleurs du logo.
@@ -97,7 +97,6 @@ Proposition, à valider mot pour mot.
 - **Police du titre** : laquelle, parmi les polices pinceau sous licence SIL Open Font License.
 - **Crédits** : ajouter l'université et l'année ?
 - **Mention du logo Godot** : texte exact de l'attribution CC BY 4.0, à vérifier sur le site de Godot.
-- **Évitement des plantes et coraux** : formule à choisir en [v1.7.0](/versions#v1-7-0).
 - **Machine de soutenance** : vérifier que le décor reste fluide sur l'ordinateur et le vidéoprojecteur du jour.
 
 ## Découpage en versions {#decoupage}
@@ -110,3 +109,16 @@ Validé par Simon le 8 octobre 2026 et reporté dans [Versions](/versions), apr�
 | [v1.7.0](/versions#v1-7-0) Décor vivant | Bulles, particules, plantes et coraux que le thon contourne | L'eau paraît vivante même sans thon, et le thon contourne les plantes et coraux. |
 | [v1.8.0](/versions#v1-8-0) Écran d'accueil | Ciel, surface, titre animé, sous-titre, logo, boutons, crédits | L'application s'ouvre sur l'accueil, et Quitter ferme l'application. |
 | [v1.9.0](/versions#v1-9-0) La plongée | Descente cinématique de l'accueil vers la simulation, remontée avec `Échap` | Plonger mène au fond marin en une descente fluide, qu'on peut passer d'un clic, et `Échap` y remonte. |
+
+## Avancement {#avancement}
+
+Ce qui a été fait par rapport au découpage ci-dessus. Les choix sont ceux de Simon (8 octobre 2026), validés à l'écran par Simon. Lou doit encore les valider avant la fusion dans `main`.
+
+| Version | Prévu | Fait | Écarts et points à surveiller |
+| --- | --- | --- | --- |
+| [v1.6.0](/versions#v1-6-0) | Océan ouvert, rendu cartoon, rayons, reflets | Plus d'arêtes ; sable jusqu'à l'horizon (dunes qui s'aplatissent, puis un grand plan effacé par le brouillard) ; mode toon de Godot sur le sable et le thon ; 18 rayons verticaux aux bords doux qui respirent ; reflets par un petit shader sur le sable | Pas de contour noir autour des objets (le mode toon n'en fait pas). Rayons verticaux, pas inclinés. En toon, le relief des dunes se voit moins. |
+| [v1.7.0](/versions#v1-7-0) | Bulles, particules, plantes et coraux que le thon contourne | 4 massifs dans l'aquarium (algues, coraux ronds et branchus, herbes) ; 40 éléments autour ; bulles et plancton ; contournement par la même rampe linéaire que les parois | Décor identique à chaque lancement (graine fixe). Les algues hautes (7 à 12) occupent une bonne part de l'aquarium : à revoir avec le banc de la V2. |
+| [v1.8.0](/versions#v1-8-0) | Ciel, surface, titre, sous-titre, logo, boutons, crédits | à faire | |
+| [v1.9.0](/versions#v1-9-0) | Plongée et remontée | à faire | |
+
+Les formules et leurs essais sont notés dans le skill `boids` du dépôt, les couleurs dans [Interface et ergonomie](/interface).
