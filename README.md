@@ -13,6 +13,7 @@ pas trop verbeux pour le code par IA
 | [doc/idee-generale.md](doc/idee-generale.md) | Le projet en bref |
 | [doc/versions.md](doc/versions.md) | Contenu et critères de fin de chaque version |
 | [doc/feuille-de-route.md](doc/feuille-de-route.md) | Étapes et tâches à cocher |
+| [doc/interface.md](doc/interface.md) | Charte d'interface et d'ergonomie (commande `/ui`) |
 | [PRATIQUES-GIT.md](PRATIQUES-GIT.md) | Branches, versions, commits |
 
 ## Voir la doc

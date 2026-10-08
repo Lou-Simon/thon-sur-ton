@@ -13,9 +13,10 @@ doc/                   site VitePress (en français)
   idee-generale.md     le projet en bref
   versions.md          contenu de chaque version vX.Y.Z
   feuille-de-route.md  tâches à cocher
+  interface.md         charte d'interface et d'ergonomie
   pratiques-git.md     inclut PRATIQUES-GIT.md (ne pas l'éditer)
   memoire/             consignes à lire et à suivre, jamais publiées sur le site
-.claude/skills/        commandes Claude (/ship)
+.claude/skills/        commandes Claude (/ship, /ui)
 .claude/agents/        agents Claude Code
 PRATIQUES-GIT.md       conventions git (source unique)
 setup-doc.sh           script qui a créé le site VitePress
@@ -38,6 +39,18 @@ cd doc && npm run build
 - Doc et messages de commit en français.
 - Code généré pas trop verbeux.
 - Toute modification de la doc passe par les fichiers de `doc/` (sauf les pratiques git : `PRATIQUES-GIT.md`).
+
+## Interface et ergonomie
+
+Tout ce qui s'affiche (scène 3D, caméra, curseurs, écran de démarrage, site de doc) suit `doc/interface.md`. À relire avant de toucher à l'interface ; `/ui` pour un audit.
+
+- On conçoit pour la soutenance : un jury qui découvre l'application sur un vidéoprojecteur, et une démo faite en direct.
+- La simulation d'abord : l'interface ne masque jamais le banc et se replie d'une touche.
+- Chaque action a un effet visible immédiat, et on peut toujours revenir en arrière (valeurs par défaut, relancer, recentrer la caméra).
+- Un seul `Theme` Godot, des conteneurs et des ancres (jamais de pixels en dur), des touches déclarées dans l'`InputMap`.
+- Textes affichés en français, proposés mot pour mot et validés avant d'être écrits.
+- Une décision d'interface (contrôle, couleur d'un objet…) se note dans `doc/interface.md`.
+- Avant de dire qu'un changement d'interface est fini, dire quoi lancer et quoi regarder à l'écran.
 
 ## Usage de l'IA
 
