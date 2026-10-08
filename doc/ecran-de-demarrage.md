@@ -24,7 +24,14 @@ Tout est en **style cartoon**, dans l'esprit du logo : aplats de couleur, bleu n
 | Plongée | Longue et cinématique (environ 8 à 10 secondes), qu'on peut passer |
 | Aquarium | Océan ouvert : plus d'arêtes visibles, les limites restent invisibles |
 | Décor | Rayons de lumière, reflets au sol, bulles et particules, plantes et coraux |
-| Calendrier | Nouvelles versions insérées dans la V1 (voir [plus bas](#decoupage)) |
+| Ciel | Coucher de soleil |
+| Plantes et coraux | Obstacles que les thons contournent |
+| Fin de la plongée | La vue de départ de la simulation (le thon seul avant la V2, le banc ensuite) |
+| Police du titre | Une police pinceau sous licence libre (SIL Open Font License), citée dans les crédits |
+| Sous-titre | « Ici, c'est le banc qui donne le thon. » |
+| Logo | Le logo complet, avec la mention du logo Godot (CC BY 4.0) dans les crédits |
+| Retour à l'accueil | `Échap` dans la simulation, avec une remontée à la surface |
+| Calendrier | Dans la V1, décor d'abord : [v1.6.0](/versions#v1-6-0) à [v1.9.0](/versions#v1-9-0) (voir [plus bas](#decoupage)) |
 
 ## Maquette
 
@@ -80,29 +87,26 @@ Proposition, à valider mot pour mot.
 | Élément | Texte |
 | --- | --- |
 | Titre | THON-SUR-THON |
+| Sous-titre | Ici, c'est le banc qui donne le thon. |
 | Bouton | Plonger |
 | Bouton | Quitter |
 | Crédits | Lou et Simon · M2 ILIADE · Fait avec Godot Engine |
 
 ## À décider
 
-- **Police du titre** : une police pinceau sous licence libre, ou un titre dessiné par nous.
-- **Sous-titre** : aucun, ou la phrase du site, « Ici, c'est le banc qui donne le thon. »
+- **Police du titre** : laquelle, parmi les polices pinceau sous licence SIL Open Font License.
 - **Crédits** : ajouter l'université et l'année ?
-- **Logo** : le logo complet contient le logo Godot, qui est sous licence CC BY 4.0. Il faut le citer dans les crédits, ou utiliser une version du logo sans lui.
-- **Ciel** : jour, coucher de soleil, nuit ?
-- **Fin de la plongée avant la V2** : il n'y a pas encore de banc à découvrir. La caméra arrive sur un thon seul, ou sur le décor ?
-- **Plantes et coraux** : simple décor que les thons traversent, ou obstacles à éviter ? (La V2 prévoit des algues comme obstacles seulement « plus tard ».)
-- **Retour à l'accueil** : `Échap` dans la simulation ramène-t-il à l'accueil ? Avec une remontée, ou une coupure nette ?
+- **Mention du logo Godot** : texte exact de l'attribution CC BY 4.0, à vérifier sur le site de Godot.
+- **Évitement des plantes et coraux** : formule à choisir en [v1.7.0](/versions#v1-7-0).
 - **Machine de soutenance** : vérifier que le décor reste fluide sur l'ordinateur et le vidéoprojecteur du jour.
 
 ## Découpage en versions {#decoupage}
 
-Proposition, à valider puis à reporter dans [Versions](/versions). Ces versions viennent après la [v1.3.0](/versions#v1-3-0), qui apporte le `Theme`, et décalent la suite.
+Validé par Simon le 8 octobre 2026 et reporté dans [Versions](/versions), après le thon de la [v1.5.0](/versions#v1-5-0).
 
 | Version | Contenu | Terminée quand |
 | --- | --- | --- |
-| Embellir l'aquarium | Océan ouvert, rendu cartoon, rayons de lumière, reflets au sol | L'aquarium ressemble à l'univers du logo. |
-| Décor vivant | Bulles, particules, plantes et coraux | L'eau paraît vivante même sans thon. |
-| Écran d'accueil | Ciel, surface, titre animé, logo, boutons, crédits | L'application s'ouvre sur l'accueil, et Quitter ferme l'application. |
-| La plongée | Descente cinématique de l'accueil vers la simulation | Plonger mène au fond marin en une descente fluide, qu'on peut passer d'un clic. |
+| [v1.6.0](/versions#v1-6-0) Embellir l'aquarium | Océan ouvert, rendu cartoon, rayons de lumière, reflets au sol | L'aquarium ressemble à l'univers du logo. |
+| [v1.7.0](/versions#v1-7-0) Décor vivant | Bulles, particules, plantes et coraux que le thon contourne | L'eau paraît vivante même sans thon, et le thon contourne les plantes et coraux. |
+| [v1.8.0](/versions#v1-8-0) Écran d'accueil | Ciel, surface, titre animé, sous-titre, logo, boutons, crédits | L'application s'ouvre sur l'accueil, et Quitter ferme l'application. |
+| [v1.9.0](/versions#v1-9-0) La plongée | Descente cinématique de l'accueil vers la simulation, remontée avec `Échap` | Plonger mène au fond marin en une descente fluide, qu'on peut passer d'un clic, et `Échap` y remonte. |

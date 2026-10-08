@@ -7,7 +7,7 @@ Les règles de numérotation (`vX.Y.Z`) sont dans les [pratiques git](/pratiques
 
 | Grande version | Ce qu'on voit à l'écran |
 | --- | --- |
-| **V1** — L'aquarium | Un aquarium avec un sol de sable, et un thon qui y nage sans se cogner. |
+| **V1** — L'aquarium | Un aquarium avec un sol de sable, et un thon qui y nage sans se cogner. Un décor vivant et un écran d'accueil d'où l'on plonge. |
 | **V2** — Le banc et le rocher | Un banc de thons qui se sépare pour contourner un rocher, puis se reforme derrière. |
 | **V3** — Le requin et le bateau de pêche | Un requin chasse le banc, qui éclate puis se reforme. Un bateau de pêche traîne un filet que le banc doit éviter. |
 
@@ -21,6 +21,10 @@ Chaque petite version ci-dessous est une étape qu'on peut montrer : on la déve
 | [v1.3.0](#v1-3-0) | Base de l'interface | Terminée |
 | [v1.4.0](#v1-4-0) | Un thon qui nage | Terminée |
 | [v1.5.0](#v1-5-0) | Le thon évite les parois et le sol | À faire |
+| [v1.6.0](#v1-6-0) | Embellir l'aquarium | À faire |
+| [v1.7.0](#v1-7-0) | Décor vivant | À faire |
+| [v1.8.0](#v1-8-0) | Écran d'accueil | À faire |
+| [v1.9.0](#v1-9-0) | La plongée | À faire |
 | [v2.0.0](#v2-0-0) | Plusieurs thons qui ne se cognent pas | À faire |
 | [v2.1.0](#v2-1-0) | Les thons forment un banc | À faire |
 | [v2.2.0](#v2-2-0) | Un rocher que le banc contourne | À faire |
@@ -79,6 +83,38 @@ Les règles à suivre sont dans [Interface et ergonomie](/interface).
 - Force d'évitement : plus le thon s'approche d'une paroi ou du sol, plus il est repoussé.
 
 **Terminée quand** : le thon nage plusieurs minutes sans jamais sortir ni toucher le sol.
+
+Les versions v1.6.0 à v1.9.0 viennent du brainstorm de l'[écran de démarrage](/ecran-de-demarrage).
+
+### v1.6.0 — Embellir l'aquarium {#v1-6-0}
+
+- Océan ouvert : plus d'arêtes visibles. Les parois restent des limites que le thon évite, et le brouillard efface les bords.
+- Rendu cartoon, aux couleurs du logo.
+- Rayons de lumière qui descendent de la surface, reflets de lumière sur le sable.
+
+**Terminée quand** : l'aquarium ressemble à l'univers du logo.
+
+### v1.7.0 — Décor vivant {#v1-7-0}
+
+- Bulles qui montent et particules en suspension.
+- Plantes et coraux créés par code.
+- Force d'évitement des obstacles : le thon contourne les plantes et les coraux.
+
+**Terminée quand** : l'eau paraît vivante même sans thon, et le thon contourne les plantes et les coraux sans les traverser.
+
+### v1.8.0 — Écran d'accueil {#v1-8-0}
+
+- Au-dessus de l'eau : ciel de coucher de soleil, horizon, surface qui ondule.
+- Titre animé, sous-titre, logo en petit, boutons « Plonger » et « Quitter », bandeau de crédits.
+
+**Terminée quand** : l'application s'ouvre sur l'accueil, et « Quitter » ferme l'application.
+
+### v1.9.0 — La plongée {#v1-9-0}
+
+- Descente cinématique de l'accueil jusqu'à la vue de départ de la simulation, qu'on peut passer.
+- `Échap` dans la simulation ramène à l'accueil en remontant à la surface.
+
+**Terminée quand** : « Plonger » mène au fond marin en une descente fluide, qu'on peut passer d'un clic, et `Échap` y remonte.
 
 ## V2 — Le banc et le rocher
 
@@ -154,7 +190,7 @@ Les règles à suivre sont dans [Interface et ergonomie](/interface).
 ## Idées pour plus tard
 
 Seulement si V3 est finie et validée :
-- plusieurs rochers et des algues dans l'aquarium ;
+- plusieurs rochers dans l'aquarium (les plantes et coraux arrivent en [v1.7.0](#v1-7-0)) ;
 - un courant qui pousse les thons dans une direction ;
 - une grille spatiale pour accélérer la recherche des voisins s'il y a beaucoup de thons.
 
