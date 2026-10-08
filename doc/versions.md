@@ -15,11 +15,12 @@ Chaque petite version ci-dessous est une étape qu'on peut montrer : on la déve
 
 | Version | Étape | État |
 | --- | --- | --- |
-| [v1.0.0](#v1-0-0) | Projet Godot et aquarium vide | En cours |
+| [v1.0.0](#v1-0-0) | Projet Godot et aquarium vide | Terminée |
 | [v1.1.0](#v1-1-0) | Sol de sable avec du relief, ambiance sous-marine | À faire |
 | [v1.2.0](#v1-2-0) | Caméra qu'on peut déplacer | À faire |
-| [v1.3.0](#v1-3-0) | Un thon qui nage | À faire |
-| [v1.4.0](#v1-4-0) | Le thon évite les parois et le sol | À faire |
+| [v1.3.0](#v1-3-0) | Base de l'interface | À faire |
+| [v1.4.0](#v1-4-0) | Un thon qui nage | À faire |
+| [v1.5.0](#v1-5-0) | Le thon évite les parois et le sol | À faire |
 | [v2.0.0](#v2-0-0) | Plusieurs thons qui ne se cognent pas | À faire |
 | [v2.1.0](#v2-1-0) | Les thons forment un banc | À faire |
 | [v2.2.0](#v2-2-0) | Un rocher que le banc contourne | À faire |
@@ -54,7 +55,18 @@ Chaque petite version ci-dessous est une étape qu'on peut montrer : on la déve
 
 **Terminée quand** : on peut regarder l'aquarium sous tous les angles.
 
-### v1.3.0 — Un thon qui nage {#v1-3-0}
+### v1.3.0 — Base de l'interface {#v1-3-0}
+
+- Un seul `Theme` Godot pour toute l'interface (polices, tailles, couleurs).
+- Un panneau de réglage, encore vide, qu'on affiche ou masque d'une touche.
+- Rappel des contrôles de la caméra à l'écran.
+- Le panneau ne bloque pas la caméra : à côté du panneau, la souris fait toujours tourner la vue.
+
+Les règles à suivre sont dans [Interface et ergonomie](/interface).
+
+**Terminée quand** : on masque et on réaffiche le panneau d'une touche, et la caméra répond toujours, en fenêtre comme en plein écran.
+
+### v1.4.0 — Un thon qui nage {#v1-4-0}
 
 - Un thon (forme simple au début) qui avance, orienté dans le sens de sa nage.
 - Vitesse bornée entre un minimum et un maximum.
@@ -62,7 +74,7 @@ Chaque petite version ci-dessous est une étape qu'on peut montrer : on la déve
 
 **Terminée quand** : le thon nage de façon fluide, même s'il finit par sortir de l'aquarium.
 
-### v1.4.0 — Le thon évite les parois et le sol {#v1-4-0}
+### v1.5.0 — Le thon évite les parois et le sol {#v1-5-0}
 
 - Force d'évitement : plus le thon s'approche d'une paroi ou du sol, plus il est repoussé.
 
@@ -96,7 +108,7 @@ Chaque petite version ci-dessous est une étape qu'on peut montrer : on la déve
 
 ### v2.3.0 — Curseurs de réglage {#v2-3-0}
 
-- Curseurs pour les poids des forces, la vitesse min / max et le rayon de vision.
+- Dans le panneau créé en [v1.3.0](#v1-3-0) : curseurs pour les poids des forces, la vitesse min / max et le rayon de vision.
 - Bouton pour relancer avec de nouvelles positions au hasard.
 
 **Terminée quand** : chaque curseur change le comportement en direct, sans redémarrer.
