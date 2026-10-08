@@ -26,7 +26,7 @@ Version validée -> fusion dans `main`, tag `vX.Y.Z` (on garde la branche).
   - `chore` : maintenance (config, dépendances, .gitignore…)
 - Avant chaque commit : `git status` et `git diff` pour vérifier ce qui part.
 - Ajouter les fichiers par nom, jamais `git add -A` ou `git add .` à l'aveugle.
-- Ne jamais committer de fichiers générés : `godot/.godot/`, `data/`, `node_modules/`, `doc/.vitepress/cache|dist` (voir `.gitignore`, à compléter au besoin).
+- Ne jamais committer de fichiers générés : `godot/.godot/`, `node_modules/`, `doc/.vitepress/cache|dist` (voir `.gitignore`, à compléter au besoin).
 
 ## Intégration
 - Une tâche finie -> pull request de `feature/<nom>` vers `vX.Y.Z`, relue avant fusion.

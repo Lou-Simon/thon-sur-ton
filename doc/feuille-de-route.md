@@ -15,10 +15,9 @@
 *VS Code, Claude Code, mise en place des agents Claude Code, ajout de skills pertinents.*
 
 - [x] Installer Godot 4 chez tout le monde (même version), VS Code
-- [ ] Créer le projet Godot vide dans `godot/` et vérifier qu'il se lance chez chacun
-- [ ] Compléter `CLAUDE.md` : description courte du projet, arborescence, commandes
-- [ ] Écrire les agents (`.claude/agents/`) : thon, environnement, obstacles, mesures, relecteur
-- [ ] Écrire les skills (`.claude/skills/`) : workflow d'une tâche, relecture, conventions GDScript, formules boids, mesures
+- [X] Compléter `CLAUDE.md` : description courte du projet, arborescence, commandes
+- [ ] Écrire les agents (`.claude/agents/`) : thon, environnement, obstacles, relecteur
+- [ ] Écrire les skills (`.claude/skills/`) : workflow d'une tâche, relecture, conventions GDScript, formules boids
 - [ ] Tester le workflow sur une petite tâche (ex. scène vide + caméra) : branche → agent → relecture → PR
 
 ## Étape 3 - Développement
@@ -40,9 +39,7 @@ Une grande version par itération. Chaque petite version `vX.Y.Z` : tâches sur 
 - [ ] [v2.0.0](/versions#v2-0-0) : plusieurs thons qui ne se cognent pas
 - [ ] [v2.1.0](/versions#v2-1-0) : les thons forment un banc
 - [ ] [v2.2.0](/versions#v2-2-0) : un rocher que le banc contourne
-- [ ] [v2.3.0](/versions#v2-3-0) : mesures du banc
-- [ ] [v2.4.0](/versions#v2-4-0) : temps de regroupement et export CSV
-- [ ] [v2.5.0](/versions#v2-5-0) : curseurs de réglage
+- [ ] [v2.3.0](/versions#v2-3-0) : curseurs de réglage
 
 ### V3 — Le requin et le bateau de pêche
 
@@ -51,7 +48,6 @@ Une grande version par itération. Chaque petite version `vX.Y.Z` : tâches sur 
 - [ ] [v3.2.0](/versions#v3-2-0) : les thons fuient le requin
 - [ ] [v3.3.0](/versions#v3-3-0) : un bateau de pêche qui traîne un filet
 - [ ] [v3.4.0](/versions#v3-4-0) : le filet attrape les thons, qui le fuient
-- [ ] [v3.5.0](/versions#v3-5-0) : campagne de mesures et graphiques
 
 ### Si on a le temps
 
@@ -69,5 +65,5 @@ Une grande version par itération. Chaque petite version `vX.Y.Z` : tâches sur 
 - [ ] Relecture globale du code, nettoyage, fusion de la dernière version dans `main`
 - [ ] Préparer des scénarios de démo (réglages prêts, reproductibles)
 - [ ] Enregistrer une vidéo de secours si la démo en direct plante
-- [ ] Rapport : modèle, mesures, graphiques, résultats, usage des agents Claude
+- [ ] Rapport : modèle, résultats, usage des agents Claude
 - [ ] Slides de soutenance + répétition, chacun capable d'expliquer tout le code

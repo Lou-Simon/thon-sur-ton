@@ -23,15 +23,12 @@ Chaque petite version ci-dessous est une étape qu'on peut montrer : on la déve
 | [v2.0.0](#v2-0-0) | Plusieurs thons qui ne se cognent pas | À faire |
 | [v2.1.0](#v2-1-0) | Les thons forment un banc | À faire |
 | [v2.2.0](#v2-2-0) | Un rocher que le banc contourne | À faire |
-| [v2.3.0](#v2-3-0) | Mesures du banc | À faire |
-| [v2.4.0](#v2-4-0) | Temps de regroupement et export CSV | À faire |
-| [v2.5.0](#v2-5-0) | Curseurs de réglage | À faire |
+| [v2.3.0](#v2-3-0) | Curseurs de réglage | À faire |
 | [v3.0.0](#v3-0-0) | Un requin qui nage | À faire |
 | [v3.1.0](#v3-1-0) | Le requin chasse | À faire |
 | [v3.2.0](#v3-2-0) | Les thons fuient le requin | À faire |
 | [v3.3.0](#v3-3-0) | Un bateau de pêche qui traîne un filet | À faire |
 | [v3.4.0](#v3-4-0) | Le filet attrape les thons, qui le fuient | À faire |
-| [v3.5.0](#v3-5-0) | Campagne de mesures et graphiques | À faire |
 
 ## V1 — L'aquarium
 
@@ -74,7 +71,6 @@ Chaque petite version ci-dessous est une étape qu'on peut montrer : on la déve
 ## V2 — Le banc et le rocher
 
 **But** : plusieurs thons forment un banc, se séparent pour contourner un rocher, puis se remettent en banc derrière.
-Les règles du banc sont détaillées dans la [technique mathématique](/technique-mathematique).
 
 ### v2.0.0 — Plusieurs thons qui ne se cognent pas {#v2-0-0}
 
@@ -98,23 +94,7 @@ Les règles du banc sont détaillées dans la [technique mathématique](/techniq
 
 **Terminée quand** : le banc se sépare autour du rocher puis se reforme derrière.
 
-### v2.3.0 — Mesures du banc {#v2-3-0}
-
-- **Alignement** du banc : de 0 (chacun va dans son sens) à 1 (tout le monde va dans la même direction).
-- **Nombre de sous-groupes** : combien de petits bancs séparés il y a.
-- Affichage des deux valeurs à l'écran.
-
-**Terminée quand** : les valeurs affichées changent quand le banc passe le rocher.
-
-### v2.4.0 — Temps de regroupement et export CSV {#v2-4-0}
-
-- Détection « banc reformé » : un seul groupe et alignement supérieur à 0,9.
-- Mesure du temps entre le passage du rocher et le regroupement.
-- Export des mesures en CSV.
-
-**Terminée quand** : chaque passage du rocher écrit une ligne dans le CSV avec son temps de regroupement.
-
-### v2.5.0 — Curseurs de réglage {#v2-5-0}
+### v2.3.0 — Curseurs de réglage {#v2-3-0}
 
 - Curseurs pour les poids des forces, la vitesse min / max et le rayon de vision.
 - Bouton pour relancer avec de nouvelles positions au hasard.
@@ -158,13 +138,6 @@ Les règles du banc sont détaillées dans la [technique mathématique](/techniq
 - Force de **fuite** face au filet, comme pour le requin : un thon qui voit le filet s'en éloigne.
 
 **Terminée quand** : le banc s'écarte au passage du filet, et les thons trop lents sont comptés comme pêchés.
-
-### v3.5.0 — Campagne de mesures et graphiques {#v3-5-0}
-
-- Plusieurs simulations lancées à la suite, sans affichage, en faisant varier un paramètre (taille du rocher, vitesse du requin, vitesse du bateau, nombre de thons…).
-- Script Python qui lit les CSV et trace le temps de regroupement selon ce paramètre.
-
-**Terminée quand** : une seule commande produit les graphiques de la soutenance.
 
 ## Idées pour plus tard
 

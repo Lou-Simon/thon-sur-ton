@@ -4,6 +4,7 @@ export default defineConfig({
   lang: 'fr-FR',
   title: 'Thon sur thon',
   description: 'Projet SMA – M2 ILIADE : banc de thons, obstacles et émergence',
+  srcExclude: ['memoire/**'],
   head: [['link', { rel: 'icon', href: '/logo.png' }]],
   themeConfig: {
     logo: '/logo.png',
@@ -19,21 +20,17 @@ export default defineConfig({
         items: [
           { text: 'Idée générale', link: '/idee-generale' },
           { text: 'Versions', link: '/versions' },
-          { text: 'Feuille de route', link: '/feuille-de-route' },
         ],
       },
       {
-        text: 'Technique',
+        text: 'Organisation',
         items: [
-          { text: 'Technique mathématique', link: '/technique-mathematique' },
-          { text: 'Technique Claude (agents)', link: '/technique-claude' },
+          { text: 'Feuille de route', link: '/feuille-de-route' },
+          { text: 'Pratiques git', link: '/pratiques-git' },
         ],
-      },
-      {
-        text: 'Équipe',
-        items: [{ text: 'Pratiques git', link: '/pratiques-git' }],
       },
     ],
+    search: { provider: 'local' },
     socialLinks: [{ icon: 'github', link: 'https://github.com/Lou-Simon/thon-sur-ton' }],
     outline: { label: 'Sur cette page' },
     docFooter: { prev: 'Page précédente', next: 'Page suivante' },
