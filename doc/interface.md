@@ -59,6 +59,7 @@ Les contrôles sont décidés au fil des versions et notés ici, pour rester les
   - **Décor** (v1.6.0, choix de Simon) : océan ouvert sans arêtes, sable jusqu'à l'horizon, rendu toon de Godot (lumière en aplats), reflets de lumière blancs sur le sable, rayons blancs semi-transparents qui respirent.
   - **Accueil** (v1.8.0, choix de Simon) : ciel couchant (violet nuit, orange, jaune), soleil jaune pâle, mer bleue ; textes crème, police Rubik Dirt ; boutons bordés de crème, de jaune au survol et au focus.
   - **Plantes et coraux** (v1.7.0, proposition à valider) : algues vert foncé, herbes vert clair, coraux ronds roses, coraux branchus orange ; bulles et plancton blancs, presque transparents.
+  - **Rocher** (v2.2.0, choix de Simon) : long et bas, gris-brun `Color(0.45, 0.42, 0.4)`, rendu toon, faces visibles comme une pierre taillée.
   - **Thon** (v1.4.0, proposition à valider) : dos bleu nuit, ventre argenté, nageoires jaunes `#f2c230` sans ombre, pour que le sens de nage se lise de loin.
 - **Nombres** : arrondis à un nombre fixe de décimales, pour qu'ils ne sautent pas d'une largeur à l'autre.
 - **Vérification** : un test réel sur un vidéoprojecteur (ou un écran vu de loin) avant la soutenance.
