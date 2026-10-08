@@ -5,6 +5,9 @@ class_name Accueil
 ## fait houler la caméra, joue l'entrée en scène et branche les boutons.
 ## Le titre, les sauts de thons et le ciel vivant s'animent chacun dans leur propre script.
 
+## Émis quand on clique sur « Plonger » : c'est la scène principale qui lance la plongée.
+signal plonger_demande
+
 ## Couleurs du ciel, du haut vers l'horizon, et du soleil.
 @export var couleur_haut: Color = Color("#2a1b4a")
 @export var couleur_milieu: Color = Color("#c4553b")
@@ -20,6 +23,8 @@ class_name Accueil
 ## Entrée en scène : durée d'apparition du sous-titre, puis des boutons, en secondes.
 @export var duree_sous_titre: float = 0.6
 @export var duree_boutons: float = 0.5
+## Durée du fondu qui masque ou réaffiche l'interface, en secondes.
+@export var duree_fondu: float = 0.6
 
 # Côté de la mer, en unités Godot, et nombre de carrés sur chaque côté.
 const TAILLE_MER: float = 600.0
@@ -44,6 +49,8 @@ var _entree: Tween
 @onready var _boutons: VBoxContainer = %Boutons
 @onready var _plonger: Button = %Plonger
 @onready var _quitter: Button = %Quitter
+@onready var _interface: CanvasLayer = $Interface
+@onready var _racine: Control = $Interface/Racine
 
 
 func _ready() -> void:
@@ -53,6 +60,7 @@ func _ready() -> void:
 	_soleil.look_at(-direction_soleil)
 	_hauteur_camera = _camera.position.y
 	_quitter.pressed.connect(_on_quitter)
+	_plonger.pressed.connect(plonger_demande.emit)
 	_entrer_en_scene()
 
 
@@ -118,6 +126,30 @@ func _construire_mer() -> void:
 	eau.set_shader_parameter("couleur_reflet", couleur_milieu)
 	_mer.mesh = plan
 	_mer.material_override = eau
+
+
+## La caméra de l'accueil : la plongée part d'elle et y revient.
+func camera() -> Camera3D:
+	return _camera
+
+
+## Rend l'ambiance du coucher de soleil et la retire du monde (voir Aquarium.ceder_environnement).
+func ceder_environnement() -> Environment:
+	var milieu: Environment = _ciel.environment
+	_ciel.environment = null
+	return milieu
+
+
+## Masque l'interface (titre, boutons, crédits) par un fondu, ou la fait revenir.
+func afficher_interface(oui: bool) -> void:
+	var fondu: Tween = create_tween()
+	if oui:
+		_interface.visible = true
+		fondu.tween_property(_racine, "modulate:a", 1.0, duree_fondu)
+		fondu.tween_callback(_plonger.grab_focus)
+	else:
+		fondu.tween_property(_racine, "modulate:a", 0.0, duree_fondu)
+		fondu.tween_callback(_interface.hide)
 
 
 func _on_quitter() -> void:

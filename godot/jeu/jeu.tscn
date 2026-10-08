@@ -1,0 +1,15 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://jeu/plongee.gd" id="1_plongee"]
+[ext_resource type="PackedScene" path="res://aquarium/aquarium.tscn" id="2_aquarium"]
+[ext_resource type="PackedScene" path="res://accueil/accueil.tscn" id="3_accueil"]
+
+[node name="Jeu" type="Node3D"]
+script = ExtResource("1_plongee")
+
+[node name="Aquarium" parent="." instance=ExtResource("2_aquarium")]
+
+[node name="Accueil" parent="." instance=ExtResource("3_accueil")]
+position = Vector3(0, 25, 60)
+
+[node name="Camera" type="Camera3D" parent="."]
