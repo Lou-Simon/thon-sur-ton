@@ -84,6 +84,16 @@ func installer(dimensions: Vector3, hauteur_sol: float) -> void:
 	_placer()
 
 
+## Remet la caméra à la vue de départ tout de suite, sans glisser : c'est là qu'arrive la plongée.
+func placer_au_depart() -> void:
+	_recentrer()
+	_pivot = _pivot_voulu
+	_lacet = _lacet_voulu
+	_tangage = _tangage_voulu
+	_distance = _distance_voulue
+	_placer()
+
+
 # Retour à la vue de départ : pivot au centre de la boîte, caméra de face, toute la boîte visible.
 func _recentrer() -> void:
 	# Après plusieurs tours, le lacet vaut plus d'un tour complet. On le ramène entre
