@@ -2,7 +2,7 @@ extends RefCounted
 class_name Obstacle
 ## Un obstacle que les thons contournent : un segment entouré d'une épaisseur.
 ## Une algue est un segment vertical, du pied au sommet ; un corail, un segment réduit à un point.
-## Le même modèle servira au rocher de la v2.2.0.
+## Le rocher (v2.2.0) est le même modèle : un segment vertical à grande épaisseur.
 
 ## Extrémités du segment, dans le repère de l'aquarium.
 var bas: Vector3

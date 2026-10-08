@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" path="res://interface/interface.tscn" id="5_interface"]
 [ext_resource type="Script" uid="uid://chh6jowvksxg3" path="res://aquarium/rayons.gd" id="7_rayons"]
 [ext_resource type="Script" uid="uid://gqscv7mart64" path="res://decor/decor.gd" id="8_decor"]
+[ext_resource type="Script" path="res://obstacles/rocher.gd" id="9_rocher"]
 
 [node name="Aquarium" type="Node3D" unique_id=1714103018]
 script = ExtResource("1_aquarium")
@@ -22,6 +23,9 @@ script = ExtResource("7_rayons")
 
 [node name="Decor" type="Node3D" parent="." unique_id=695933853]
 script = ExtResource("8_decor")
+
+[node name="Rocher" type="MeshInstance3D" parent="."]
+script = ExtResource("9_rocher")
 
 [node name="Lumiere" type="DirectionalLight3D" parent="." unique_id=989570937]
 transform = Transform3D(0.70710677, -0.5, 0.5, 0, 0.70710677, 0.70710677, -0.70710677, -0.5, 0.5, 0, 0, 0)

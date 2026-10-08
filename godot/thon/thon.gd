@@ -2,7 +2,7 @@ extends Node3D
 class_name Thon
 ## Un thon du banc : il avance à une vitesse bornée, tourné dans le sens de sa nage,
 ## change doucement de direction grâce à l'errance, évite les parois et le sol,
-## contourne les plantes et les coraux, et forme un banc avec ses voisins.
+## contourne les plantes, les coraux et le rocher, et forme un banc avec ses voisins.
 ##
 ## Il ne connaît que ses voisins : les thons dans son rayon de vision, sauf ceux
 ## dans l'angle mort derrière lui. Il ne regarde jamais le banc entier.
@@ -35,9 +35,9 @@ class_name Thon
 @export var portee_evitement: float = 4.0
 ## Poids de l'évitement dans la somme des forces.
 @export var poids_evitement: float = 30.0
-## Distance à partir de laquelle une plante ou un corail repousse le thon, en unités Godot.
+## Distance à partir de laquelle une plante, un corail ou le rocher repousse le thon, en unités Godot.
 @export var portee_obstacles: float = 4.0
-## Poids du contournement des plantes et des coraux dans la somme des forces.
+## Poids du contournement des plantes, des coraux et du rocher dans la somme des forces.
 @export var poids_obstacles: float = 30.0
 ## Distance jusqu'où le thon voit ses voisins, en unités Godot.
 @export var rayon_vision: float = 8.0
@@ -166,7 +166,7 @@ func _evitement() -> Vector3:
 		_poussee(position.z + _demi.z, portee_evitement) - _poussee(_demi.z - position.z, portee_evitement))
 
 
-# Force de contournement : chaque plante ou corail proche pousse le thon loin de son axe,
+# Force de contournement : chaque plante, corail ou rocher proche pousse le thon loin de son axe,
 # avec la même rampe linéaire que les parois.
 func _contournement() -> Vector3:
 	var force: Vector3 = Vector3.ZERO
