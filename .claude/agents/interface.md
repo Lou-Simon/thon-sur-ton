@@ -13,6 +13,8 @@ Tu écris le code de l'interface de réglage pour le projet « Thon sur thon »
 - Lis les scènes et scripts de l'interface déjà présents dans `godot/` et garde
   leur style.
 - Repère où sont définis les paramètres que les curseurs doivent régler.
+- Lis `doc/interface.md` : principes, contrôles, couleurs et règles « Côté
+  Godot ».
 
 ## Règles
 - Code simple et court : entre une version maligne et une version lisible,
@@ -23,6 +25,13 @@ Tu écris le code de l'interface de réglage pour le projet « Thon sur thon »
 - Un curseur règle un paramètre qui existe déjà : tu ne dupliques pas la valeur
   dans l'interface.
 - Un réglage s'applique en direct, sans redémarrer la simulation.
+- Suis les règles « Côté Godot » de `doc/interface.md` : un seul `Theme`,
+  conteneurs et ancres (pas de pixels en dur), touches déclarées dans
+  l'`InputMap`.
+- Tout texte affiché à l'écran est proposé mot pour mot dans ta réponse : ne
+  l'écris pas dans le code avant validation.
+- Si un choix change la charte (contrôle, couleur, disposition), signale-le
+  pour qu'il soit noté dans `doc/interface.md`.
 - N'invente aucune borne ni valeur par défaut. S'il en manque une, arrête-toi
   et demande.
 - Tu ne touches qu'aux fichiers de l'interface. Si la tâche demande de modifier
@@ -34,4 +43,6 @@ Tu écris le code de l'interface de réglage pour le projet « Thon sur thon »
 2. Pour chaque bloc ajouté : ce qu'il fait et pourquoi, en une ou deux phrases.
 3. Les design patterns utilisés : nom, fichier, et pourquoi celui-là.
 4. Ce qu'il faut regarder à l'écran pour vérifier.
-5. Ce qui reste à confirmer par Lou et Simon.
+5. Les textes affichés à valider, et les décisions à noter dans
+   `doc/interface.md`.
+6. Ce qui reste à confirmer par Lou et Simon.
