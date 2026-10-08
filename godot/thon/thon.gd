@@ -1,12 +1,18 @@
 extends Node3D
 class_name Thon
-## Un thon qui nage : il avance à une vitesse bornée, tourné dans le sens de sa nage,
+## Un thon du banc : il avance à une vitesse bornée, tourné dans le sens de sa nage,
 ## change doucement de direction grâce à l'errance, évite les parois et le sol,
-## et contourne les plantes et les coraux.
+## contourne les plantes et les coraux, et s'écarte des voisins trop proches.
+##
+## Il ne connaît que ses voisins : les thons dans son rayon de vision, sauf ceux
+## dans l'angle mort derrière lui. Il ne regarde jamais le banc entier.
 ##
 ## Errance de Reynolds : une cible glisse au hasard sur une sphère placée devant le thon,
 ## et le thon est attiré vers elle. Comme la cible bouge peu d'une image à l'autre,
 ## la direction change en douceur au lieu de trembler.
+##
+## Le thon ne bouge pas tout seul : à chaque pas, l'aquarium appelle `decider` sur tous
+## les thons, puis `avancer` sur tous, pour qu'ils bougent en même temps (voir aquarium.gd).
 
 ## Vitesse la plus faible du thon, en unités Godot par seconde.
 @export var vitesse_min: float = 2.0
@@ -28,6 +34,14 @@ class_name Thon
 @export var portee_obstacles: float = 4.0
 ## Poids du contournement des plantes et des coraux dans la somme des forces.
 @export var poids_obstacles: float = 30.0
+## Distance jusqu'où le thon voit ses voisins, en unités Godot.
+@export var rayon_vision: float = 6.0
+## Ouverture de l'angle mort derrière le thon, en degrés : la moitié de chaque côté de l'axe arrière.
+@export var angle_mort: float = 90.0
+## Distance en dessous de laquelle un voisin est trop proche et repousse le thon, en unités Godot.
+@export var distance_separation: float = 3.0
+## Poids de la séparation dans la somme des forces.
+@export var poids_separation: float = 30.0
 
 # Vitesse actuelle : sa direction est le sens de nage, sa longueur la vitesse.
 var _vitesse: Vector3
@@ -37,29 +51,66 @@ var _cible_errance: Vector3
 var _demi: Vector3
 var _sol: Sol
 var _obstacles: Array[Obstacle] = []
+# Tous les thons de l'aquarium : le thon n'y cherche que ses voisins (voir `_voisins`).
+var _banc: Array[Thon] = []
 
 
 func _ready() -> void:
-	# Le thon part dans la longueur de l'aquarium, pour rester visible le plus longtemps.
-	_vitesse = Vector3.RIGHT * vitesse_min
-	_cible_errance = Vector3.RIGHT * rayon_errance
+	# Chaque thon part dans une direction au hasard, à la vitesse la plus faible.
+	var direction: Vector3 = Vector3(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)).normalized()
+	_vitesse = direction * vitesse_min
+	_cible_errance = direction * rayon_errance
 
 
-# `_physics_process` tourne à pas fixe : le hasard de l'errance ne dépend pas des images par seconde.
-func _physics_process(delta: float) -> void:
+# C'est l'aquarium qui appelle cette fonction : lui seul connaît ses dimensions, son sol,
+# son décor et la liste de ses thons (la même liste pour tous).
+func installer(dimensions: Vector3, sol: Sol, obstacles: Array[Obstacle], banc: Array[Thon]) -> void:
+	_demi = dimensions / 2.0
+	_sol = sol
+	_obstacles = obstacles
+	_banc = banc
+
+
+## Calcule la somme des forces et la nouvelle vitesse à partir des positions actuelles, sans bouger.
+## À appeler à pas fixe (`_physics_process` de l'aquarium) : le hasard de l'errance ne dépend
+## alors pas des images par seconde.
+func decider(delta: float) -> void:
 	var force: Vector3 = _errance(delta) * poids_errance + _evitement() * poids_evitement \
-			+ _contournement() * poids_obstacles
+			+ _contournement() * poids_obstacles + _separation() * poids_separation
 	_vitesse = _borner(_vitesse + force * delta)
+
+
+## Déplace le thon à la vitesse calculée par `decider` et le tourne dans le sens de sa nage.
+func avancer(delta: float) -> void:
 	position += _vitesse * delta
 	# Le modèle regarde vers -Z : on l'oriente vers le point où il va.
 	look_at(global_position + _vitesse)
 
 
-# C'est l'aquarium qui appelle cette fonction : lui seul connaît ses dimensions, son sol et son décor.
-func installer(dimensions: Vector3, sol: Sol, obstacles: Array[Obstacle]) -> void:
-	_demi = dimensions / 2.0
-	_sol = sol
-	_obstacles = obstacles
+# Les thons que celui-ci voit : à moins du rayon de vision, et hors de l'angle mort.
+# L'angle mort est un cône autour de l'axe arrière, l'opposé de la vitesse.
+func _voisins() -> Array[Thon]:
+	var vus: Array[Thon] = []
+	var arriere: Vector3 = -_vitesse
+	for autre: Thon in _banc:
+		# Un thon ne se voit pas lui-même.
+		if autre == self:
+			continue
+		var ecart: Vector3 = autre.position - position
+		var dans_angle_mort: bool = arriere.angle_to(ecart) < deg_to_rad(angle_mort / 2.0)
+		if ecart.length() < rayon_vision and not dans_angle_mort:
+			vus.append(autre)
+	return vus
+
+
+# Force de séparation : chaque voisin vu et trop proche pousse le thon à l'opposé de lui,
+# avec la même rampe linéaire que les parois.
+func _separation() -> Vector3:
+	var force: Vector3 = Vector3.ZERO
+	for voisin: Thon in _voisins():
+		var ecart: Vector3 = position - voisin.position
+		force += ecart.normalized() * _poussee(ecart.length(), distance_separation)
+	return force
 
 
 # Force d'évitement : chaque paroi proche pousse le thon vers l'intérieur, le sol le pousse vers le haut.
@@ -83,7 +134,7 @@ func _contournement() -> Vector3:
 	return force
 
 
-# Rampe linéaire : 0 à la portée ou plus loin, 1 contre la paroi, plus de 1 si le thon l'a dépassée.
+# Rampe linéaire : 0 à la portée ou plus loin, 1 au contact, plus de 1 si le thon a dépassé une paroi.
 func _poussee(distance: float, portee: float) -> float:
 	return maxf(0.0, 1.0 - distance / portee)
 
