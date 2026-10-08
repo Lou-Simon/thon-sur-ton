@@ -28,7 +28,8 @@ Le contenu de chaque version est dans [Versions](/versions) : on ne construit l'
 | --- | --- | --- |
 | Aquarium et ambiance | [v1.0.0](/versions#v1-0-0), [v1.1.0](/versions#v1-1-0) | On distingue le fond, les parois et l'eau, sans que le brouillard noie les thons. |
 | Caméra | [v1.2.0](/versions#v1-2-0) | Mouvements doux, zoom borné (ni dans le sol, ni à perte de vue), retour à la vue de départ. |
-| Thons et banc | [v1.3.0](/versions#v1-3-0) à [v2.2.0](/versions#v2-2-0) | Le sens de nage de chaque thon se lit d'un coup d'œil, et le banc se détache du décor. |
+| Base de l'interface | [v1.3.0](/versions#v1-3-0) | Un seul thème, un panneau qui se replie d'une touche et ne bloque pas la caméra, les contrôles rappelés à l'écran. |
+| Thons et banc | [v1.4.0](/versions#v1-4-0) à [v2.2.0](/versions#v2-2-0) | Le sens de nage de chaque thon se lit d'un coup d'œil, et le banc se détache du décor. |
 | Curseurs de réglage | [v2.3.0](/versions#v2-3-0) | Nom clair, valeur affichée, bornes sensées, bouton « valeurs par défaut », bouton « relancer ». |
 | Requin, bateau, filet | [v3.0.0](/versions#v3-0-0) à [v3.4.0](/versions#v3-4-0) | Le danger se repère immédiatement, le compteur de captures est lisible. |
 | Écran de démarrage | à placer | Voir [plus bas](#ecran-de-demarrage). |
@@ -42,7 +43,7 @@ Les contrôles sont décidés au fil des versions et notés ici, pour rester les
 | Tourner autour de l'aquarium | à définir | v1.2.0 |
 | Zoomer | molette (proposition) | v1.2.0 |
 | Recentrer la caméra | à définir | v1.2.0 |
-| Afficher / masquer l'interface | à définir | v2.3.0 |
+| Afficher / masquer l'interface | à définir | v1.3.0 |
 | Relancer la simulation | à définir | v2.3.0 |
 | Quitter / revenir au menu | `Échap` (proposition) | écran de démarrage |
 

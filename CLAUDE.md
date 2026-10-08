@@ -16,7 +16,7 @@ doc/                   site VitePress (en français)
   interface.md         charte d'interface et d'ergonomie
   pratiques-git.md     inclut PRATIQUES-GIT.md (ne pas l'éditer)
   memoire/             consignes à lire et à suivre, jamais publiées sur le site
-.claude/skills/        commandes Claude (/ship, /ui)
+.claude/skills/        commandes Claude (/ship, /ui, /tache), références (gdscript, boids)
 .claude/agents/        agents Claude Code
 PRATIQUES-GIT.md       conventions git (source unique)
 setup-doc.sh           script qui a créé le site VitePress
