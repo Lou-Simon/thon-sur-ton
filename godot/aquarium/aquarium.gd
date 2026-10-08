@@ -12,10 +12,13 @@ const COTES: Array[float] = [-1.0, 1.0]
 
 @onready var _aretes: MeshInstance3D = $Aretes
 @onready var _camera: Camera3D = $Camera
+@onready var _sol: Sol = $Sol
 
 
 func _ready() -> void:
 	_tracer_aretes()
+	# Le sol reçoit les dimensions au lieu de les réécrire : elles restent définies ici.
+	_sol.construire(dimensions)
 	_placer_camera()
 
 
