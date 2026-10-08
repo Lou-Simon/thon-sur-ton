@@ -42,6 +42,11 @@ func construire(dimensions: Vector3) -> void:
 	material_override = sable
 
 
+# Hauteur du sable en (x, z), dans le repère de l'aquarium : c'est ce que les thons évitent.
+func hauteur_sable(x: float, z: float) -> float:
+	return position.y + _hauteur(x, z)
+
+
 # Ajoute un carré de la grille, découpé en deux triangles.
 # Vus de dessus, les sommets tournent dans le sens des aiguilles d'une montre :
 # c'est ce sens qui indique à Godot que la face visible est celle du dessus.
