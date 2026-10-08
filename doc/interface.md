@@ -45,11 +45,28 @@ Les contrôles sont décidés au fil des versions et notés ici, pour rester les
 | Déplacer le point regardé | touches physiques `W` `S` `A` `D` (`Z` `Q` `S` `D` sur un clavier AZERTY), `Espace` pour monter, `Maj` pour descendre | v1.2.0 |
 | Recentrer la caméra | touche physique `Origine` (Home) | v1.2.0 |
 | Afficher / masquer l'interface | touche physique `Tab` | v1.3.0 |
-| Relancer la simulation | à définir | v2.3.0 |
+| Relancer la simulation (nouvelles positions au hasard, réglages gardés) | touche physique `R` ou bouton « Relancer » | v2.3.0 |
+| Remettre les curseurs aux valeurs du code (sans relancer) | bouton « Valeurs par défaut » | v2.3.0 |
+| Changer un réglage | curseur, à la souris seulement : ni curseurs ni boutons ne prennent le focus clavier, pour que `Tab` et les touches de la caméra restent libres | v2.3.0 |
 | Quitter l'application | bouton « Quitter » de l'accueil (`Entrée` déclenche le bouton qui a le focus, « Plonger » au lancement) | v1.8.0 |
 | Passer l'entrée en scène de l'accueil | clic ou n'importe quelle touche | v1.8.0 |
 | Passer la plongée ou la remontée | clic ou `Entrée` | v1.9.0 |
 | Revenir à l'accueil | `Échap`, la caméra remonte à la surface | v1.9.0 |
+
+## Curseurs de réglage (v2.3.0, choix de Simon) {#curseurs}
+
+Dans le panneau « Réglages », par groupe, le libellé à gauche et la valeur à droite (sans décimale si le pas vaut 1 ou plus, une sinon), le curseur dessous. Les boutons restent visibles en bas, la liste défile si la fenêtre est petite.
+
+| Groupe | Libellé | Bornes | Pas | Règle |
+| --- | --- | --- | --- | --- |
+| Banc | Nombre de thons | 1 – 100 | 1 | compte au prochain « Relancer » |
+| Banc | Vision | 2 – 20 | 0,5 | |
+| Vitesse | Vitesse min | 0,5 – 10 | 0,5 | si elle dépasse la max, la max suit |
+| Vitesse | Vitesse max | 0,5 – 15 | 0,5 | si elle passe sous la min, la min suit |
+| Forces | Séparation, Alignement, Cohésion, Errance | 0 – 150, 0 – 20, 0 – 10, 0 – 5 | 5, 0,5, 0,5, 0,1 | |
+| Forces | Parois et sol, Plantes et rocher | 0 – 100 | 5 | |
+
+L'angle mort, la distance de séparation et les portées restent dans le code, pour garder un panneau court.
 
 ## Couleurs et lisibilité
 
