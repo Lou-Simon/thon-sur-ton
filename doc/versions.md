@@ -15,7 +15,7 @@ Chaque petite version ci-dessous est une étape qu'on peut montrer : on la déve
 
 | Version | Étape | État |
 | --- | --- | --- |
-| [v1.0.0](#v1-0-0) | Projet Godot et aquarium vide | En cours |
+| [v1.0.0](#v1-0-0) | Projet Godot et aquarium vide | Terminée |
 | [v1.1.0](#v1-1-0) | Sol de sable avec du relief, ambiance sous-marine | À faire |
 | [v1.2.0](#v1-2-0) | Caméra qu'on peut déplacer | À faire |
 | [v1.3.0](#v1-3-0) | Base de l'interface | À faire |
