@@ -21,8 +21,8 @@ demande. On n'invente ni formule, ni valeur, ni référence.
 
 | Force | Version | Ce qu'elle fait | Formule | Source |
 | --- | --- | --- | --- | --- |
-| Errance | v1.3.0 | Le thon change doucement de direction au hasard. | à écrire | à renseigner |
-| Évitement | v1.4.0, v2.2.0 | Plus le thon s'approche d'une paroi, du sol ou du rocher, plus il est repoussé. | à écrire | à renseigner |
+| Errance | v1.4.0 | Le thon change doucement de direction au hasard. | à écrire | à renseigner |
+| Évitement | v1.5.0, v2.2.0 | Plus le thon s'approche d'une paroi, du sol ou du rocher, plus il est repoussé. | à écrire | à renseigner |
 | Séparation | v2.0.0 | Le thon s'écarte des voisins trop proches. | à écrire | à renseigner |
 | Alignement | v2.1.0 | Le thon nage dans la même direction que ses voisins. | à écrire | à renseigner |
 | Cohésion | v2.1.0 | Le thon se rapproche du centre de ses voisins. | à écrire | à renseigner |
