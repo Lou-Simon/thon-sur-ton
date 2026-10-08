@@ -1,7 +1,7 @@
 extends Node3D
 class_name Thon
 ## Un thon qui nage : il avance à une vitesse bornée, tourné dans le sens de sa nage,
-## et change doucement de direction grâce à l'errance.
+## change doucement de direction grâce à l'errance, et évite les parois et le sol.
 ##
 ## Errance de Reynolds : une cible glisse au hasard sur une sphère placée devant le thon,
 ## et le thon est attiré vers elle. Comme la cible bouge peu d'une image à l'autre,
@@ -19,11 +19,18 @@ class_name Thon
 @export var hasard_errance: float = 3.0
 ## Poids de l'errance dans la somme des forces.
 @export var poids_errance: float = 1.0
+## Distance à partir de laquelle une paroi ou le sol repousse le thon, en unités Godot.
+@export var portee_evitement: float = 4.0
+## Poids de l'évitement dans la somme des forces.
+@export var poids_evitement: float = 30.0
 
 # Vitesse actuelle : sa direction est le sens de nage, sa longueur la vitesse.
 var _vitesse: Vector3
 # Cible d'errance, repérée par rapport au centre de la sphère.
 var _cible_errance: Vector3
+# Demi-dimensions de l'aquarium et son sol, reçus de l'aquarium.
+var _demi: Vector3
+var _sol: Sol
 
 
 func _ready() -> void:
@@ -34,11 +41,33 @@ func _ready() -> void:
 
 # `_physics_process` tourne à pas fixe : le hasard de l'errance ne dépend pas des images par seconde.
 func _physics_process(delta: float) -> void:
-	var force: Vector3 = _errance(delta) * poids_errance
+	var force: Vector3 = _errance(delta) * poids_errance + _evitement() * poids_evitement
 	_vitesse = _borner(_vitesse + force * delta)
 	position += _vitesse * delta
 	# Le modèle regarde vers -Z : on l'oriente vers le point où il va.
 	look_at(global_position + _vitesse)
+
+
+# C'est l'aquarium qui appelle cette fonction : lui seul connaît ses dimensions et son sol.
+func installer(dimensions: Vector3, sol: Sol) -> void:
+	_demi = dimensions / 2.0
+	_sol = sol
+
+
+# Force d'évitement : chaque paroi proche pousse le thon vers l'intérieur, le sol le pousse vers le haut.
+# Sur chaque axe, la paroi du côté négatif pousse vers +, celle du côté positif vers -.
+# `position` est dans le repère de l'aquarium, centré sur son milieu.
+func _evitement() -> Vector3:
+	var sable: float = _sol.hauteur_sable(position.x, position.z)
+	return Vector3(
+		_poussee(position.x + _demi.x) - _poussee(_demi.x - position.x),
+		_poussee(position.y - sable) - _poussee(_demi.y - position.y),
+		_poussee(position.z + _demi.z) - _poussee(_demi.z - position.z))
+
+
+# Rampe linéaire : 0 à la portée ou plus loin, 1 contre la paroi, plus de 1 si le thon l'a dépassée.
+func _poussee(distance: float) -> float:
+	return maxf(0.0, 1.0 - distance / portee_evitement)
 
 
 # Force d'errance : du thon vers la cible, qui glisse au hasard sur la sphère placée devant lui.

@@ -13,6 +13,7 @@ const COTES: Array[float] = [-1.0, 1.0]
 @onready var _aretes: MeshInstance3D = $Aretes
 @onready var _camera: CameraAquarium = $Camera
 @onready var _sol: Sol = $Sol
+@onready var _thon: Thon = $Thon
 
 
 func _ready() -> void:
@@ -21,6 +22,8 @@ func _ready() -> void:
 	_sol.construire(dimensions)
 	# La caméra aussi, avec la hauteur des plus hautes dunes : elle doit rester au-dessus.
 	_camera.installer(dimensions, -dimensions.y / 2.0 + _sol.hauteur_dunes)
+	# Le thon reçoit les parois et le sol qu'il doit éviter.
+	_thon.installer(dimensions, _sol)
 
 
 # Trace les 12 aretes de la boite : 4 aretes paralleles a chacun des 3 axes.
