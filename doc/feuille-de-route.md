@@ -15,8 +15,8 @@
 *VS Code, Claude Code, mise en place des agents Claude Code, ajout de skills pertinents.*
 
 - [x] Installer Godot 4 chez tout le monde (même version), VS Code
-- [X] Compléter `CLAUDE.md` : description courte du projet, arborescence, commandes
-- [ ] Écrire les agents (`.claude/agents/`) : thon, environnement, obstacles, relecteur
+- [x] Compléter `CLAUDE.md` : description courte du projet, arborescence, commandes
+- [x] Écrire les agents (`.claude/agents/`) : thon, environnement, obstacles, relecteur
 - [ ] Écrire les skills (`.claude/skills/`) : workflow d'une tâche, relecture, conventions GDScript, formules boids
 - [ ] Tester le workflow sur une petite tâche (ex. scène vide + caméra) : branche → agent → relecture → PR
 
