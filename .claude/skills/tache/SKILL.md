@@ -46,8 +46,8 @@ Suis `PRATIQUES-GIT.md` et `CLAUDE.md` à la lettre. Tâche demandée : `$ARGUME
 - Signaler ce qui reste à confirmer.
 
 ## 7. Livraison
-- Pas de commit ici : dire de lancer `/ship`.
-- Rappeler ensuite : pull request de `feature/<nom-court>` vers `vX.Y.Z`, puis agent `documentaliste` pour cocher la feuille de route.
+- Pas de commit ici : dire de lancer `/ship`, qui committe, pousse et ouvre la pull request de `feature/<nom-court>` vers `vX.Y.Z`.
+- Rappeler ensuite : relire et fusionner la pull request, puis agent `documentaliste` pour cocher la feuille de route.
 
 ## 8. Résumé
 3-5 lignes : branche créée, agents passés, remarques de relecture, ce qui reste à regarder ou à confirmer.
