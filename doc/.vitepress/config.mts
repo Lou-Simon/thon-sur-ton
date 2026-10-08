@@ -20,6 +20,7 @@ export default defineConfig({
         items: [
           { text: 'Idée générale', link: '/idee-generale' },
           { text: 'Versions', link: '/versions' },
+          { text: 'Interface et ergonomie', link: '/interface' },
         ],
       },
       {
