@@ -22,6 +22,18 @@ PRATIQUES-GIT.md       conventions git (source unique)
 setup-doc.sh           script qui a créé le site VitePress
 ```
 
+Dans `godot/` (scène principale `jeu/jeu.tscn`) :
+
+```
+godot/
+  jeu/        scène principale : accueil au-dessus, aquarium en dessous, plongée entre les deux
+  accueil/    écran d'accueil : ciel et mer (shaders), titre animé, sauts de thons, nuages, logo
+  aquarium/   boîte, sable (shader des reflets), ambiance, rayons, caméra
+  decor/      plantes, coraux, bulles, plancton ; obstacles que le thon contourne
+  thon/       comportement (thon.gd) et apparence (modele_thon.gd) du thon
+  interface/  thème, panneau de réglage, police Rubik Dirt (OFL)
+```
+
 Fichiers générés, jamais committés : `godot/.godot/`, `node_modules/`, `doc/.vitepress/cache|dist`.
 
 ## Commandes
