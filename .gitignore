@@ -2,9 +2,6 @@
 godot/.godot/
 build/
 
-# Données produites par la simulation
-data/
-
 # Python
 __pycache__/
 *.pyc
