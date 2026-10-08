@@ -32,7 +32,7 @@ Le contenu de chaque version est dans [Versions](/versions) : on ne construit l'
 | Thons et banc | [v1.4.0](/versions#v1-4-0) à [v2.2.0](/versions#v2-2-0) | Le sens de nage de chaque thon se lit d'un coup d'œil, et le banc se détache du décor. |
 | Curseurs de réglage | [v2.3.0](/versions#v2-3-0) | Nom clair, valeur affichée, bornes sensées, bouton « valeurs par défaut », bouton « relancer ». |
 | Requin, bateau, filet | [v3.0.0](/versions#v3-0-0) à [v3.4.0](/versions#v3-4-0) | Le danger se repère immédiatement, le compteur de captures est lisible. |
-| Écran de démarrage | à placer | Voir [plus bas](#ecran-de-demarrage). |
+| Écran de démarrage | à placer | Voir [Écran de démarrage](/ecran-de-demarrage). |
 
 ## Contrôles
 
@@ -45,7 +45,9 @@ Les contrôles sont décidés au fil des versions et notés ici, pour rester les
 | Recentrer la caméra | à définir | v1.2.0 |
 | Afficher / masquer l'interface | à définir | v1.3.0 |
 | Relancer la simulation | à définir | v2.3.0 |
-| Quitter / revenir au menu | `Échap` (proposition) | écran de démarrage |
+| Quitter l'application | bouton « Quitter » de l'accueil | écran de démarrage |
+| Passer la plongée | clic ou `Entrée` (proposition) | écran de démarrage |
+| Revenir à l'accueil | `Échap` (proposition) | écran de démarrage |
 
 ## Couleurs et lisibilité
 
@@ -66,15 +68,7 @@ Les contrôles sont décidés au fil des versions et notés ici, pour rester les
 
 ## Écran de démarrage {#ecran-de-demarrage}
 
-On veut un écran de démarrage très soigné : c'est la première image que le jury verra. **À brainstormer**, puis à placer dans [Versions](/versions) une fois décidé.
-
-Questions à trancher :
-
-- Que voit-on en fond : une image fixe, ou la simulation qui tourne déjà derrière le menu ?
-- Quels choix propose-t-il : lancer directement, choisir un scénario (aquarium seul, rocher, requin, bateau), régler, quitter ?
-- Comment passe-t-on du menu à la simulation : coupure nette, fondu, mouvement de caméra ?
-- Quelle place pour le titre et le logo ?
-- Faut-il un mode « démo » qui enchaîne les scénarios pour la soutenance ?
+L'application s'ouvre au-dessus de l'eau, puis la caméra plonge vers le banc. Tout est détaillé dans [Écran de démarrage](/ecran-de-demarrage).
 
 ## Le site de documentation
 

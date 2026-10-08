@@ -29,7 +29,7 @@ Une grande version par itération. Chaque petite version `vX.Y.Z` : tâches sur 
 ### V1 — L'aquarium
 
 - [x] [v1.0.0](/versions#v1-0-0) : projet Godot et aquarium vide
-- [ ] [v1.1.0](/versions#v1-1-0) : sol de sable avec du relief, ambiance sous-marine
+- [x] [v1.1.0](/versions#v1-1-0) : sol de sable avec du relief, ambiance sous-marine
 - [ ] [v1.2.0](/versions#v1-2-0) : caméra qu'on peut déplacer
 - [ ] [v1.3.0](/versions#v1-3-0) : base de l'interface
 - [ ] [v1.4.0](/versions#v1-4-0) : un thon qui nage
@@ -64,7 +64,7 @@ Une grande version par itération. Chaque petite version `vX.Y.Z` : tâches sur 
 *Review global, travail sur le rendu, les démos et l'oral.*
 
 - [ ] Relecture globale du code, nettoyage, fusion de la dernière version dans `main`
-- [ ] Écran de démarrage : brainstorm puis réalisation (voir [interface](/interface#ecran-de-demarrage))
+- [ ] Écran de démarrage : brainstorm puis réalisation (voir [écran de démarrage](/ecran-de-demarrage))
 - [ ] Préparer des scénarios de démo (réglages prêts, reproductibles)
 - [ ] Enregistrer une vidéo de secours si la démo en direct plante
 - [ ] Rapport : modèle, résultats, usage des agents Claude
