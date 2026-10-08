@@ -5,9 +5,8 @@
 [ext_resource type="Script" uid="uid://lok43c2l8u4p" path="res://aquarium/ambiance.gd" id="3_ambiance"]
 [ext_resource type="Script" uid="uid://dmf2ids5tiuth" path="res://aquarium/camera.gd" id="4_camera"]
 [ext_resource type="PackedScene" path="res://interface/interface.tscn" id="5_interface"]
-[ext_resource type="PackedScene" path="res://thon/thon.tscn" id="6_thon"]
-[ext_resource type="Script" path="res://aquarium/rayons.gd" id="7_rayons"]
-[ext_resource type="Script" path="res://decor/decor.gd" id="8_decor"]
+[ext_resource type="Script" uid="uid://chh6jowvksxg3" path="res://aquarium/rayons.gd" id="7_rayons"]
+[ext_resource type="Script" uid="uid://gqscv7mart64" path="res://decor/decor.gd" id="8_decor"]
 
 [node name="Aquarium" type="Node3D" unique_id=1714103018]
 script = ExtResource("1_aquarium")
@@ -18,10 +17,10 @@ script = ExtResource("2_sol")
 [node name="Ambiance" type="WorldEnvironment" parent="." unique_id=49338162]
 script = ExtResource("3_ambiance")
 
-[node name="Rayons" type="Node3D" parent="."]
+[node name="Rayons" type="Node3D" parent="." unique_id=847521317]
 script = ExtResource("7_rayons")
 
-[node name="Decor" type="Node3D" parent="."]
+[node name="Decor" type="Node3D" parent="." unique_id=695933853]
 script = ExtResource("8_decor")
 
 [node name="Lumiere" type="DirectionalLight3D" parent="." unique_id=989570937]
@@ -29,7 +28,5 @@ transform = Transform3D(0.70710677, -0.5, 0.5, 0, 0.70710677, 0.70710677, -0.707
 
 [node name="Camera" type="Camera3D" parent="." unique_id=1771163227]
 script = ExtResource("4_camera")
-
-[node name="Thon" parent="." instance=ExtResource("6_thon")]
 
 [node name="Interface" parent="." unique_id=1501916604 instance=ExtResource("5_interface")]

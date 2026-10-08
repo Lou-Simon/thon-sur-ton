@@ -23,7 +23,7 @@ demande. On n'invente ni formule, ni valeur, ni référence.
 | --- | --- | --- | --- | --- |
 | Errance | v1.4.0 | Le thon change doucement de direction au hasard. | voir [Errance](#errance) | Reynolds 1999, à vérifier |
 | Évitement | v1.5.0, v1.7.0, v2.2.0 | Plus le thon s'approche d'une paroi, du sol, d'une plante, d'un corail ou du rocher, plus il est repoussé. | parois et sol : voir [Évitement](#evitement) ; plantes et coraux : voir [Contournement](#contournement) ; rocher : à écrire | choix de Lou et Simon |
-| Séparation | v2.0.0 | Le thon s'écarte des voisins trop proches. | à écrire | à renseigner |
+| Séparation | v2.0.0 | Le thon s'écarte des voisins trop proches. | voir [Séparation](#separation) | choix de Lou, à valider par Simon |
 | Alignement | v2.1.0 | Le thon nage dans la même direction que ses voisins. | à écrire | à renseigner |
 | Cohésion | v2.1.0 | Le thon se rapproche du centre de ses voisins. | à écrire | à renseigner |
 | Fuite | v3.2.0, v3.4.0 | Un thon qui voit le requin ou le filet s'en éloigne, d'autant plus fort qu'il est proche. | à écrire | à renseigner |
@@ -32,23 +32,24 @@ demande. On n'invente ni formule, ni valeur, ni référence.
 
 | Paramètre | Sert à | Valeur |
 | --- | --- | --- |
-| Rayon de vision | Distance jusqu'où un thon voit ses voisins. | à fixer |
-| Angle mort | Zone derrière le thon où il ne voit pas. | à fixer |
+| Rayon de vision | Distance jusqu'où un thon voit ses voisins. | 6 unités (Lou, 8 oct. 2026, proposition de Claude, à régler à l'écran) |
+| Angle mort | Zone derrière le thon où il ne voit pas. | 90° (Lou, 8 oct. 2026, proposition de Claude, à régler à l'écran) |
 | Vitesse minimale | Borne basse de la vitesse. | 2 unités/s (Simon, 8 oct. 2026, à ajuster à l'écran) |
 | Vitesse maximale | Borne haute de la vitesse. | 5 unités/s (Simon, 8 oct. 2026, à ajuster à l'écran) |
 | Portée et poids de l'évitement | Distance où une paroi commence à repousser, et force de la poussée (voir [Évitement](#evitement)). | 4 et 30 (Simon, 8 oct. 2026, d'après des essais) |
 | Portée et poids du contournement | Plantes et coraux (voir [Contournement](#contournement)). | 4 et 30, comme les parois (Simon, 8 oct. 2026, d'après des essais) |
+| Distance et poids de la séparation | Distance sous laquelle un voisin repousse, et force de la poussée (voir [Séparation](#separation)). | 3 et 30 (Lou, 8 oct. 2026, proposition de Claude, à régler à l'écran) |
 | Distance, rayon, hasard de l'errance | Forme de l'errance (voir [Errance](#errance)). | 2, 2 et 3 : proposition de Claude, à régler à l'écran |
 | Poids de chaque force | Importance de la force dans la somme. | à fixer |
 
 Les poids, les vitesses et le rayon de vision sont réglables par curseur (v2.3.0).
 
 ## Questions à trancher avant de coder
-- Séparation : à partir de quelle distance un voisin est « trop proche », et comment la force
-  grandit quand il se rapproche.
 - Évitement des plantes, des coraux et du rocher, et fuite : comment la force grandit quand l'obstacle se rapproche.
-- Somme des forces : simple somme pondérée, ou force totale bornée.
-- Un thon sans voisin : quelles forces restent actives.
+
+Tranché par Lou le 8 octobre 2026 (v2.0.0) :
+- Somme des forces : simple somme pondérée.
+- Un thon sans voisin garde l'errance, l'évitement et le contournement.
 
 ## Référence
 Le modèle des boids est attribué à Craig Reynolds (1987). Référence exacte à vérifier par
@@ -116,3 +117,26 @@ Chaque obstacle est un segment `[A, B]` entouré d'une épaisseur `e` : une algu
 | `w_o` | poids | `poids_obstacles` |
 
 Source : pas d'article, la même rampe que pour les parois. Valeurs : sur 5 simulations de 5 minutes, avec 31 obstacles, le thon (centre et museau) est resté à au moins 1,22 de la surface des obstacles, 0,77 des parois et 1,02 du sable.
+
+### Vision et séparation {#separation}
+
+Choisies par Lou le 8 octobre 2026 (v2.0.0). Code : `_voisins()` et `_separation()` dans `godot/thon/thon.gd`.
+
+Vision : le thon `i` voit le thon `j` si `|p_j - p_i| < R` et si `j` n'est pas dans l'angle mort, un cône d'ouverture `α` autour de l'axe arrière `-v_i`. Avec `α = 90°`, le cône s'étend à 45° de chaque côté de cet axe.
+
+Séparation, sur les voisins vus seulement, avec la même rampe linéaire que pour les parois :
+
+`F = Σ normaliser(p_i - p_j) · P(|p_i - p_j|)`, avec `P(δ) = max(0, 1 - δ / d_s)`, puis la force s'ajoute avec le poids `w_s`.
+
+| Symbole | Sens | Variable |
+| --- | --- | --- |
+| `p_i`, `p_j` | positions du thon et d'un voisin vu | `position` |
+| `v_i` | vitesse du thon | `_vitesse` |
+| `R` | rayon de vision | `rayon_vision` |
+| `α` | angle mort | `angle_mort` |
+| `d_s` | distance sous laquelle un voisin repousse | `distance_separation` |
+| `w_s` | poids de la séparation | `poids_separation` |
+
+Tous les thons décident avant qu'aucun ne bouge : chaque force est calculée sur les positions du même instant.
+
+Source : pas d'article, la même rampe que pour les parois. Valeurs : propositions de Claude retenues par Lou, pas encore essayées à l'écran.
