@@ -21,7 +21,7 @@ demande. On n'invente ni formule, ni valeur, ni référence.
 
 | Force | Version | Ce qu'elle fait | Formule | Source |
 | --- | --- | --- | --- | --- |
-| Errance | v1.4.0 | Le thon change doucement de direction au hasard. | à écrire | à renseigner |
+| Errance | v1.4.0 | Le thon change doucement de direction au hasard. | voir [Errance](#errance) | Reynolds 1999, à vérifier |
 | Évitement | v1.5.0, v2.2.0 | Plus le thon s'approche d'une paroi, du sol ou du rocher, plus il est repoussé. | à écrire | à renseigner |
 | Séparation | v2.0.0 | Le thon s'écarte des voisins trop proches. | à écrire | à renseigner |
 | Alignement | v2.1.0 | Le thon nage dans la même direction que ses voisins. | à écrire | à renseigner |
@@ -34,8 +34,9 @@ demande. On n'invente ni formule, ni valeur, ni référence.
 | --- | --- | --- |
 | Rayon de vision | Distance jusqu'où un thon voit ses voisins. | à fixer |
 | Angle mort | Zone derrière le thon où il ne voit pas. | à fixer |
-| Vitesse minimale | Borne basse de la vitesse. | à fixer |
-| Vitesse maximale | Borne haute de la vitesse. | à fixer |
+| Vitesse minimale | Borne basse de la vitesse. | 2 unités/s (Simon, 8 oct. 2026, à ajuster à l'écran) |
+| Vitesse maximale | Borne haute de la vitesse. | 5 unités/s (Simon, 8 oct. 2026, à ajuster à l'écran) |
+| Distance, rayon, hasard de l'errance | Forme de l'errance (voir [Errance](#errance)). | 2, 2 et 3 : proposition de Claude, à régler à l'écran |
 | Poids de chaque force | Importance de la force dans la somme. | à fixer |
 
 Les poids, les vitesses et le rayon de vision sont réglables par curseur (v2.3.0).
@@ -45,7 +46,6 @@ Les poids, les vitesses et le rayon de vision sont réglables par curseur (v2.3.
   grandit quand il se rapproche.
 - Évitement et fuite : comment la force grandit quand l'obstacle se rapproche.
 - Somme des forces : simple somme pondérée, ou force totale bornée.
-- Vitesse : comment on la ramène entre le minimum et le maximum.
 - Un thon sans voisin : quelles forces restent actives.
 
 ## Référence
@@ -54,3 +54,25 @@ Lou et Simon avant de la citer dans le code ou le rapport.
 
 ## Pour chaque formule ajoutée
 Noter ici : la formule, ce que veut dire chaque symbole, la source, et qui l'a validée.
+
+### Errance {#errance}
+
+Choisie par Simon le 8 octobre 2026 (v1.4.0). Code : `godot/thon/thon.gd`.
+
+À chaque pas de temps `Δt` :
+
+1. `c ← r · normaliser(c + ξ · j · Δt)` : la cible `c` glisse un peu au hasard, puis revient sur la sphère de rayon `r`.
+2. `F = d · v / |v| + c` : la force va du thon vers la cible, posée sur une sphère placée à la distance `d` devant lui.
+3. `v ← v + w · F · Δt`, puis `|v|` est ramenée entre `v_min` et `v_max` sans changer sa direction.
+
+| Symbole | Sens | Variable |
+| --- | --- | --- |
+| `c` | cible d'errance, par rapport au centre de la sphère | `_cible_errance` |
+| `ξ` | vecteur au hasard, chaque composante entre -1 et 1 | `hasard` |
+| `j` | déplacement de la cible par seconde | `hasard_errance` |
+| `r` | rayon de la sphère | `rayon_errance` |
+| `d` | distance entre le thon et le centre de la sphère | `distance_errance` |
+| `v` | vitesse du thon | `_vitesse` |
+| `w` | poids de l'errance | `poids_errance` |
+
+Source : C. W. Reynolds, « Steering Behaviors For Autonomous Characters », Game Developers Conference, 1999 (comportement *wander*). Référence exacte à vérifier par Lou et Simon avant de la citer dans le rapport. Écart avec l'article : il travaille en 2D ; ici la cible glisse sur une sphère, en 3D.

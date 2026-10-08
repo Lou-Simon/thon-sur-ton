@@ -1,0 +1,55 @@
+extends Node3D
+class_name Thon
+## Un thon qui nage : il avance à une vitesse bornée, tourné dans le sens de sa nage,
+## et change doucement de direction grâce à l'errance.
+##
+## Errance de Reynolds : une cible glisse au hasard sur une sphère placée devant le thon,
+## et le thon est attiré vers elle. Comme la cible bouge peu d'une image à l'autre,
+## la direction change en douceur au lieu de trembler.
+
+## Vitesse la plus faible du thon, en unités Godot par seconde.
+@export var vitesse_min: float = 2.0
+## Vitesse la plus forte du thon, en unités Godot par seconde.
+@export var vitesse_max: float = 5.0
+## Distance entre le thon et le centre de la sphère d'errance, en unités Godot.
+@export var distance_errance: float = 2.0
+## Rayon de la sphère d'errance : plus il est grand, plus le thon peut tourner fort.
+@export var rayon_errance: float = 2.0
+## Déplacement de la cible sur la sphère, par seconde : plus il est grand, plus le thon change souvent d'avis.
+@export var hasard_errance: float = 3.0
+## Poids de l'errance dans la somme des forces.
+@export var poids_errance: float = 1.0
+
+# Vitesse actuelle : sa direction est le sens de nage, sa longueur la vitesse.
+var _vitesse: Vector3
+# Cible d'errance, repérée par rapport au centre de la sphère.
+var _cible_errance: Vector3
+
+
+func _ready() -> void:
+	# Le thon part dans la longueur de l'aquarium, pour rester visible le plus longtemps.
+	_vitesse = Vector3.RIGHT * vitesse_min
+	_cible_errance = Vector3.RIGHT * rayon_errance
+
+
+# `_physics_process` tourne à pas fixe : le hasard de l'errance ne dépend pas des images par seconde.
+func _physics_process(delta: float) -> void:
+	var force: Vector3 = _errance(delta) * poids_errance
+	_vitesse = _borner(_vitesse + force * delta)
+	position += _vitesse * delta
+	# Le modèle regarde vers -Z : on l'oriente vers le point où il va.
+	look_at(global_position + _vitesse)
+
+
+# Force d'errance : du thon vers la cible, qui glisse au hasard sur la sphère placée devant lui.
+func _errance(delta: float) -> Vector3:
+	var hasard: Vector3 = Vector3(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0), randf_range(-1.0, 1.0))
+	# On pousse la cible un peu au hasard, puis on la ramène sur la sphère.
+	_cible_errance = (_cible_errance + hasard * hasard_errance * delta).normalized() * rayon_errance
+	var centre: Vector3 = _vitesse.normalized() * distance_errance
+	return centre + _cible_errance
+
+
+# Ramène la longueur de la vitesse entre vitesse_min et vitesse_max, sans changer sa direction.
+func _borner(vitesse: Vector3) -> Vector3:
+	return vitesse.normalized() * clampf(vitesse.length(), vitesse_min, vitesse_max)
