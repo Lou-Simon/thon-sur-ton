@@ -10,6 +10,7 @@ class_name Aquarium
 @onready var _camera: CameraAquarium = $Camera
 @onready var _sol: Sol = $Sol
 @onready var _rayons: Rayons = $Rayons
+@onready var _decor: Decor = $Decor
 @onready var _thon: Thon = $Thon
 
 
@@ -17,8 +18,9 @@ func _ready() -> void:
 	# Le sol reçoit les dimensions au lieu de les réécrire : elles restent définies ici.
 	_sol.construire(dimensions)
 	_rayons.construire(dimensions)
+	_decor.construire(dimensions, _sol)
 	# La caméra aussi, avec la hauteur des plus hautes dunes : elle doit rester au-dessus.
 	_camera.installer(dimensions, -dimensions.y / 2.0 + _sol.hauteur_dunes)
-	# Le thon reçoit les parois et le sol qu'il doit éviter.
-	_thon.installer(dimensions, _sol)
+	# Le thon reçoit les parois, le sol et les obstacles du décor qu'il doit éviter.
+	_thon.installer(dimensions, _sol, _decor.obstacles())
 
