@@ -40,9 +40,10 @@ Les contrôles sont décidés au fil des versions et notés ici, pour rester les
 
 | Action | Contrôle | Décidé en |
 | --- | --- | --- |
-| Tourner autour de l'aquarium | à définir | v1.2.0 |
-| Zoomer | molette (proposition) | v1.2.0 |
-| Recentrer la caméra | à définir | v1.2.0 |
+| Tourner autour de l'aquarium | clic gauche maintenu + glisser | v1.2.0 |
+| Zoomer | molette | v1.2.0 |
+| Déplacer le point regardé | touches physiques `W` `S` `A` `D` (`Z` `Q` `S` `D` sur un clavier AZERTY), `Espace` pour monter, `Maj` pour descendre | v1.2.0 |
+| Recentrer la caméra | touche physique `Origine` (Home) | v1.2.0 |
 | Afficher / masquer l'interface | à définir | v1.3.0 |
 | Relancer la simulation | à définir | v2.3.0 |
 | Quitter l'application | bouton « Quitter » de l'accueil | écran de démarrage |

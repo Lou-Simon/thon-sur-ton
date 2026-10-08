@@ -17,7 +17,7 @@ Chaque petite version ci-dessous est une étape qu'on peut montrer : on la déve
 | --- | --- | --- |
 | [v1.0.0](#v1-0-0) | Projet Godot et aquarium vide | Terminée |
 | [v1.1.0](#v1-1-0) | Sol de sable avec du relief, ambiance sous-marine | Terminée |
-| [v1.2.0](#v1-2-0) | Caméra qu'on peut déplacer | À faire |
+| [v1.2.0](#v1-2-0) | Caméra qu'on peut déplacer | Terminée |
 | [v1.3.0](#v1-3-0) | Base de l'interface | À faire |
 | [v1.4.0](#v1-4-0) | Un thon qui nage | À faire |
 | [v1.5.0](#v1-5-0) | Le thon évite les parois et le sol | À faire |
@@ -52,6 +52,7 @@ Chaque petite version ci-dessous est une étape qu'on peut montrer : on la déve
 ### v1.2.0 — Caméra {#v1-2-0}
 
 - Caméra qui tourne autour de l'aquarium, avec zoom à la souris.
+- Déplacement au clavier du point que la caméra regarde.
 
 **Terminée quand** : on peut regarder l'aquarium sous tous les angles.
 
