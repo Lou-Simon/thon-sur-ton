@@ -30,7 +30,7 @@ Une grande version par itération. Chaque petite version `vX.Y.Z` : tâches sur 
 
 - [x] [v1.0.0](/versions#v1-0-0) : projet Godot et aquarium vide
 - [x] [v1.1.0](/versions#v1-1-0) : sol de sable avec du relief, ambiance sous-marine
-- [ ] [v1.2.0](/versions#v1-2-0) : caméra qu'on peut déplacer
+- [x] [v1.2.0](/versions#v1-2-0) : caméra qu'on peut déplacer
 - [ ] [v1.3.0](/versions#v1-3-0) : base de l'interface
 - [ ] [v1.4.0](/versions#v1-4-0) : un thon qui nage
 - [ ] [v1.5.0](/versions#v1-5-0) : le thon évite les parois et le sol
