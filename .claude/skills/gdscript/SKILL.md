@@ -51,7 +51,8 @@ Un dossier par partie, avec la scène et son script côte à côte **(choix du p
 
 ```
 godot/
-  aquarium/     parois, sol, lumière, ambiance, caméra
+  aquarium/     parois, sol, lumière, ambiance, caméra, rayons
+  decor/        plantes, coraux, bulles, plancton (v1.7.0)
   thon/         thon.tscn, thon.gd
   obstacles/    rocher, requin, bateau, filet
   interface/    curseurs, thème

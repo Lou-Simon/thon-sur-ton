@@ -1,0 +1,115 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://accueil/accueil.gd" id="1_accueil"]
+[ext_resource type="Theme" path="res://interface/theme.tres" id="2_theme"]
+[ext_resource type="Texture2D" path="res://accueil/logo.png" id="3_logo"]
+[ext_resource type="Script" path="res://accueil/titre.gd" id="4_titre"]
+[ext_resource type="Script" path="res://accueil/sauts.gd" id="5_sauts"]
+[ext_resource type="Script" path="res://accueil/ciel_vivant.gd" id="6_ciel_vivant"]
+
+[node name="Accueil" type="Node3D"]
+script = ExtResource("1_accueil")
+
+[node name="Ciel" type="WorldEnvironment" parent="."]
+
+[node name="Soleil" type="DirectionalLight3D" parent="."]
+light_color = Color(1, 0.78, 0.55, 1)
+
+[node name="Mer" type="MeshInstance3D" parent="."]
+
+[node name="Sauts" type="Node3D" parent="."]
+script = ExtResource("5_sauts")
+
+[node name="CielVivant" type="Node3D" parent="."]
+script = ExtResource("6_ciel_vivant")
+
+[node name="Camera" type="Camera3D" parent="."]
+position = Vector3(0, 3, 0)
+rotation = Vector3(0.1, 0, 0)
+
+[node name="Interface" type="CanvasLayer" parent="."]
+
+[node name="Racine" type="Control" parent="Interface"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("2_theme")
+
+[node name="Logo" type="TextureRect" parent="Interface/Racine"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.02
+anchor_top = 0.03
+anchor_right = 0.11
+anchor_bottom = 0.19
+texture = ExtResource("3_logo")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Centre" type="VBoxContainer" parent="Interface/Racine"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1
+anchor_top = 0.1
+anchor_right = 0.9
+anchor_bottom = 0.78
+mouse_filter = 2
+
+[node name="Titre" type="HBoxContainer" parent="Interface/Racine/Centre"]
+unique_name_in_owner = true
+layout_mode = 2
+alignment = 1
+script = ExtResource("4_titre")
+texte = "THON-SUR-THON"
+
+[node name="SousTitre" type="Label" parent="Interface/Racine/Centre"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"SousTitreAccueil"
+text = "le projet qui vous fait thon-ber par terre"
+horizontal_alignment = 1
+
+[node name="Espace" type="Control" parent="Interface/Racine/Centre"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="Boutons" type="VBoxContainer" parent="Interface/Racine/Centre"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Plonger" type="Button" parent="Interface/Racine/Centre/Boutons"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Plonger"
+
+[node name="Quitter" type="Button" parent="Interface/Racine/Centre/Boutons"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Quitter"
+
+[node name="Credits" type="VBoxContainer" parent="Interface/Racine"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.9
+anchor_right = 1.0
+anchor_bottom = 0.98
+mouse_filter = 2
+alignment = 2
+
+[node name="Auteurs" type="Label" parent="Interface/Racine/Credits"]
+layout_mode = 2
+theme_type_variation = &"Credits"
+text = "Lou et Simon · M2 ILIADE · Fait avec Godot Engine"
+horizontal_alignment = 1
+
+[node name="Licences" type="Label" parent="Interface/Racine/Credits"]
+layout_mode = 2
+theme_type_variation = &"Credits"
+text = "Logo Godot : godotengine.org, CC BY 4.0 · Police Rubik Dirt : SIL Open Font License"
+horizontal_alignment = 1
