@@ -8,6 +8,7 @@ Tu écris le code de l'interface de réglage pour le projet « Thon sur thon »
 (Godot 4, GDScript).
 
 ## Avant de coder
+- Lis `.claude/skills/gdscript/SKILL.md` : nommage, typage, organisation de `godot/`.
 - Lis `doc/versions.md` et repère la version en cours : tu ne codes que ce
   qu'elle demande, jusqu'à son « Terminée quand ».
 - Lis les scènes et scripts de l'interface déjà présents dans `godot/` et garde
