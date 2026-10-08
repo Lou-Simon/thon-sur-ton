@@ -21,7 +21,7 @@ Chaque petite version ci-dessous est une étape qu'on peut montrer : on la déve
 | [v1.3.0](#v1-3-0) | Base de l'interface | Terminée |
 | [v1.4.0](#v1-4-0) | Un thon qui nage | Terminée |
 | [v1.5.0](#v1-5-0) | Le thon évite les parois et le sol | Terminée |
-| [v1.6.0](#v1-6-0) | Embellir l'aquarium | À faire |
+| [v1.6.0](#v1-6-0) | Embellir l'aquarium | Terminée |
 | [v1.7.0](#v1-7-0) | Décor vivant | À faire |
 | [v1.8.0](#v1-8-0) | Écran d'accueil | À faire |
 | [v1.9.0](#v1-9-0) | La plongée | À faire |
