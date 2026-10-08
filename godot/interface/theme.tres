@@ -55,6 +55,38 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bouton_panneau"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+bg_color = Color(0.05, 0.09, 0.16, 0.6)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.9529412, 0.91764706, 0.84705883, 0.6)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bouton_panneau_survol"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+bg_color = Color(0.05, 0.09, 0.16, 0.8)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.9490196, 0.7607843, 0.1882353, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
 [resource]
 default_font_size = 24
 Label/colors/font_color = Color(1, 1, 1, 1)
@@ -87,3 +119,11 @@ TitreAccueil/colors/font_shadow_color = Color(0.043137256, 0.078431375, 0.149019
 TitreAccueil/constants/shadow_offset_y = 5
 TitreAccueil/font_sizes/font_size = 96
 TitreAccueil/fonts/font = ExtResource("1_rubik")
+Groupe/base_type = &"Label"
+Groupe/colors/font_color = Color(0.9529412, 0.91764706, 0.84705883, 1)
+Groupe/font_sizes/font_size = 28
+BoutonPanneau/base_type = &"Button"
+BoutonPanneau/font_sizes/font_size = 24
+BoutonPanneau/styles/normal = SubResource("StyleBoxFlat_bouton_panneau")
+BoutonPanneau/styles/hover = SubResource("StyleBoxFlat_bouton_panneau_survol")
+BoutonPanneau/styles/pressed = SubResource("StyleBoxFlat_bouton_panneau_survol")
