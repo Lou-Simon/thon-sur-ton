@@ -119,7 +119,31 @@ Ce qui a été fait par rapport au découpage ci-dessus. Les choix sont ceux de 
 | --- | --- | --- | --- |
 | [v1.6.0](/versions#v1-6-0) | Océan ouvert, rendu cartoon, rayons, reflets | Plus d'arêtes ; sable jusqu'à l'horizon (dunes qui s'aplatissent, puis un grand plan effacé par le brouillard) ; mode toon de Godot sur le sable et le thon ; 18 rayons verticaux aux bords doux qui respirent ; reflets par un petit shader sur le sable | Pas de contour noir autour des objets (le mode toon n'en fait pas). Rayons verticaux, pas inclinés. En toon, le relief des dunes se voit moins. |
 | [v1.7.0](/versions#v1-7-0) | Bulles, particules, plantes et coraux que le thon contourne | 4 massifs dans l'aquarium (algues, coraux ronds et branchus, herbes) ; 40 éléments autour ; bulles et plancton ; contournement par la même rampe linéaire que les parois | Décor identique à chaque lancement (graine fixe). Les algues hautes (7 à 12) occupent une bonne part de l'aquarium : à revoir avec le banc de la V2. |
-| [v1.8.0](/versions#v1-8-0) | Ciel, surface, titre, sous-titre, logo, boutons, crédits | Scène d'accueil lancée au démarrage : ciel couchant et mer en deux petits shaders, caméra qui houle, logo détouré, boutons, crédits ; police Rubik Dirt. Animations demandées par Simon : entrée en scène (lettres du titre qui tombent avec un rebond, puis sous-titre et boutons), titre qui flotte en vague, thons qui sautent avec une gerbe d'écume, nuages et mouettes | « Plonger » ne fait rien tant que la plongée (v1.9.0) n'est pas faite : on lance l'aquarium seul depuis l'éditeur (F6). |
-| [v1.9.0](/versions#v1-9-0) | Plongée et remontée | à faire | |
+| [v1.8.0](/versions#v1-8-0) | Ciel, surface, titre, sous-titre, logo, boutons, crédits | Scène d'accueil lancée au démarrage : ciel couchant et mer en deux petits shaders, caméra qui houle, logo détouré, boutons, crédits ; police Rubik Dirt. Animations demandées par Simon : entrée en scène (lettres du titre qui tombent avec un rebond, puis sous-titre et boutons), titre qui flotte en vague, thons qui sautent avec une gerbe d'écume, nuages et mouettes | Chaque scène se lance encore seule depuis l'éditeur (F6). |
+| [v1.9.0](/versions#v1-9-0) | Plongée et remontée | Une scène principale réunit l'accueil (au-dessus) et l'aquarium (en dessous). La caméra passe par quatre points en 9 s : accueil, ras de l'eau, sous la surface, vue de départ. À la surface, l'ambiance, la lumière et le monde affiché basculent, et une gerbe de bulles passe devant la caméra. `Échap` remonte en 5 s par le même chemin. | Pas de surface visible depuis le dessous de l'eau. |
 
 Les formules et leurs essais sont notés dans le skill `boids` du dépôt, les couleurs dans [Interface et ergonomie](/interface).
+
+## Captures {#captures}
+
+Images rendues par Godot pendant le développement (8 octobre 2026), à remplacer par des captures de la machine de soutenance.
+
+![L'écran d'accueil : titre, sous-titre, boutons, coucher de soleil, mouettes et gerbe d'un thon qui replonge](/captures/accueil.jpg)
+
+*v1.8.0 — L'accueil, une fois l'entrée en scène terminée.*
+
+![La caméra plonge vers la mer couchante](/captures/plongee-surface.jpg)
+
+*v1.9.0 — Le début de la plongée, juste avant la surface.*
+
+![Sous la surface, la caméra découvre le fond d'en haut](/captures/plongee-sous-l-eau.jpg)
+
+*v1.9.0 — Sous la surface : les massifs, les rayons et les reflets sur le sable.*
+
+![Le décor vivant vu de près : algues, coraux, herbes, bulles](/captures/decor-vivant.jpg)
+
+*v1.7.0 — Le décor vivant.*
+
+![L'arrivée à la vue de départ, avec le panneau Réglages](/captures/aquarium-arrivee.jpg)
+
+*v1.9.0 — L'arrivée : la main passe à l'utilisateur.*

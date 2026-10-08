@@ -48,7 +48,7 @@ Les contrôles sont décidés au fil des versions et notés ici, pour rester les
 | Relancer la simulation | à définir | v2.3.0 |
 | Quitter l'application | bouton « Quitter » de l'accueil (`Entrée` déclenche le bouton qui a le focus, « Plonger » au lancement) | v1.8.0 |
 | Passer l'entrée en scène de l'accueil | clic ou n'importe quelle touche | v1.8.0 |
-| Passer la plongée | clic ou `Entrée` (proposition) | v1.9.0 |
+| Passer la plongée ou la remontée | clic ou `Entrée` | v1.9.0 |
 | Revenir à l'accueil | `Échap`, la caméra remonte à la surface | v1.9.0 |
 
 ## Couleurs et lisibilité
