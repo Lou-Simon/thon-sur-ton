@@ -34,7 +34,7 @@ Une grande version par itération. Chaque petite version `vX.Y.Z` : tâches sur 
 - [x] [v1.3.0](/versions#v1-3-0) : base de l'interface
 - [x] [v1.4.0](/versions#v1-4-0) : un thon qui nage
 - [x] [v1.5.0](/versions#v1-5-0) : le thon évite les parois et le sol
-- [ ] [v1.6.0](/versions#v1-6-0) : embellir l'aquarium
+- [x] [v1.6.0](/versions#v1-6-0) : embellir l'aquarium
 - [ ] [v1.7.0](/versions#v1-7-0) : décor vivant
 - [ ] [v1.8.0](/versions#v1-8-0) : écran d'accueil
 - [ ] [v1.9.0](/versions#v1-9-0) : la plongée
