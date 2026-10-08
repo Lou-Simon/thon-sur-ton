@@ -59,6 +59,7 @@ Projet noté : suivre `doc/memoire/Bon usage des IA.pdf` (à relire en début de
 - Code : simple, et expliqué à Lou et Simon, qui doivent pouvoir justifier chaque ligne à l'oral.
 - Rapport et textes rendus : aider au plan, à la relecture et à la correction, sans rédiger à leur place.
 - Ne jamais inventer une référence, une formule ou un chiffre ; signaler ce qui est à vérifier.
+- Modèles 3D : ne jamais aller chercher sur internet un modèle tout fait (thon, requin, bateau, rocher, décor) ; les créer dans le projet.
 - Rien de `doc/memoire/` dans la nav, la sidebar ou les liens du site.
 
 @PRATIQUES-GIT.md
