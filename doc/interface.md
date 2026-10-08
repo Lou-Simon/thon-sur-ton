@@ -1,6 +1,6 @@
 # Interface et ergonomie
 
-*Proposition de Claude (8 octobre 2026), à valider par Lou et Simon.*
+*Proposition de Claude (8 octobre 2026), à valider par Lou et Simon. Les décisions de la v1.3.0 (touche `Tab`, panneau « Réglages », pas de rappel des contrôles à l'écran) sont validées par Lou.*
 
 Cette page est la référence pour tout ce qui s'affiche à l'écran : la scène 3D, les contrôles, les curseurs, l'écran de démarrage, et le site de documentation. La commande [`/ui`](#la-commande-ui) s'appuie sur elle.
 
@@ -28,7 +28,7 @@ Le contenu de chaque version est dans [Versions](/versions) : on ne construit l'
 | --- | --- | --- |
 | Aquarium et ambiance | [v1.0.0](/versions#v1-0-0), [v1.1.0](/versions#v1-1-0) | On distingue le fond, les parois et l'eau, sans que le brouillard noie les thons. |
 | Caméra | [v1.2.0](/versions#v1-2-0) | Mouvements doux, zoom borné (ni dans le sol, ni à perte de vue), retour à la vue de départ. |
-| Base de l'interface | [v1.3.0](/versions#v1-3-0) | Un seul thème, un panneau qui se replie d'une touche et ne bloque pas la caméra, les contrôles rappelés à l'écran. |
+| Base de l'interface | [v1.3.0](/versions#v1-3-0) | Un seul thème, un panneau « Réglages » placé à droite et affiché au lancement, qui se replie d'une touche et ne bloque pas la caméra. |
 | Thons et banc | [v1.4.0](/versions#v1-4-0) à [v2.2.0](/versions#v2-2-0) | Le sens de nage de chaque thon se lit d'un coup d'œil, et le banc se détache du décor. |
 | Curseurs de réglage | [v2.3.0](/versions#v2-3-0) | Nom clair, valeur affichée, bornes sensées, bouton « valeurs par défaut », bouton « relancer ». |
 | Requin, bateau, filet | [v3.0.0](/versions#v3-0-0) à [v3.4.0](/versions#v3-4-0) | Le danger se repère immédiatement, le compteur de captures est lisible. |
@@ -36,7 +36,7 @@ Le contenu de chaque version est dans [Versions](/versions) : on ne construit l'
 
 ## Contrôles
 
-Les contrôles sont décidés au fil des versions et notés ici, pour rester les mêmes partout et pouvoir les afficher à l'écran.
+Les contrôles sont décidés au fil des versions et notés ici, pour rester les mêmes partout.
 
 | Action | Contrôle | Décidé en |
 | --- | --- | --- |
@@ -44,7 +44,7 @@ Les contrôles sont décidés au fil des versions et notés ici, pour rester les
 | Zoomer | molette | v1.2.0 |
 | Déplacer le point regardé | touches physiques `W` `S` `A` `D` (`Z` `Q` `S` `D` sur un clavier AZERTY), `Espace` pour monter, `Maj` pour descendre | v1.2.0 |
 | Recentrer la caméra | touche physique `Origine` (Home) | v1.2.0 |
-| Afficher / masquer l'interface | à définir | v1.3.0 |
+| Afficher / masquer l'interface | touche physique `Tab` | v1.3.0 |
 | Relancer la simulation | à définir | v2.3.0 |
 | Quitter l'application | bouton « Quitter » de l'accueil | écran de démarrage |
 | Passer la plongée | clic ou `Entrée` (proposition) | écran de démarrage |
@@ -104,7 +104,7 @@ Elle passe la grille ci-dessous, classe ce qu'elle trouve, propose des correctio
 | Hiérarchie | La simulation reste-t-elle au premier plan ? L'interface se replie-t-elle ? |
 | Cohérence | Mêmes couleurs, mêmes mots, mêmes contrôles qu'ailleurs et que dans cette page ? |
 | Robustesse | Tient en fenêtre, en plein écran, à une autre résolution ? Aucun chevauchement ? |
-| Démo | Utilisable sous stress, sans manipulation compliquée ? Contrôles rappelés à l'écran ? |
+| Démo | Utilisable sous stress, sans manipulation compliquée ? |
 | Simplicité | Le code de l'interface s'explique-t-il facilement à l'oral ? |
 | Périmètre | Rien qui appartienne à une version future ? |
 

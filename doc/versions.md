@@ -60,7 +60,6 @@ Chaque petite version ci-dessous est une étape qu'on peut montrer : on la déve
 
 - Un seul `Theme` Godot pour toute l'interface (polices, tailles, couleurs).
 - Un panneau de réglage, encore vide, qu'on affiche ou masque d'une touche.
-- Rappel des contrôles de la caméra à l'écran.
 - Le panneau ne bloque pas la caméra : à côté du panneau, la souris fait toujours tourner la vue.
 
 Les règles à suivre sont dans [Interface et ergonomie](/interface).
