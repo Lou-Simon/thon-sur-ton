@@ -36,7 +36,7 @@ func _ready() -> void:
 
 # Mise à jour en deux temps : une première boucle où tous les thons décident, puis une seconde
 # où tous avancent.
-# Pourquoi : chaque thon décide à partir des positions du même instant. Avec une seule boucle,
+# Pourquoi : chaque thon décide à partir des positions et des vitesses du même instant. Avec une seule boucle,
 # le deuxième thon verrait le premier déjà déplacé, et le résultat dépendrait de l'ordre de la liste.
 func _physics_process(delta: float) -> void:
 	for thon: Thon in _banc:
