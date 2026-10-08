@@ -11,7 +11,7 @@ const SCENE_THON: PackedScene = preload("res://thon/thon.tscn")
 @export var dimensions: Vector3 = Vector3(40.0, 20.0, 20.0)
 ## Nombre de thons crees au lancement.
 ## Seul endroit ou ce nombre est ecrit : le curseur de la v2.3.0 le reglera ici.
-@export var nombre_thons: int = 15
+@export var nombre_thons: int = 30
 
 # Tous les thons de l'aquarium. Chaque thon reçoit cette même liste, pas une copie.
 var _banc: Array[Thon] = []

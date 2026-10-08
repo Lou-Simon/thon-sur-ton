@@ -40,13 +40,13 @@ class_name Thon
 ## Poids du contournement des plantes et des coraux dans la somme des forces.
 @export var poids_obstacles: float = 30.0
 ## Distance jusqu'où le thon voit ses voisins, en unités Godot.
-@export var rayon_vision: float = 6.0
+@export var rayon_vision: float = 8.0
 ## Ouverture de l'angle mort derrière le thon, en degrés : la moitié de chaque côté de l'axe arrière.
 @export var angle_mort: float = 90.0
 ## Distance en dessous de laquelle un voisin est trop proche et repousse le thon, en unités Godot.
 @export var distance_separation: float = 3.0
 ## Poids de la séparation dans la somme des forces.
-@export var poids_separation: float = 30.0
+@export var poids_separation: float = 60.0
 ## Poids de l'alignement dans la somme des forces.
 @export var poids_alignement: float = 6.0
 ## Poids de la cohésion dans la somme des forces.
