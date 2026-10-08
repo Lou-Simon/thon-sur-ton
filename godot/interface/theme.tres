@@ -1,5 +1,7 @@
 [gd_resource type="Theme" format=3 uid="uid://bodtho3yfw5gb"]
 
+[ext_resource type="FontFile" path="res://interface/polices/RubikDirt-Regular.ttf" id="1_rubik"]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panneau"]
 content_margin_left = 24.0
 content_margin_top = 24.0
@@ -9,6 +11,50 @@ bg_color = Color(0.05, 0.09, 0.16, 0.8)
 border_width_left = 4
 border_color = Color(0.12156863, 0.43529412, 0.81960785, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bouton"]
+content_margin_left = 40.0
+content_margin_top = 10.0
+content_margin_right = 40.0
+content_margin_bottom = 10.0
+bg_color = Color(0.05, 0.09, 0.16, 0.6)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.9529412, 0.91764706, 0.84705883, 0.6)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bouton_survol"]
+content_margin_left = 40.0
+content_margin_top = 10.0
+content_margin_right = 40.0
+content_margin_bottom = 10.0
+bg_color = Color(0.05, 0.09, 0.16, 0.8)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.9490196, 0.7607843, 0.1882353, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bouton_focus"]
+draw_center = false
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.9490196, 0.7607843, 0.1882353, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
 [resource]
 default_font_size = 24
 Label/colors/font_color = Color(1, 1, 1, 1)
@@ -16,3 +62,28 @@ PanelContainer/styles/panel = SubResource("StyleBoxFlat_panneau")
 Titre/base_type = &"Label"
 Titre/colors/font_color = Color(0.9490196, 0.7607843, 0.1882353, 1)
 Titre/font_sizes/font_size = 36
+Button/colors/font_color = Color(0.9529412, 0.91764706, 0.84705883, 1)
+Button/colors/font_hover_color = Color(0.9490196, 0.7607843, 0.1882353, 1)
+Button/colors/font_focus_color = Color(0.9490196, 0.7607843, 0.1882353, 1)
+Button/colors/font_pressed_color = Color(0.9490196, 0.7607843, 0.1882353, 1)
+Button/font_sizes/font_size = 36
+Button/fonts/font = ExtResource("1_rubik")
+Button/styles/normal = SubResource("StyleBoxFlat_bouton")
+Button/styles/hover = SubResource("StyleBoxFlat_bouton_survol")
+Button/styles/pressed = SubResource("StyleBoxFlat_bouton_survol")
+Button/styles/focus = SubResource("StyleBoxFlat_bouton_focus")
+Credits/base_type = &"Label"
+Credits/colors/font_color = Color(0.9529412, 0.91764706, 0.84705883, 0.85)
+Credits/font_sizes/font_size = 16
+SousTitreAccueil/base_type = &"Label"
+SousTitreAccueil/colors/font_color = Color(0.9529412, 0.91764706, 0.84705883, 1)
+SousTitreAccueil/colors/font_shadow_color = Color(0.043137256, 0.078431375, 0.14901961, 0.5)
+SousTitreAccueil/constants/shadow_offset_y = 3
+SousTitreAccueil/font_sizes/font_size = 32
+SousTitreAccueil/fonts/font = ExtResource("1_rubik")
+TitreAccueil/base_type = &"Label"
+TitreAccueil/colors/font_color = Color(0.9529412, 0.91764706, 0.84705883, 1)
+TitreAccueil/colors/font_shadow_color = Color(0.043137256, 0.078431375, 0.14901961, 0.6)
+TitreAccueil/constants/shadow_offset_y = 5
+TitreAccueil/font_sizes/font_size = 96
+TitreAccueil/fonts/font = ExtResource("1_rubik")
