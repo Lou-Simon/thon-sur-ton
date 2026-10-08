@@ -30,6 +30,7 @@ La référence est `doc/interface.md` : principes, contrôles, couleurs, règles
 
 ## 4. Mise en œuvre (seulement après accord)
 - Sur une branche `feature/*`, jamais sur `main`.
+- Le code des curseurs et de l'interface de réglage est confié à l'agent `interface`, avec la proposition validée.
 - Suivre les règles « Côté Godot » de `doc/interface.md` : `Theme` unique, conteneurs et ancres, actions de l'`InputMap`.
 - Code court et simple, que Lou et Simon pourront expliquer à l'oral. Pour chaque choix non évident, l'expliquer dans la réponse.
 - Si une décision change la charte (contrôle, couleur d'un objet, choix de l'écran de démarrage), mettre à jour `doc/interface.md` dans la même tâche.
