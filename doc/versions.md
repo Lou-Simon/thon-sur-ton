@@ -18,7 +18,7 @@ Chaque petite version ci-dessous est une étape qu'on peut montrer : on la déve
 | [v1.0.0](#v1-0-0) | Projet Godot et aquarium vide | Terminée |
 | [v1.1.0](#v1-1-0) | Sol de sable avec du relief, ambiance sous-marine | Terminée |
 | [v1.2.0](#v1-2-0) | Caméra qu'on peut déplacer | Terminée |
-| [v1.3.0](#v1-3-0) | Base de l'interface | À faire |
+| [v1.3.0](#v1-3-0) | Base de l'interface | Terminée |
 | [v1.4.0](#v1-4-0) | Un thon qui nage | À faire |
 | [v1.5.0](#v1-5-0) | Le thon évite les parois et le sol | À faire |
 | [v2.0.0](#v2-0-0) | Plusieurs thons qui ne se cognent pas | À faire |
@@ -60,7 +60,6 @@ Chaque petite version ci-dessous est une étape qu'on peut montrer : on la déve
 
 - Un seul `Theme` Godot pour toute l'interface (polices, tailles, couleurs).
 - Un panneau de réglage, encore vide, qu'on affiche ou masque d'une touche.
-- Rappel des contrôles de la caméra à l'écran.
 - Le panneau ne bloque pas la caméra : à côté du panneau, la souris fait toujours tourner la vue.
 
 Les règles à suivre sont dans [Interface et ergonomie](/interface).

@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://bx5xqa4fiis6g" path="res://aquarium/sol.gd" id="2_sol"]
 [ext_resource type="Script" uid="uid://lok43c2l8u4p" path="res://aquarium/ambiance.gd" id="3_ambiance"]
 [ext_resource type="Script" uid="uid://dmf2ids5tiuth" path="res://aquarium/camera.gd" id="4_camera"]
+[ext_resource type="PackedScene" path="res://interface/interface.tscn" id="5_interface"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aretes"]
 shading_mode = 0
@@ -25,3 +26,5 @@ transform = Transform3D(0.70710677, -0.5, 0.5, 0, 0.70710677, 0.70710677, -0.707
 
 [node name="Camera" type="Camera3D" parent="." unique_id=1771163227]
 script = ExtResource("4_camera")
+
+[node name="Interface" parent="." unique_id=1501916604 instance=ExtResource("5_interface")]
