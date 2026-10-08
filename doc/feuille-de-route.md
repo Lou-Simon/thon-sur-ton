@@ -34,6 +34,10 @@ Une grande version par itération. Chaque petite version `vX.Y.Z` : tâches sur 
 - [x] [v1.3.0](/versions#v1-3-0) : base de l'interface
 - [x] [v1.4.0](/versions#v1-4-0) : un thon qui nage
 - [ ] [v1.5.0](/versions#v1-5-0) : le thon évite les parois et le sol
+- [ ] [v1.6.0](/versions#v1-6-0) : embellir l'aquarium
+- [ ] [v1.7.0](/versions#v1-7-0) : décor vivant
+- [ ] [v1.8.0](/versions#v1-8-0) : écran d'accueil
+- [ ] [v1.9.0](/versions#v1-9-0) : la plongée
 
 ### V2 — Le banc et le rocher
 
@@ -52,7 +56,7 @@ Une grande version par itération. Chaque petite version `vX.Y.Z` : tâches sur 
 
 ### Si on a le temps
 
-- [ ] Idées pour plus tard (voir [versions](/versions#idees-pour-plus-tard)) : plusieurs rochers et des algues, courant, grille spatiale
+- [ ] Idées pour plus tard (voir [versions](/versions#idees-pour-plus-tard)) : plusieurs rochers, courant, grille spatiale
 
 ### En continu
 
@@ -64,7 +68,7 @@ Une grande version par itération. Chaque petite version `vX.Y.Z` : tâches sur 
 *Review global, travail sur le rendu, les démos et l'oral.*
 
 - [ ] Relecture globale du code, nettoyage, fusion de la dernière version dans `main`
-- [ ] Écran de démarrage : brainstorm puis réalisation (voir [écran de démarrage](/ecran-de-demarrage))
+- [x] Écran de démarrage : brainstorm ([écran de démarrage](/ecran-de-demarrage)), réalisé en V1 ([v1.6.0](/versions#v1-6-0) à [v1.9.0](/versions#v1-9-0))
 - [ ] Préparer des scénarios de démo (réglages prêts, reproductibles)
 - [ ] Enregistrer une vidéo de secours si la démo en direct plante
 - [ ] Rapport : modèle, résultats, usage des agents Claude
