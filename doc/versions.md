@@ -23,7 +23,7 @@ Chaque petite version ci-dessous est une étape qu'on peut montrer : on la déve
 | [v1.5.0](#v1-5-0) | Le thon évite les parois et le sol | Terminée |
 | [v1.6.0](#v1-6-0) | Embellir l'aquarium | Terminée |
 | [v1.7.0](#v1-7-0) | Décor vivant | Terminée |
-| [v1.8.0](#v1-8-0) | Écran d'accueil | À faire |
+| [v1.8.0](#v1-8-0) | Écran d'accueil | Terminée |
 | [v1.9.0](#v1-9-0) | La plongée | À faire |
 | [v2.0.0](#v2-0-0) | Plusieurs thons qui ne se cognent pas | À faire |
 | [v2.1.0](#v2-1-0) | Les thons forment un banc | À faire |
