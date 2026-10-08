@@ -1,0 +1,34 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://interface/interface.gd" id="1_interface"]
+[ext_resource type="Theme" path="res://interface/theme.tres" id="2_theme"]
+
+[node name="Interface" type="CanvasLayer"]
+script = ExtResource("1_interface")
+
+[node name="Racine" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("2_theme")
+
+[node name="Panneau" type="PanelContainer" parent="Racine"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.75
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="Contenu" type="VBoxContainer" parent="Racine/Panneau"]
+layout_mode = 2
+
+[node name="Titre" type="Label" parent="Racine/Panneau/Contenu"]
+layout_mode = 2
+theme_type_variation = &"Titre"
+text = "Réglages"
