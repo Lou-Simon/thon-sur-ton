@@ -35,6 +35,7 @@ Version validée -> fusion dans `main`, tag `vX.Y.Z` (on garde la branche).
 
 ## Règles pour Claude
 - Ne jamais committer, pousser ou fusionner sans demande explicite.
+- Ouvrir une pull request seulement sur demande explicite ou via `/ship`. La relire et la fusionner reste à Lou et Simon.
 - Jamais de `git push --force`, de `reset --hard` ou de réécriture d'historique déjà poussé.
 - Ne jamais travailler directement sur `main`.
 - En cas de conflit, montrer le conflit et demander plutôt que trancher seul.
@@ -44,6 +45,7 @@ Pour livrer un travail, lancer `/ship` dans Claude Code (`/ship main` pour fusio
 1. relit le code modifié et signale les problèmes ;
 2. vérifie qu'aucun secret (clé, mot de passe, token, `.env`) ne part sur git ;
 3. committe avec un message au bon format et pousse la branche ;
-4. fusionne dans `main` et pose le tag, seulement si c'est demandé.
+4. ouvre la pull request de `feature/<nom>` vers `vX.Y.Z`, sans la fusionner ;
+5. fusionne dans `main` et pose le tag, seulement si c'est demandé.
 
 Elle respecte toutes les règles de ce document et s'arrête pour demander en cas de doute.
