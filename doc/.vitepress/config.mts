@@ -21,6 +21,7 @@ export default defineConfig({
           { text: 'Idée générale', link: '/idee-generale' },
           { text: 'Versions', link: '/versions' },
           { text: 'Interface et ergonomie', link: '/interface' },
+          { text: 'Écran de démarrage', link: '/ecran-de-demarrage' },
         ],
       },
       {
