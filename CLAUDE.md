@@ -31,6 +31,7 @@ godot/
   aquarium/   boîte, sable (shader des reflets), ambiance, rayons, caméra
   decor/      plantes, coraux, bulles, plancton ; obstacles que le thon contourne
   thon/       comportement (thon.gd) et apparence (modele_thon.gd) du thon
+  obstacles/  rocher (v2.2.0) ; requin, bateau et filet à venir
   interface/  thème, panneau de réglage, police Rubik Dirt (OFL)
   mesures/    scripts de mesure sans fenêtre (hors du jeu), pour choisir les poids sur des chiffres
 ```
@@ -47,7 +48,8 @@ cd doc && npm install && npm run dev
 cd doc && npm run build
 
 # Mesurer le banc sans fenêtre (5 minutes simulées ; `godot` = le binaire Godot 4)
-godot --headless --path godot/ --fixed-fps 60 -s mesures/mesure_banc.gd -- pa=6 pc=1 graine=1 n=18000
+# (arguments facultatifs : pa, pc, ps, rv, thons, hr, rocher=0, graine, n — voir l'en-tête du script)
+godot --headless --path godot/ --fixed-fps 60 -s mesures/mesure_banc.gd -- graine=1 n=18000
 ```
 
 ## Conventions
