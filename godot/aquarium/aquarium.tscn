@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://b2ok4xkwd0jdw"]
+
+[ext_resource type="Script" uid="uid://cs4yghet4ekgi" path="res://aquarium/aquarium.gd" id="1_aquarium"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aretes"]
+shading_mode = 0
+
+[node name="Aquarium" type="Node3D" unique_id=1714103018]
+script = ExtResource("1_aquarium")
+
+[node name="Aretes" type="MeshInstance3D" parent="." unique_id=878041267]
+material_override = SubResource("StandardMaterial3D_aretes")
+
+[node name="Lumiere" type="DirectionalLight3D" parent="." unique_id=989570937]
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0)
+
+[node name="Camera" type="Camera3D" parent="." unique_id=1771163227]
