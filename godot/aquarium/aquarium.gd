@@ -10,13 +10,16 @@ const SCENE_THON: PackedScene = preload("res://thon/thon.tscn")
 ## Seul endroit ou les dimensions sont ecrites : tout le reste les lit ici.
 @export var dimensions: Vector3 = Vector3(40.0, 20.0, 20.0)
 ## Nombre de thons crees au lancement.
-## Seul endroit ou ce nombre est ecrit : le curseur de la v2.3.0 le reglera ici.
+## Seul endroit ou ce nombre est ecrit : le curseur le regle ici, et il compte au prochain `relancer`.
 @export var nombre_thons: int = 30
 
 # Tous les thons de l'aquarium. Chaque thon reçoit cette même liste, pas une copie.
 var _banc: Array[Thon] = []
 # Tout ce que les thons contournent : les plantes et coraux du décor, puis le rocher.
 var _obstacles: Array[Obstacle] = []
+# Réglages changés par les curseurs : nom d'une variable `@export` du thon, et sa valeur.
+# Gardés ici pour que les thons créés par `relancer` les reçoivent aussi.
+var _reglages: Dictionary[StringName, float] = {}
 
 @onready var _camera: CameraAquarium = $Camera
 @onready var _sol: Sol = $Sol
@@ -38,6 +41,7 @@ func _ready() -> void:
 	# La caméra aussi, avec la hauteur des plus hautes dunes : elle doit rester au-dessus.
 	_camera.installer(dimensions, -dimensions.y / 2.0 + _sol.hauteur_dunes)
 	_creer_banc()
+	_interface.installer(self)
 
 
 # Mise à jour en deux temps : une première boucle où tous les thons décident, puis une seconde
@@ -64,6 +68,30 @@ func ceder_environnement() -> Environment:
 	return milieu
 
 
+## Donne la même valeur à un réglage de tous les thons. `reglage` est le nom d'une variable
+## `@export` du thon (`poids_separation`, `vitesse_max`…) : les thons la lisent à chaque pas,
+## le changement se voit donc tout de suite.
+func regler(reglage: StringName, valeur: float) -> void:
+	_reglages[reglage] = valeur
+	for thon: Thon in _banc:
+		thon.set(reglage, valeur)
+
+
+## Valeur actuelle d'un réglage des thons (tous ont la même).
+func reglage(nom: StringName) -> float:
+	return _banc[0].get(nom)
+
+
+## Retire tous les thons et en crée `nombre_thons` nouveaux, à des positions au hasard,
+## avec les réglages en cours.
+func relancer() -> void:
+	for thon: Thon in _banc:
+		thon.queue_free()
+	# On vide la liste sans la remplacer : c'est la même que celle que les thons reçoivent.
+	_banc.clear()
+	_creer_banc()
+
+
 ## Donne ou retire la main à l'utilisateur : la caméra répond aux commandes et
 ## le panneau de réglage s'affiche, ou rien ne bouge et le panneau est caché.
 func activer(oui: bool) -> void:
@@ -78,6 +106,9 @@ func activer(oui: bool) -> void:
 func _creer_banc() -> void:
 	for n: int in nombre_thons:
 		var thon: Thon = SCENE_THON.instantiate() as Thon
+		# Les réglages passent avant `add_child` : le `_ready` du thon lit déjà sa vitesse minimale.
+		for nom: StringName in _reglages:
+			thon.set(nom, _reglages[nom])
 		add_child(thon)
 		thon.position = _position_au_hasard(thon.portee_evitement)
 		# Le thon reçoit les parois, le sol, les obstacles et la liste de tous les thons.

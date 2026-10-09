@@ -32,3 +32,30 @@ layout_mode = 2
 layout_mode = 2
 theme_type_variation = &"Titre"
 text = "Réglages"
+
+[node name="Defilement" type="ScrollContainer" parent="Racine/Panneau/Contenu"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="Curseurs" type="VBoxContainer" parent="Racine/Panneau/Contenu/Defilement"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Boutons" type="VBoxContainer" parent="Racine/Panneau/Contenu"]
+layout_mode = 2
+
+[node name="Relancer" type="Button" parent="Racine/Panneau/Contenu/Boutons"]
+layout_mode = 2
+focus_mode = 0
+theme_type_variation = &"BoutonPanneau"
+text = "Relancer"
+
+[node name="ValeursParDefaut" type="Button" parent="Racine/Panneau/Contenu/Boutons"]
+layout_mode = 2
+focus_mode = 0
+theme_type_variation = &"BoutonPanneau"
+text = "Valeurs par défaut"
+
+[connection signal="pressed" from="Racine/Panneau/Contenu/Boutons/Relancer" to="." method="_sur_relancer"]
+[connection signal="pressed" from="Racine/Panneau/Contenu/Boutons/ValeursParDefaut" to="." method="_sur_valeurs_par_defaut"]

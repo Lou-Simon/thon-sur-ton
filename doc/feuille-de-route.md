@@ -44,7 +44,7 @@ Une grande version par itération. Chaque petite version `vX.Y.Z` : tâches sur 
 - [x] [v2.0.0](/versions#v2-0-0) : plusieurs thons qui ne se cognent pas
 - [x] [v2.1.0](/versions#v2-1-0) : les thons forment un banc
 - [x] [v2.2.0](/versions#v2-2-0) : un rocher que le banc contourne
-- [ ] [v2.3.0](/versions#v2-3-0) : curseurs de réglage
+- [x] [v2.3.0](/versions#v2-3-0) : curseurs de réglage
 
 ### V3 — Le requin et le bateau de pêche
 
