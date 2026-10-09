@@ -11,15 +11,18 @@ const SCENE_THON: PackedScene = preload("res://thon/thon.tscn")
 @export var dimensions: Vector3 = Vector3(40.0, 20.0, 20.0)
 ## Nombre de thons crees au lancement.
 ## Seul endroit ou ce nombre est ecrit : le curseur de la v2.3.0 le reglera ici.
-@export var nombre_thons: int = 15
+@export var nombre_thons: int = 30
 
 # Tous les thons de l'aquarium. Chaque thon reçoit cette même liste, pas une copie.
 var _banc: Array[Thon] = []
+# Tout ce que les thons contournent : les plantes et coraux du décor, puis le rocher.
+var _obstacles: Array[Obstacle] = []
 
 @onready var _camera: CameraAquarium = $Camera
 @onready var _sol: Sol = $Sol
 @onready var _rayons: Rayons = $Rayons
 @onready var _decor: Decor = $Decor
+@onready var _rocher: Rocher = $Rocher
 @onready var _ambiance: Ambiance = $Ambiance
 @onready var _interface: Interface = $Interface
 
@@ -29,6 +32,9 @@ func _ready() -> void:
 	_sol.construire(dimensions)
 	_rayons.construire(dimensions)
 	_decor.construire(dimensions, _sol)
+	_rocher.construire(_sol)
+	_obstacles = _decor.obstacles().duplicate()
+	_obstacles.append(_rocher.obstacle())
 	# La caméra aussi, avec la hauteur des plus hautes dunes : elle doit rester au-dessus.
 	_camera.installer(dimensions, -dimensions.y / 2.0 + _sol.hauteur_dunes)
 	_creer_banc()
@@ -74,18 +80,21 @@ func _creer_banc() -> void:
 		var thon: Thon = SCENE_THON.instantiate() as Thon
 		add_child(thon)
 		thon.position = _position_au_hasard(thon.portee_evitement)
-		# Le thon reçoit les parois, le sol, les obstacles du décor et la liste de tous les thons.
-		thon.installer(dimensions, _sol, _decor.obstacles(), _banc)
+		# Le thon reçoit les parois, le sol, les obstacles et la liste de tous les thons.
+		thon.installer(dimensions, _sol, _obstacles, _banc)
 		_banc.append(thon)
 
 
-# Un point au hasard dans l'aquarium, à plus de `marge` des parois et du sable.
-# La marge est la portée d'évitement du thon : au départ, aucune paroi ne le repousse.
-# Le décor n'est pas pris en compte : un thon peut naître dans une plante, et le contournement l'en fait sortir.
+# Un point au hasard dans l'aquarium, à plus de `marge` des parois, du sable et des obstacles.
+# La marge est la portée d'évitement du thon : au départ, rien ne le repousse.
 func _position_au_hasard(marge: float) -> Vector3:
 	var demi: Vector3 = dimensions / 2.0
-	var x: float = randf_range(-demi.x + marge, demi.x - marge)
-	var z: float = randf_range(-demi.z + marge, demi.z - marge)
-	# Le bas part du sable à cet endroit, pas du fond de la boîte : les dunes montent plus haut.
-	var y: float = randf_range(_sol.hauteur_sable(x, z) + marge, demi.y - marge)
-	return Vector3(x, y, z)
+	while true:
+		var x: float = randf_range(-demi.x + marge, demi.x - marge)
+		var z: float = randf_range(-demi.z + marge, demi.z - marge)
+		# Le bas part du sable à cet endroit, pas du fond de la boîte : les dunes montent plus haut.
+		var y: float = randf_range(_sol.hauteur_sable(x, z) + marge, demi.y - marge)
+		var point: Vector3 = Vector3(x, y, z)
+		if not _obstacles.any(func(o: Obstacle) -> bool: return o.ecart(point).length() < o.rayon + marge):
+			return point
+	return Vector3.ZERO
