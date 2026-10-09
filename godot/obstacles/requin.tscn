@@ -1,0 +1,10 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://obstacles/requin.gd" id="1_requin"]
+[ext_resource type="Script" path="res://obstacles/modele_requin.gd" id="2_modele"]
+
+[node name="Requin" type="Node3D"]
+script = ExtResource("1_requin")
+
+[node name="Modele" type="Node3D" parent="."]
+script = ExtResource("2_modele")
