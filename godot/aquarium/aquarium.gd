@@ -5,6 +5,7 @@ class_name Aquarium
 
 # La scène d'un thon : l'aquarium en crée `nombre_thons` copies.
 const SCENE_THON: PackedScene = preload("res://thon/thon.tscn")
+const SCENE_REQUIN: PackedScene = preload("res://obstacles/requin.tscn")
 
 ## Longueur (x), hauteur (y) et profondeur (z) de l'aquarium, en unites Godot.
 ## Seul endroit ou les dimensions sont ecrites : tout le reste les lit ici.
@@ -20,6 +21,8 @@ var _obstacles: Array[Obstacle] = []
 # Réglages changés par les curseurs : nom d'une variable `@export` du thon, et sa valeur.
 # Gardés ici pour que les thons créés par `relancer` les reçoivent aussi.
 var _reglages: Dictionary[StringName, float] = {}
+# Le requin : ni dans `_banc` ni dans `_obstacles`, les thons ne le voient donc pas encore.
+var _requin: Requin
 
 @onready var _camera: CameraAquarium = $Camera
 @onready var _sol: Sol = $Sol
@@ -41,6 +44,7 @@ func _ready() -> void:
 	# La caméra aussi, avec la hauteur des plus hautes dunes : elle doit rester au-dessus.
 	_camera.installer(dimensions, -dimensions.y / 2.0 + _sol.hauteur_dunes)
 	_creer_banc()
+	_creer_requin()
 	_interface.installer(self)
 
 
@@ -51,8 +55,10 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	for thon: Thon in _banc:
 		thon.decider(delta)
+	_requin.decider(delta)
 	for thon: Thon in _banc:
 		thon.avancer(delta)
+	_requin.avancer(delta)
 
 
 ## La caméra de l'aquarium : la plongée la rejoint, puis lui laisse la main.
@@ -116,8 +122,19 @@ func _creer_banc() -> void:
 		_banc.append(thon)
 
 
+# Crée le requin, enfant direct de l'aquarium comme les thons. Il n'est créé qu'une fois :
+# `relancer` ne remplace que les thons.
+func _creer_requin() -> void:
+	_requin = SCENE_REQUIN.instantiate() as Requin
+	add_child(_requin)
+	_requin.position = _position_au_hasard(_requin.portee_evitement)
+	# Il reçoit les parois, le sol et les obstacles, mais une liste de thons vide : il n'a pas de banc.
+	var aucun_thon: Array[Thon] = []
+	_requin.installer(dimensions, _sol, _obstacles, aucun_thon)
+
+
 # Un point au hasard dans l'aquarium, à plus de `marge` des parois, du sable et des obstacles.
-# La marge est la portée d'évitement du thon : au départ, rien ne le repousse.
+# La marge est la portée d'évitement du poisson placé : au départ, rien ne le repousse.
 func _position_au_hasard(marge: float) -> Vector3:
 	var demi: Vector3 = dimensions / 2.0
 	while true:
