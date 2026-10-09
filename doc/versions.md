@@ -29,7 +29,7 @@ Chaque petite version ci-dessous est une étape qu'on peut montrer : on la déve
 | [v2.1.0](#v2-1-0) | Les thons forment un banc | Terminée |
 | [v2.2.0](#v2-2-0) | Un rocher que le banc contourne | Terminée |
 | [v2.3.0](#v2-3-0) | Curseurs de réglage | Terminée |
-| [v3.0.0](#v3-0-0) | Un requin qui nage | À faire |
+| [v3.0.0](#v3-0-0) | Un requin qui nage | Terminée |
 | [v3.1.0](#v3-1-0) | Le requin chasse | À faire |
 | [v3.2.0](#v3-2-0) | Les thons fuient le requin | À faire |
 | [v3.3.0](#v3-3-0) | Un bateau de pêche qui traîne un filet | À faire |
