@@ -21,7 +21,8 @@ var _obstacles: Array[Obstacle] = []
 # Réglages changés par les curseurs : nom d'une variable `@export` du thon, et sa valeur.
 # Gardés ici pour que les thons créés par `relancer` les reçoivent aussi.
 var _reglages: Dictionary[StringName, float] = {}
-# Le requin : ni dans `_banc` ni dans `_obstacles`, les thons ne le voient donc pas encore.
+# Le requin : il reçoit `_banc` pour voir les thons, mais il n'est ni dans `_banc` ni dans
+# `_obstacles` : les thons, eux, ne le voient pas.
 var _requin: Requin
 
 @onready var _camera: CameraAquarium = $Camera
@@ -93,7 +94,7 @@ func reglage(nom: StringName) -> float:
 func relancer() -> void:
 	for thon: Thon in _banc:
 		thon.queue_free()
-	# On vide la liste sans la remplacer : c'est la même que celle que les thons reçoivent.
+	# On vide la liste sans la remplacer : c'est la même que celle que les thons et le requin reçoivent.
 	_banc.clear()
 	_creer_banc()
 
@@ -128,9 +129,8 @@ func _creer_requin() -> void:
 	_requin = SCENE_REQUIN.instantiate() as Requin
 	add_child(_requin)
 	_requin.position = _position_au_hasard(_requin.portee_evitement)
-	# Il reçoit les parois, le sol et les obstacles, mais une liste de thons vide : il n'a pas de banc.
-	var aucun_thon: Array[Thon] = []
-	_requin.installer(dimensions, _sol, _obstacles, aucun_thon)
+	# Il reçoit la même liste de thons qu'eux, pour y chercher sa proie, sans y être ajouté.
+	_requin.installer(dimensions, _sol, _obstacles, _banc)
 
 
 # Un point au hasard dans l'aquarium, à plus de `marge` des parois, du sable et des obstacles.
