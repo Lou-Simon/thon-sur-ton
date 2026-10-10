@@ -26,6 +26,7 @@ demande. On n'invente ni formule, ni valeur, ni référence.
 | Séparation | v2.0.0 | Le thon s'écarte des voisins trop proches. | voir [Séparation](#separation) | choix de Lou, rampe validée par Simon |
 | Alignement | v2.1.0 | Le thon nage dans la même direction que ses voisins. | voir [Alignement et cohésion](#alignement-cohesion) | Reynolds, à vérifier |
 | Cohésion | v2.1.0 | Le thon se rapproche du centre de ses voisins. | voir [Alignement et cohésion](#alignement-cohesion) | Reynolds, à vérifier |
+| Poursuite (requin) | v3.1.0 | Le requin suit le thon le plus proche qu'il voit, sans jamais l'attraper. | voir [Poursuite](#poursuite) | choix de Lou |
 | Fuite | v3.2.0, v3.4.0 | Un thon qui voit le requin ou le filet s'en éloigne, d'autant plus fort qu'il est proche. | à écrire | à renseigner |
 
 ## Les paramètres
@@ -43,6 +44,7 @@ demande. On n'invente ni formule, ni valeur, ni référence.
 | Poids de l'alignement et de la cohésion | Importance de chaque force dans la somme (voir [Alignement et cohésion](#alignement-cohesion)). | 6 et 1 (Lou, 8 oct. 2026, d'après des essais) |
 | Distance, rayon, hasard de l'errance | Forme de l'errance (voir [Errance](#errance)). | 2, 2 et 3 : proposition de Claude, à régler à l'écran |
 | Poids de l'errance | Importance de l'errance dans la somme. | 1 (valeur du code depuis la v1.4.0, source à noter par Lou et Simon) |
+| Poids de la poursuite et distance de suivi | Requin seulement (voir [Poursuite](#poursuite)). | 10 et 4 (Lou, 10 oct. 2026, d'après des mesures : voir [Poursuite](#poursuite)), à régler à l'écran et à valider par Simon |
 | Poids de la fuite | Importance de la fuite dans la somme (v3). | à fixer |
 
 Les poids, les vitesses et le rayon de vision sont réglables par curseur (v2.3.0).
@@ -214,3 +216,44 @@ Valeurs : essais sans fenêtre (Godot 4.7.2), 15 thons, 5 minutes simulées, 3 s
 | 6 / 6 | 100 % | 0,98 | 0,88 | 0 à 72 |
 
 Retenu : 6 et 1, le couple qui forme un seul banc en gardant les thons le plus écartés. Pas d'essai au-delà de 6, et pas encore regardé à l'écran.
+
+### Poursuite (requin) {#poursuite}
+
+Choisie par Lou le 10 octobre 2026 (v3.1.0), à valider par Simon. Code : `godot/obstacles/requin.gd`.
+
+Le requin voit les thons comme un thon voit ses voisins (voir [Vision et séparation](#separation)), avec les mêmes valeurs par défaut (rayon de vision 8, angle mort 90°). Les curseurs ne règlent que les thons : le requin garde ces valeurs. Les thons, eux, ne le voient pas encore. Sa proie est le plus proche des thons qu'il voit.
+
+Le requin ne l'attrape jamais : il se tient à la distance de suivi `d`, comme au bout d'un ressort.
+
+`F = normaliser(p_proie - p_requin) · (δ - d)`, avec `δ = |p_proie - p_requin|`, puis la force s'ajoute avec le poids `w_p`.
+
+- Plus loin que `d` : la force tire le requin vers la proie, il accélère.
+- Plus près que `d` : la force le repousse, il ralentit.
+- Sans thon vu, elle vaut zéro : le requin garde l'errance, l'évitement et le contournement.
+
+| Symbole | Sens |
+| --- | --- |
+| `p_proie` | position du thon vu le plus proche |
+| `p_requin` | position du requin |
+| `δ` | distance entre le requin et sa proie |
+| `d` | distance de suivi |
+| `w_p` | poids de la poursuite |
+
+Le requin n'a ni séparation, ni alignement, ni cohésion. Il n'y a ni capture ni compteur : les prises sont prévues pour le filet (v3.4.0).
+
+Source : pas d'article, proposition de Claude retenue par Lou. Première idée, abandonnée le 10 octobre 2026 : `F = p_proie - p_requin` avec capture à moins de 2. Sur un essai sans fenêtre (graine 1), le requin capturait 27 thons sur 30 en 25 secondes.
+
+Deux allures (Lou, 10 octobre 2026) : la vitesse maximale du requin glisse vers 2,5 sans proie en vue (patrouille) et vers 4,5 avec une proie (chasse), de 2 par seconde au plus pour ne pas changer d'un coup. Les trois valeurs sont des propositions de Claude, à régler à l'écran. Le glissement de 2 par seconde est un ajout de Claude, à confirmer.
+
+Mesures : essais sans fenêtre faits par Claude (Godot 4.7.2, 30 thons, 5 minutes simulées) avec un script de diagnostic hors du dépôt. « Proie en vue » : part des pas où le requin voit au moins un thon. Les deux autres colonnes : part des pas où le thon le plus proche du requin est à plus de 8, ou à moins de 2.
+
+| Réglage | Graines | Proie en vue | À plus de 8 | À moins de 2 |
+| --- | --- | --- | --- | --- |
+| Sans poursuite (poids 0), vitesse max 4 | 1 | 56 % | 42 % | 14 % |
+| Poids 3, vitesse max 4 | 1 à 3 | 70 à 81 % | 17 à 29 % | 12 à 22 % |
+| Poids 10, vitesse max 4 | 1 | 97 % | 2 % | 10 % |
+| Poids 10, deux allures (retenu) | 1 à 3 | 93 à 99 % | 0 à 5 % | 3 à 9 % |
+
+Avec un poids de 3, Lou a constaté à l'écran que le requin ne chassait pas : il faisait à peine mieux que le témoin. Le requin passe encore à moins de 2 d'un thon : les thons ne l'évitent pas avant la v3.2.0.
+
+À surveiller : la vitesse du requin ne descend pas sous sa vitesse minimale (2, héritée du thon). Il ne peut donc pas s'arrêter : s'il est trop près, il ralentit jusqu'à 2 ou se détourne.
