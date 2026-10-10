@@ -49,7 +49,7 @@ Une grande version par itération. Chaque petite version `vX.Y.Z` : tâches sur 
 ### V3 — Le requin et le bateau de pêche
 
 - [x] [v3.0.0](/versions#v3-0-0) : un requin qui nage
-- [ ] [v3.1.0](/versions#v3-1-0) : le requin chasse
+- [x] [v3.1.0](/versions#v3-1-0) : le requin suit le banc
 - [ ] [v3.2.0](/versions#v3-2-0) : les thons fuient le requin
 - [ ] [v3.3.0](/versions#v3-3-0) : un bateau de pêche qui traîne un filet
 - [ ] [v3.4.0](/versions#v3-4-0) : le filet attrape les thons, qui le fuient

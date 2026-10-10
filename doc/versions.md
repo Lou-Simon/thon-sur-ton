@@ -30,7 +30,7 @@ Chaque petite version ci-dessous est une étape qu'on peut montrer : on la déve
 | [v2.2.0](#v2-2-0) | Un rocher que le banc contourne | Terminée |
 | [v2.3.0](#v2-3-0) | Curseurs de réglage | Terminée |
 | [v3.0.0](#v3-0-0) | Un requin qui nage | Terminée |
-| [v3.1.0](#v3-1-0) | Le requin chasse | À faire |
+| [v3.1.0](#v3-1-0) | Le requin suit le banc | Terminée |
 | [v3.2.0](#v3-2-0) | Les thons fuient le requin | À faire |
 | [v3.3.0](#v3-3-0) | Un bateau de pêche qui traîne un filet | À faire |
 | [v3.4.0](#v3-4-0) | Le filet attrape les thons, qui le fuient | À faire |
@@ -160,12 +160,12 @@ Les versions v1.6.0 à v1.9.0 viennent du brainstorm de l'[écran de démarrage]
 
 **Terminée quand** : le requin nage au milieu du banc (les thons ne le fuient pas encore).
 
-### v3.1.0 — Le requin chasse {#v3-1-0}
+### v3.1.0 — Le requin suit le banc {#v3-1-0}
 
-- Le requin fonce sur le thon le plus proche qu'il voit.
-- Règle en cas de capture : le thon disparaît, ou on compte seulement les captures.
+- Le requin suit le thon le plus proche qu'il voit.
+- Il ne l'attrape jamais : il reste à distance, ralentit quand il est trop près et réaccélère quand le thon s'éloigne.
 
-**Terminée quand** : le requin poursuit les thons et les captures sont comptées.
+**Terminée quand** : le requin suit les thons sans les toucher.
 
 ### v3.2.0 — Les thons fuient le requin {#v3-2-0}
 
