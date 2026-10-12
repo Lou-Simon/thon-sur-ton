@@ -2,14 +2,14 @@ extends Thon
 class_name Requin
 ## Le requin : il erre dans l'aquarium en évitant les parois, le sol, les plantes, les coraux
 ## et le rocher, et il suit le thon le plus proche qu'il voit, sans jamais l'attraper.
-## Les thons ne le fuient pas encore.
+## Les thons le fuient (voir `_fuite` dans thon.gd).
 ##
 ## Héritage : le requin est un `Thon` qui ne fait pas partie du banc. Il garde donc, sans les
 ## réécrire, la vision, l'errance, l'évitement, le contournement et la vitesse bornée du thon
 ## (mêmes formules, voir thon.gd).
 ## Il voit les thons comme un thon voit ses voisins (rayon de vision, angle mort), mais il n'a
-## ni séparation, ni alignement, ni cohésion : `decider` est réécrit ici sans ces trois forces.
-## Il n'est pas dans la liste des thons : ils ne le voient pas, et les curseurs du banc
+## ni séparation, ni alignement, ni cohésion, ni fuite : `decider` est réécrit ici sans ces forces.
+## Il n'est pas dans la liste des thons : il n'est pas un voisin pour eux, et les curseurs du banc
 ## ne changent pas ses réglages.
 ##
 ## Comme pour un thon, c'est l'aquarium qui appelle `installer`, puis `decider` et `avancer`
@@ -38,7 +38,7 @@ func _init() -> void:
 	portee_obstacles = 5.0
 
 
-## Comme pour le thon, mais sans les trois forces du banc, et avec la poursuite en plus.
+## Comme pour le thon, mais sans les trois forces du banc ni la fuite, et avec la poursuite en plus.
 func decider(delta: float) -> void:
 	var proie: Thon = _plus_proche(_voisins())
 	# Deux allures : la vitesse max glisse vers celle de la chasse ou de la patrouille,

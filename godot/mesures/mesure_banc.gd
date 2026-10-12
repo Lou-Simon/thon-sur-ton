@@ -1,19 +1,20 @@
 extends SceneTree
 ## Mesure sans fenêtre : charge l'aquarium, règle le nombre de thons, le rayon de vision et les poids
-## de la séparation, de l'alignement et de la cohésion, laisse tourner, puis écrit une ligne de résultat.
+## de la séparation, de l'alignement, de la cohésion et de la fuite, laisse tourner, puis écrit une ligne de résultat.
 ## Sert à choisir les réglages sur des chiffres.
 ## Ce script ne fait pas partie du jeu : rien ne l'appelle.
 ##
 ## À lancer depuis la racine du dépôt (les arguments après `--` sont facultatifs) :
 ##   godot --headless --path godot/ --fixed-fps 60 -s mesures/mesure_banc.gd -- pa=6 pc=1 graine=1 n=18000
 ## pa : poids de l'alignement, pc : poids de la cohésion, ps : poids de la séparation,
+## pf : poids de la fuite devant le requin,
 ## rv : rayon de vision, thons : nombre de thons, hr : hauteur du segment du rocher au-dessus du sable, rocher=0 : les thons ne sentent plus le rocher
 ## (pour comparer, à la même place, avec et sans lui), graine : graine du hasard,
 ## n : nombre de pas (18 000 pas = 5 minutes à 60 pas par seconde).
 ## Sans argument, les valeurs sont celles du jeu.
 ##
 ## Pour mesurer, il lit des variables internes de l'aquarium et du thon (`_banc`, `_decor`,
-## `_rocher`, `_obstacles`, `_sol`, `_vitesse`) : c'est un écart voulu à la convention, limité à ce script.
+## `_rocher`, `_requin`, `_obstacles`, `_sol`, `_vitesse`) : c'est un écart voulu à la convention, limité à ce script.
 
 # Nombre de pas à la fin de la simulation sur lesquels on fait les moyennes : la dernière minute.
 const PAS_FIN: int = 3600
@@ -21,6 +22,9 @@ const PAS_FIN: int = 3600
 const SEUIL_PROCHE: float = 1.0
 # Nombre de thons qu'il faut de chaque côté du rocher pour dire que le banc passe des deux côtés.
 const MIN_COTE: int = 3
+# Distance entre le requin et un thon sous laquelle on compte que le requin le touche presque :
+# le même seuil que dans les mesures de la poursuite (v3.1.0).
+const SEUIL_REQUIN: float = 2.0
 
 var _aquarium: Aquarium
 var _pas: int = 0
@@ -29,6 +33,7 @@ var _duree: int = 18000
 var _poids_alignement: float = NAN
 var _poids_cohesion: float = NAN
 var _poids_separation: float = NAN
+var _poids_fuite: float = NAN
 var _rayon_vision: float = NAN
 var _nombre_thons: int = -1
 var _sans_rocher: bool = false
@@ -73,6 +78,13 @@ var _distance_rocher: float = INF
 var _dans_rocher: int = 0
 var _pres_rocher: int = 0
 var _par_dessus: int = 0
+# Requin, sur toute la simulation : distance la plus faible entre lui et un thon, nombre de pas où
+# un thon est à moins de SEUIL_REQUIN de lui, où un thon est à portée de fuite (rayon de vision),
+# et où le banc forme un seul groupe.
+var _distance_requin: float = INF
+var _pas_requin_proche: int = 0
+var _pas_requin_en_vue: int = 0
+var _pas_banc_entier: int = 0
 
 
 func _initialize() -> void:
@@ -83,6 +95,8 @@ func _initialize() -> void:
 			_poids_cohesion = float(argument.trim_prefix("pc="))
 		if argument.begins_with("ps="):
 			_poids_separation = float(argument.trim_prefix("ps="))
+		if argument.begins_with("pf="):
+			_poids_fuite = float(argument.trim_prefix("pf="))
 		if argument.begins_with("rv="):
 			_rayon_vision = float(argument.trim_prefix("rv="))
 		if argument.begins_with("thons="):
@@ -116,6 +130,8 @@ func _physics_process(_delta: float) -> bool:
 				thon.poids_cohesion = _poids_cohesion
 			if not is_nan(_poids_separation):
 				thon.poids_separation = _poids_separation
+			if not is_nan(_poids_fuite):
+				thon.poids_fuite = _poids_fuite
 			if not is_nan(_rayon_vision):
 				thon.rayon_vision = _rayon_vision
 		_forme_rocher = _aquarium._rocher.obstacle()
@@ -163,6 +179,7 @@ func _relever(banc: Array[Thon]) -> void:
 		_pas_proches += 1
 	var groupes: int = _compter_groupes(banc)
 	_relever_rocher(banc, groupes)
+	_relever_requin(banc, groupes)
 	if groupes == 1 and _premier_banc < 0:
 		_premier_banc = _pas
 	if _pas >= _duree - PAS_FIN:
@@ -224,6 +241,22 @@ func _relever_rocher(banc: Array[Thon], groupes: int) -> void:
 		_debut_attente = -1
 
 
+# Relève, pour un pas, la distance entre le requin et le thon le plus proche de lui, et si le banc
+# est entier. `banc_entier` compte toute la simulation, début et coupures du rocher compris :
+# il ne se lit qu'à côté d'un témoin `pf=0`.
+func _relever_requin(banc: Array[Thon], groupes: int) -> void:
+	var plus_proche: float = INF
+	for thon: Thon in banc:
+		plus_proche = minf(plus_proche, thon.position.distance_to(_aquarium._requin.position))
+	_distance_requin = minf(_distance_requin, plus_proche)
+	if plus_proche < SEUIL_REQUIN:
+		_pas_requin_proche += 1
+	if plus_proche < banc[0].rayon_vision:
+		_pas_requin_en_vue += 1
+	if groupes == 1:
+		_pas_banc_entier += 1
+
+
 # Nombre de groupes : deux thons sont du même groupe s'ils sont à moins du rayon de vision
 # l'un de l'autre, directement ou de proche en proche par d'autres thons.
 func _compter_groupes(banc: Array[Thon]) -> int:
@@ -250,12 +283,14 @@ func _compter_groupes(banc: Array[Thon]) -> int:
 func _ecrire_resultat(banc: Array[Thon]) -> void:
 	var moyenne_sur: float = float(mini(PAS_FIN, _duree))
 	var thon: Thon = banc[0]
-	print("pa=%s pc=%s ps=%s rv=%s thons=%d hr=%s | groupes=%.2f un_seul_banc=%d%% directions=%.2f premier_banc=%s | plus_proche=%.2f virage=%.0f°/s distance_min=%.2f pas_proches=%d | hors=%d sous_sable=%d dans_obstacle=%d | rocher=%s rencontres=%d deux_cotes=%d coupures=%d reforme=%s distance_rocher=%.2f dans_rocher=%d par_dessus=%d%%" % [
-		thon.poids_alignement, thon.poids_cohesion, thon.poids_separation, thon.rayon_vision, banc.size(), _aquarium._rocher.hauteur,
+	print("pa=%s pc=%s ps=%s pf=%s rv=%s thons=%d hr=%s | groupes=%.2f un_seul_banc=%d%% directions=%.2f premier_banc=%s | plus_proche=%.2f virage=%.0f°/s distance_min=%.2f pas_proches=%d | hors=%d sous_sable=%d dans_obstacle=%d | rocher=%s rencontres=%d deux_cotes=%d coupures=%d reforme=%s distance_rocher=%.2f dans_rocher=%d par_dessus=%d%% | requin_min=%.2f requin_proche=%d%% requin_en_vue=%d%% banc_entier=%d%%" % [
+		thon.poids_alignement, thon.poids_cohesion, thon.poids_separation, thon.poids_fuite, thon.rayon_vision, banc.size(), _aquarium._rocher.hauteur,
 		_somme_groupes / moyenne_sur, roundi(100.0 * _pas_un_seul_banc / moyenne_sur),
 		_somme_directions / moyenne_sur,
 		("%.0f s" % (_premier_banc / 60.0)) if _premier_banc >= 0 else "jamais",
 		_somme_plus_proche / moyenne_sur, rad_to_deg(_somme_virage / moyenne_sur) * Engine.physics_ticks_per_second, _distance_min, _pas_proches, _hors, _sous_sable, _dans_obstacle,
 		"non" if _sans_rocher else "oui", _rencontres, _deux_cotes, _coupures,
 		("%.1f s" % (_somme_reforme / 60.0 / _reformes)) if _reformes > 0 else "-",
-		_distance_rocher, _dans_rocher, roundi(100.0 * _par_dessus / maxi(1, _pres_rocher))])
+		_distance_rocher, _dans_rocher, roundi(100.0 * _par_dessus / maxi(1, _pres_rocher)),
+		_distance_requin, roundi(100.0 * _pas_requin_proche / _duree), roundi(100.0 * _pas_requin_en_vue / _duree),
+		roundi(100.0 * _pas_banc_entier / _duree)])

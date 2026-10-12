@@ -22,7 +22,7 @@ var _obstacles: Array[Obstacle] = []
 # Gardés ici pour que les thons créés par `relancer` les reçoivent aussi.
 var _reglages: Dictionary[StringName, float] = {}
 # Le requin : il reçoit `_banc` pour voir les thons, mais il n'est ni dans `_banc` ni dans
-# `_obstacles` : les thons, eux, ne le voient pas.
+# `_obstacles`. Chaque thon le reçoit à part, dans `installer`, pour le fuir.
 var _requin: Requin
 
 @onready var _camera: CameraAquarium = $Camera
@@ -44,8 +44,9 @@ func _ready() -> void:
 	_obstacles.append(_rocher.obstacle())
 	# La caméra aussi, avec la hauteur des plus hautes dunes : elle doit rester au-dessus.
 	_camera.installer(dimensions, -dimensions.y / 2.0 + _sol.hauteur_dunes)
-	_creer_banc()
+	# Le requin est créé avant le banc : chaque thon le reçoit à sa création.
 	_creer_requin()
+	_creer_banc()
 	_interface.installer(self)
 
 
@@ -53,6 +54,8 @@ func _ready() -> void:
 # où tous avancent.
 # Pourquoi : chaque thon décide à partir des positions et des vitesses du même instant. Avec une seule boucle,
 # le deuxième thon verrait le premier déjà déplacé, et le résultat dépendrait de l'ordre de la liste.
+# Le requin suit la même règle : il n'avance qu'après que tous ont décidé, les thons qui le fuient
+# lisent donc sa position du même instant.
 func _physics_process(delta: float) -> void:
 	for thon: Thon in _banc:
 		thon.decider(delta)
@@ -118,8 +121,8 @@ func _creer_banc() -> void:
 			thon.set(nom, _reglages[nom])
 		add_child(thon)
 		thon.position = _position_au_hasard(thon.portee_evitement)
-		# Le thon reçoit les parois, le sol, les obstacles et la liste de tous les thons.
-		thon.installer(dimensions, _sol, _obstacles, _banc)
+		# Le thon reçoit les parois, le sol, les obstacles, la liste de tous les thons et le requin.
+		thon.installer(dimensions, _sol, _obstacles, _banc, _requin)
 		_banc.append(thon)
 
 
@@ -130,6 +133,7 @@ func _creer_requin() -> void:
 	add_child(_requin)
 	_requin.position = _position_au_hasard(_requin.portee_evitement)
 	# Il reçoit la même liste de thons qu'eux, pour y chercher sa proie, sans y être ajouté.
+	# La liste est encore vide ici : `_creer_banc` la remplit ensuite. Pas de requin à fuir pour lui.
 	_requin.installer(dimensions, _sol, _obstacles, _banc)
 
 
