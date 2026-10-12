@@ -231,6 +231,16 @@ h1 { position: absolute; left: 96px; top: 420px; font: 900 250px/.86 var(--titre
 .demo .grand-disque { left: 1080px; top: 160px; }
 .auteurs { position: absolute; right: 120px; top: 880px; text-align: right; font: 500 30px/1.5 var(--titres); color: var(--gris); }
 
+/* === BILAN : le + sur blanc, le − sur marine === */
+.moins-fond { position: absolute; left: 1000px; top: 0; width: 920px; height: 1080px; background: var(--marine); }
+.bilan-diapo .disque, .bilan-diapo .numero { z-index: 2; }
+.bilan { position: absolute; top: 300px; width: 760px; }
+.bilan.plus { left: 96px; } .bilan.moins { left: 1080px; color: #fff; }
+.signe { font: 900 220px/.8 var(--titres); height: 190px; }
+.bilan.moins .signe { color: var(--jaune); }
+.bilan ul { list-style: none; margin-top: 30px; }
+.bilan li { padding: 30px 0; border-top: 3px solid currentColor; font: 600 38px/1.25 var(--texte); }
+
 /* === PERSPECTIVES : quatre lignes, le nom en grand === */
 .pistes { position: absolute; left: 96px; right: 96px; top: 290px; list-style: none; }
 .pistes li { display: grid; grid-template-columns: 1040px 1fr; align-items: center; gap: 40px; padding: 34px 0; border-top: 4px solid var(--marine); }
@@ -325,10 +335,29 @@ h1 { position: absolute; left: 96px; top: 420px; font: 900 250px/.86 var(--titre
   <p class="accroche reveal" style="--i:3">On plonge dans l'aquarium.</p>
 </section>
 
+<!-- Consigne : discuter des + et des −, pertinence par rapport à la réalité. Sources : doc/la-simulation.md (émergence), godot/thon/thon.gd, fonction decider (sept forces). -->
+<section class="slide bilan-diapo">
+  <div class="grille"></div>
+  <div class="disque"></div><div class="numero">8</div>
+  <div class="filet reveal"></div>
+  <h2 class="reveal" style="--i:1">Les + et les −</h2>
+  
+  <div class="moins-fond"></div>
+  <div class="bilan plus">
+    <div class="signe reveal" style="--i:2">+</div>
+    <ul><li class="reveal" style="--i:3">Un banc sans chef : chaque thon ne regarde que ses voisins.</li><li class="reveal" style="--i:4">Le banc se coupe puis se ressoude tout seul, devant le rocher comme devant le requin.</li><li class="reveal" style="--i:5">Peu de règles, un comportement riche : sept forces suffisent au thon.</li></ul>
+  </div>
+  <div class="bilan moins">
+    <div class="signe reveal" style="--i:2">−</div>
+    <ul><li class="reveal" style="--i:3">Deux types d'agents seulement : le thon et le requin.</li><li class="reveal" style="--i:4">En fuyant le requin, des thons sortent parfois des parois.</li><li class="reveal" style="--i:5">Loin du réel : ni faim ni fatigue, le requin n'attrape jamais.</li></ul>
+  </div>
+  <div class="pied">Thon sur thon</div>
+</section>
+
 <!-- Consigne : perspectives. Source : « Idées pour plus tard » de doc/versions.md. -->
 <section class="slide ">
   <div class="grille"></div>
-  <div class="disque"></div><div class="numero">8</div>
+  <div class="disque"></div><div class="numero">9</div>
   <div class="filet reveal"></div>
   <h2 class="reveal" style="--i:1">Perspectives</h2>
   
