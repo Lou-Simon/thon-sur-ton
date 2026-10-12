@@ -1,6 +1,6 @@
 # Thon sur thon
 
-Projet SMA - M2 ILIADE (Lou et Simon). Simulation 3D sous Godot 4 d'un banc de thons dans un aquarium : chaque thon ne voit que ses voisins, le banc contourne un rocher, fuit un requin et un bateau de pêche, puis se reforme.
+Projet SMA - M2 ILIADE (Lou et Simon). Simulation 3D sous Godot 4 d'un banc de thons dans un aquarium : chaque thon ne voit que ses voisins, le banc contourne un rocher, fuit un requin, puis se reforme.
 
 Le contenu et le critère de fin de chaque version sont dans `doc/versions.md` : ne coder que ce que demande la version en cours.
 
@@ -9,8 +9,11 @@ Le contenu et le critère de fin de chaque version sont dans `doc/versions.md` :
 ```
 doc/                   site VitePress (en français)
   .vitepress/          config.mts, thème (custom.css)
-  public/              logo
+  public/              logo, captures, schemas/ (PNG copiés de soutenance/schemas/, SVG écrits pour la doc)
   idee-generale.md     le projet en bref
+  la-simulation.md     vue d'ensemble, pas de simulation, émergence (schémas)
+  le-thon.md           vision, nage, forces du thon (schémas)
+  le-requin.md         états et poursuite du requin (schémas)
   versions.md          contenu de chaque version vX.Y.Z
   feuille-de-route.md  tâches à cocher
   interface.md         charte d'interface et d'ergonomie
@@ -31,7 +34,7 @@ godot/
   aquarium/   boîte, sable (shader des reflets), ambiance, rayons, caméra
   decor/      plantes, coraux, bulles, plancton ; obstacles que le thon contourne
   thon/       comportement (thon.gd) et apparence (modele_thon.gd) du thon
-  obstacles/  rocher (v2.2.0) ; requin, bateau et filet à venir
+  obstacles/  rocher (v2.2.0), requin (v3.0.0)
   interface/  thème, panneau de réglage, police Rubik Dirt (OFL)
   mesures/    scripts de mesure sans fenêtre (hors du jeu), pour choisir les poids sur des chiffres
 ```
@@ -77,7 +80,7 @@ Projet noté : suivre `doc/memoire/Bon usage des IA.pdf` (à relire en début de
 - Code : simple, et expliqué à Lou et Simon, qui doivent pouvoir justifier chaque ligne à l'oral.
 - Rapport et textes rendus : aider au plan, à la relecture et à la correction, sans rédiger à leur place.
 - Ne jamais inventer une référence, une formule ou un chiffre ; signaler ce qui est à vérifier.
-- Modèles 3D : ne jamais aller chercher sur internet un modèle tout fait (thon, requin, bateau, rocher, décor) ; les créer dans le projet.
+- Modèles 3D : ne jamais aller chercher sur internet un modèle tout fait (thon, requin, rocher, décor) ; les créer dans le projet.
 - Rien de `doc/memoire/` dans la nav, la sidebar ou les liens du site.
 
 @PRATIQUES-GIT.md

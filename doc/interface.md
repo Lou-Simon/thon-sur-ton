@@ -18,7 +18,7 @@ Cette page est la référence pour tout ce qui s'affiche à l'écran : la scène
 4. **Lisible de loin.** Textes assez grands pour un vidéoprojecteur, bon contraste sur le fond bleu, valeurs arrondies qui ne clignotent pas.
 5. **Cohérent.** Un même objet a toujours la même couleur, un même contrôle fait toujours la même chose, d'une scène à l'autre.
 6. **Simple à expliquer.** Une interface que Lou et Simon peuvent justifier ligne par ligne à l'oral, plutôt qu'un effet spectaculaire qu'ils ne maîtrisent pas.
-7. **En français.** Tous les textes affichés, avec les mêmes mots que la doc (« banc », « rocher », « requin », « filet »).
+7. **En français.** Tous les textes affichés, avec les mêmes mots que la doc (« banc », « rocher », « requin »).
 
 ## Ce qui s'affiche, version par version
 
@@ -31,7 +31,7 @@ Le contenu de chaque version est dans [Versions](/versions) : on ne construit l'
 | Base de l'interface | [v1.3.0](/versions#v1-3-0) | Un seul thème, un panneau « Réglages » placé à droite et affiché au lancement, qui se replie d'une touche et ne bloque pas la caméra. |
 | Thons et banc | [v1.4.0](/versions#v1-4-0) à [v2.2.0](/versions#v2-2-0) | Le sens de nage de chaque thon se lit d'un coup d'œil, et le banc se détache du décor. |
 | Curseurs de réglage | [v2.3.0](/versions#v2-3-0) | Nom clair, valeur affichée, bornes sensées, bouton « valeurs par défaut », bouton « relancer ». |
-| Requin, bateau, filet | [v3.0.0](/versions#v3-0-0) à [v3.4.0](/versions#v3-4-0) | Le danger se repère immédiatement, le compteur de captures est lisible. |
+| Requin | [v3.0.0](/versions#v3-0-0) à [v3.2.0](/versions#v3-2-0) | Le danger se repère immédiatement. |
 | Décor et écran de démarrage | [v1.6.0](/versions#v1-6-0) à [v1.9.0](/versions#v1-9-0) | Voir [Écran de démarrage](/ecran-de-demarrage). |
 
 ## Contrôles
@@ -66,17 +66,18 @@ Dans le panneau « Réglages », par groupe, le libellé à gauche et la valeur 
 | Forces | Séparation, Alignement, Cohésion, Errance | 0 – 150, 0 – 20, 0 – 10, 0 – 5 | 5, 0,5, 0,5, 0,1 | |
 | Forces | Parois et sol, Plantes et rocher | 0 – 100 | 5 | |
 
-L'angle mort, la distance de séparation et les portées restent dans le code, pour garder un panneau court.
+L'angle mort, la distance de séparation, les portées, le poids de la fuite et tous les réglages du requin restent dans le code, pour garder un panneau court.
 
 ## Couleurs et lisibilité
 
 - **Couleurs de l'interface** : celles du logo et du site, le bleu `#1f6fd1` et le jaune `#f2c230`, pour que l'application et la doc se ressemblent.
 - **Panneaux** : fond sombre semi-transparent, pour rester lisibles sur l'eau sans cacher la scène.
-- **Objets de la scène** : une couleur fixe par objet (thon, requin, filet, rocher), à décider quand l'objet arrive, puis notée ici.
+- **Objets de la scène** : une couleur fixe par objet (thon, requin, rocher), à décider quand l'objet arrive, puis notée ici.
   - **Décor** (v1.6.0, choix de Simon) : océan ouvert sans arêtes, sable jusqu'à l'horizon, rendu toon de Godot (lumière en aplats), reflets de lumière blancs sur le sable, rayons blancs semi-transparents qui respirent.
   - **Accueil** (v1.8.0, choix de Simon) : ciel couchant (violet nuit, orange, jaune), soleil jaune pâle, mer bleue ; textes crème, police Rubik Dirt ; boutons bordés de crème, de jaune au survol et au focus.
   - **Plantes et coraux** (v1.7.0, proposition à valider) : algues vert foncé, herbes vert clair, coraux ronds roses, coraux branchus orange ; bulles et plancton blancs, presque transparents.
   - **Rocher** (v2.2.0, choix de Simon) : long et bas, gris-brun `Color(0.45, 0.42, 0.4)`, rendu toon, faces visibles comme une pierre taillée.
+  - **Requin** (v3.0.0, proposition à valider) : le modèle du thon deux fois plus long, tout gris `Color(0.35, 0.4, 0.45)`, avec un grand aileron et deux grandes pectorales. Pas de jaune : il est réservé aux thons, pour que le danger se repère de loin.
   - **Thon** (v1.4.0, proposition à valider) : dos bleu nuit, ventre argenté, nageoires jaunes `#f2c230` sans ombre, pour que le sens de nage se lise de loin.
 - **Nombres** : arrondis à un nombre fixe de décimales, pour qu'ils ne sautent pas d'une largeur à l'autre.
 - **Vérification** : un test réel sur un vidéoprojecteur (ou un écran vu de loin) avant la soutenance.

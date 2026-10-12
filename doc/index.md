@@ -12,13 +12,19 @@ hero:
       text: Idée générale
       link: /idee-generale
     - theme: alt
+      text: Comment ça marche
+      link: /la-simulation
+    - theme: alt
       text: Versions
       link: /versions
 features:
   - title: Le banc
     details: Chaque thon ne voit que ses voisins. Le banc émerge tout seul.
-    link: /idee-generale
+    link: /le-thon
   - title: Les obstacles
-    details: Un rocher à contourner (V2), puis un requin et un bateau de pêche (V3).
-    link: /versions
+    details: Des plantes, des coraux et un rocher que le banc contourne.
+    link: /le-thon#contournement
+  - title: Le requin
+    details: Il charge le banc, qui éclate puis se reforme.
+    link: /le-requin
 ---
