@@ -11,6 +11,7 @@ export default defineConfig({
     nav: [
       { text: 'Accueil', link: '/' },
       { text: 'Le projet', link: '/idee-generale' },
+      { text: 'Comment ça marche', link: '/la-simulation' },
       { text: 'Versions', link: '/versions' },
       { text: 'Feuille de route', link: '/feuille-de-route' },
     ],
@@ -20,6 +21,19 @@ export default defineConfig({
         items: [
           { text: 'Idée générale', link: '/idee-generale' },
           { text: 'Versions', link: '/versions' },
+        ],
+      },
+      {
+        text: 'Comment ça marche',
+        items: [
+          { text: 'La simulation', link: '/la-simulation' },
+          { text: 'Le thon', link: '/le-thon' },
+          { text: 'Le requin', link: '/le-requin' },
+        ],
+      },
+      {
+        text: 'Interface',
+        items: [
           { text: 'Interface et ergonomie', link: '/interface' },
           { text: 'Écran de démarrage', link: '/ecran-de-demarrage' },
         ],
@@ -32,9 +46,24 @@ export default defineConfig({
         ],
       },
     ],
-    search: { provider: 'local' },
+    search: {
+      provider: 'local',
+      options: {
+        translations: {
+          button: { buttonText: 'Rechercher', buttonAriaLabel: 'Rechercher' },
+          modal: {
+            noResultsText: 'Aucun résultat pour',
+            resetButtonTitle: 'Effacer',
+            footer: { selectText: 'ouvrir', navigateText: 'naviguer', closeText: 'fermer' },
+          },
+        },
+      },
+    },
     socialLinks: [{ icon: 'github', link: 'https://github.com/Lou-Simon/thon-sur-ton' }],
     outline: { label: 'Sur cette page' },
     docFooter: { prev: 'Page précédente', next: 'Page suivante' },
+    darkModeSwitchLabel: 'Apparence',
+    sidebarMenuLabel: 'Menu',
+    returnToTopLabel: 'Retour en haut',
   },
 })

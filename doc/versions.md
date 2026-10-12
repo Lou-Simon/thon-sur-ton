@@ -9,7 +9,7 @@ Les règles de numérotation (`vX.Y.Z`) sont dans les [pratiques git](/pratiques
 | --- | --- |
 | **V1** — L'aquarium | Un aquarium avec un sol de sable, et un thon qui y nage sans se cogner. Un décor vivant et un écran d'accueil d'où l'on plonge. |
 | **V2** — Le banc et le rocher | Un banc de thons qui se sépare pour contourner un rocher, puis se reforme derrière. |
-| **V3** — Le requin et le bateau de pêche | Un requin chasse le banc, qui éclate puis se reforme. Un bateau de pêche traîne un filet que le banc doit éviter. |
+| **V3** — Le requin | Un requin chasse le banc, qui éclate puis se reforme. |
 
 Chaque petite version ci-dessous est une étape qu'on peut montrer : on la développe sur sa branche `vX.Y.Z`, on la valide à deux, puis on la fusionne dans `main` avec son tag.
 
@@ -32,7 +32,6 @@ Chaque petite version ci-dessous est une étape qu'on peut montrer : on la déve
 | [v3.0.0](#v3-0-0) | Un requin qui nage | Terminée |
 | [v3.1.0](#v3-1-0) | Le requin suit le banc | Terminée |
 | [v3.2.0](#v3-2-0) | Les thons fuient le requin | Terminée |
-
 
 ## V1 — L'aquarium
 
@@ -148,9 +147,9 @@ Les versions v1.6.0 à v1.9.0 viennent du brainstorm de l'[écran de démarrage]
 
 **Terminée quand** : chaque curseur change le comportement en direct, sans redémarrer.
 
-## V3 — Le requin et le bateau de pêche
+## V3 — Le requin
 
-**But** : un requin chasse les thons, et un bateau de pêche traîne un filet dans l'aquarium. Le banc éclate à l'approche du danger, puis se reforme une fois qu'il est passé.
+**But** : un requin chasse les thons. Le banc éclate à l'approche du danger, puis se reforme une fois qu'il est passé.
 
 ### v3.0.0 — Un requin qui nage {#v3-0-0}
 
@@ -164,6 +163,8 @@ Les versions v1.6.0 à v1.9.0 viennent du brainstorm de l'[écran de démarrage]
 - Le requin suit le thon le plus proche qu'il voit.
 - Il ne l'attrape jamais : il reste à distance, ralentit quand il est trop près et réaccélère quand le thon s'éloigne.
 
+Depuis la correction du 12 octobre 2026, il ne suit plus un thon : il charge le centre des thons qu'il voit, puis s'en écarte un moment (voir [Le requin](/le-requin)).
+
 **Terminée quand** : le requin suit les thons sans les toucher.
 
 ### v3.2.0 — Les thons fuient le requin {#v3-2-0}
@@ -172,10 +173,12 @@ Les versions v1.6.0 à v1.9.0 viennent du brainstorm de l'[écran de démarrage]
 
 **Terminée quand** : le banc éclate à l'approche du requin puis se reforme après son passage.
 
+Le fonctionnement de la V3, schémas à l'appui : [Le thon](/le-thon#fuite) et [Le requin](/le-requin).
 
 ## Idées pour plus tard
 
 Seulement si V3 est finie et validée :
+- un bateau de pêche qui traîne un filet : le filet attrape les thons, qui le fuient ;
 - plusieurs rochers dans l'aquarium (les plantes et coraux arrivent en [v1.7.0](#v1-7-0)) ;
 - un courant qui pousse les thons dans une direction ;
 - une grille spatiale pour accélérer la recherche des voisins s'il y a beaucoup de thons.

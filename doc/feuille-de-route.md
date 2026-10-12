@@ -46,17 +46,15 @@ Une grande version par itération. Chaque petite version `vX.Y.Z` : tâches sur 
 - [x] [v2.2.0](/versions#v2-2-0) : un rocher que le banc contourne
 - [x] [v2.3.0](/versions#v2-3-0) : curseurs de réglage
 
-### V3 — Le requin et le bateau de pêche
+### V3 — Le requin
 
 - [x] [v3.0.0](/versions#v3-0-0) : un requin qui nage
 - [x] [v3.1.0](/versions#v3-1-0) : le requin suit le banc
 - [x] [v3.2.0](/versions#v3-2-0) : les thons fuient le requin
-- [ ] [v3.3.0](/versions#v3-3-0) : un bateau de pêche qui traîne un filet
-- [ ] [v3.4.0](/versions#v3-4-0) : le filet attrape les thons, qui le fuient
 
 ### Si on a le temps
 
-- [ ] Idées pour plus tard (voir [versions](/versions#idees-pour-plus-tard)) : plusieurs rochers, courant, grille spatiale
+- [ ] Idées pour plus tard (voir [versions](/versions#idees-pour-plus-tard)) : bateau de pêche et filet, plusieurs rochers, courant, grille spatiale
 
 ### En continu
 

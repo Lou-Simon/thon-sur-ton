@@ -43,3 +43,12 @@
 .VPHero .image-bg {
   display: none;
 }
+
+/* Schémas et captures : centrés, sur fond blanc même en mode sombre, avec un bord discret */
+.vp-doc img {
+  display: block;
+  margin: 24px auto;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 12px;
+  background: #fff;
+}
