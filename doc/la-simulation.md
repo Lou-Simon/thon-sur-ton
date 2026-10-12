@@ -1,7 +1,5 @@
 # La simulation
 
-*Schémas et textes proposés par Claude (12 octobre 2026) à partir du code du 12 octobre 2026, à relire et valider par Lou et Simon.*
-
 Cette page explique la simulation dans son ensemble. Le détail de chaque agent est dans [Le thon](/le-thon) et [Le requin](/le-requin).
 
 ## Ce qu'il y a dans l'aquarium {#vue-d-ensemble}
@@ -56,17 +54,15 @@ Le pas est fixe : le hasard de l'errance ne dépend pas du nombre d'images par s
 
 ## Ce qui émerge {#emergence}
 
-![Quatre instants d'une même simulation vue de dessus : départ au hasard, tous dans le même sens après 1 s, banc coupé en 2 à 178 s, banc ressoudé à 193 s](/schemas/emergence-banc.png)
+![Quatre instants d'une même simulation vue de dessus : départ au hasard, tous dans le même sens après 1 s, banc coupé en 2 à 92 s, banc ressoudé à 103 s](/schemas/emergence-banc.png)
 
 Aucun thon ne connaît le banc. Pourtant, à partir de positions au hasard, les thons nagent vite dans le même sens. Le banc se coupe (rocher, requin), puis se ressoude.
 
-::: warning Figures à refaire
-Les deux figures de cette partie ont été faites avec le requin d'avant le 12 octobre 2026, qui suivait le thon le plus proche. Depuis, il charge le centre du banc et fait des pauses (voir [Le requin](/le-requin)) : les instants et les courbes ne sont plus ceux du code actuel.
-:::
+![Nombre de groupes au cours du temps sur deux simulations de 5 minutes : le banc passe de 1 à 2 groupes, parfois 3, puis se ressoude](/schemas/groupes-temps.png)
 
-![Nombre de groupes au cours du temps sur deux simulations de 5 minutes : le banc passe sans arrêt de 1 à 2 groupes, parfois 3](/schemas/groupes-temps.png)
+Deux simulations de 5 minutes, avec deux graines de hasard différentes. Un groupe : des thons reliés de proche en proche, à moins du rayon de vision. Le banc est entier 54 % du temps avec la graine 1, 70 % avec la graine 2.
 
-Deux simulations de 5 minutes, avec deux graines de hasard différentes. Un groupe : des thons reliés de proche en proche, à moins du rayon de vision. Les chiffres viennent du script de mesure sans fenêtre, à relancer pour refaire les figures :
+Les chiffres viennent du script de mesure sans fenêtre :
 
 ```bash
 godot --headless --path godot/ --fixed-fps 60 -s mesures/mesure_banc.gd -- graine=1 n=18000

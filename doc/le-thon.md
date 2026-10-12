@@ -1,7 +1,5 @@
 # Le thon
 
-*Schémas et textes proposés par Claude (12 octobre 2026) à partir du code du 12 octobre 2026, à relire et valider par Lou et Simon.*
-
 Tout le comportement du thon est dans `godot/thon/thon.gd`. Il n'a pas de machine à états : à chaque pas, il additionne sept forces et en tire sa nouvelle vitesse.
 
 ## Ce qu'il voit {#vision}
