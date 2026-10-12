@@ -26,7 +26,7 @@ demande. On n'invente ni formule, ni valeur, ni référence.
 | Séparation | v2.0.0 | Le thon s'écarte des voisins trop proches. | voir [Séparation](#separation) | choix de Lou, rampe validée par Simon |
 | Alignement | v2.1.0 | Le thon nage dans la même direction que ses voisins. | voir [Alignement et cohésion](#alignement-cohesion) | Reynolds, à vérifier |
 | Cohésion | v2.1.0 | Le thon se rapproche du centre de ses voisins. | voir [Alignement et cohésion](#alignement-cohesion) | Reynolds, à vérifier |
-| Poursuite (requin) | v3.1.0, v3.2.1 | Le requin suit le thon le plus proche qu'il voit, tant qu'il le voit, sans jamais l'attraper. | voir [Poursuite](#poursuite) | choix de Lou, amortissement choisi par Simon |
+| Poursuite (requin) | v3.1.0, v3.2.1 | Le requin charge le centre des thons qu'il voit, sans jamais les attraper, puis patrouille en s'écartant du banc. | voir [Poursuite](#poursuite) | choix de Lou ; poursuite de Reynolds, charge du centre, pauses, éloignement, braquage et redressement choisis par Simon (v3.2.1) |
 | Fuite | v3.2.0, v3.4.0 | Un thon qui voit le requin ou le filet s'en éloigne, d'autant plus fort qu'il est proche. | requin : voir [Fuite](#fuite) ; filet : à écrire | choix de Lou |
 
 ## Les paramètres
@@ -45,7 +45,9 @@ demande. On n'invente ni formule, ni valeur, ni référence.
 | Distance, rayon, hasard de l'errance | Forme de l'errance (voir [Errance](#errance)). | 2, 2 et 3 : proposition de Claude, à régler à l'écran |
 | Poids de l'errance | Importance de l'errance dans la somme. | 1 (valeur du code depuis la v1.4.0, source à noter par Lou et Simon) |
 | Poids de la poursuite et distance de suivi | Requin seulement (voir [Poursuite](#poursuite)). | 10 et 4 (Lou, 10 oct. 2026, d'après des mesures : voir [Poursuite](#poursuite)), à régler à l'écran et à valider par Simon |
-| Amortissement de la poursuite | Requin seulement (voir [Poursuite](#poursuite)). | 1 (Simon, 12 oct. 2026, v3.2.1, d'après des mesures), à régler à l'écran |
+| Anticipation, durées de chasse et de repos | Requin seulement (voir [Poursuite](#poursuite)). | 1 s, 5 s et 6 s (Simon, 12 oct. 2026, v3.2.1 ; 1 s et 6 s propositions de Claude, 5 s d'après des mesures), à régler à l'écran |
+| Force max, poids du redressement et de l'éloignement | Requin seulement (voir [Poursuite](#poursuite)). | 5, 3 et 2 (Simon, 12 oct. 2026, v3.2.1, d'après des mesures), à régler à l'écran |
+| Vision, vitesse de chasse et accélération du requin | Requin seulement (voir [Poursuite](#poursuite)). | 14, 7 et 6 par seconde (Simon, 12 oct. 2026, v3.2.1, d'après des mesures ; avant : 8, 4,5 et 2), à régler à l'écran |
 | Poids de la fuite | Importance de la fuite dans la somme (voir [Fuite](#fuite)). | 50 (Lou, 12 oct. 2026, d'après des mesures), à régler à l'écran et à valider par Simon |
 
 Les poids, les vitesses et le rayon de vision sont réglables par curseur (v2.3.0).
@@ -222,28 +224,37 @@ Retenu : 6 et 1, le couple qui forme un seul banc en gardant les thons le plus �
 
 Choisie par Lou le 10 octobre 2026 (v3.1.0), à valider par Simon. Code : `godot/obstacles/requin.gd`.
 
-Le requin voit les thons comme un thon voit ses voisins (voir [Vision et séparation](#separation)), avec les mêmes valeurs par défaut (rayon de vision 8, angle mort 90°). Les curseurs ne règlent que les thons : le requin garde ces valeurs. Les thons, eux, le fuient depuis la v3.2.0 (voir [Fuite](#fuite)). Sa proie est le plus proche des thons qu'il voit, et il la garde tant qu'il la voit (v3.2.1) : il n'en choisit une autre que s'il l'a perdue de vue.
+Le requin voit les thons comme un thon voit ses voisins (voir [Vision et séparation](#separation)), avec le même angle mort (90°), mais de plus loin depuis la v3.2.1 : rayon de vision 14, contre 8 pour un thon. Il repère les thons avant qu'ils le sentent (les thons le sentent à 8). Les curseurs ne règlent que les thons : le requin garde ses valeurs. Les thons, eux, le fuient depuis la v3.2.0 (voir [Fuite](#fuite)).
 
-Le requin ne l'attrape jamais : il se tient à la distance de suivi `d`, comme au bout d'un ressort amorti.
+Depuis la v3.2.1, il n'a plus de proie : il charge le centre `c` des thons qu'il voit, qui avancent à leur vitesse moyenne `v_thons`. Ce sont les calculs de la cohésion et de l'alignement d'un thon (voir [Alignement et cohésion](#alignement-cohesion)), réutilisés pour viser. Il ne les attrape jamais : il ralentit vers la distance de suivi `d` du centre (remplace le ressort amorti de la v3.1.0, voir plus bas).
 
-`F = normaliser(p_proie - p_requin) · (δ - d) + k · (v_proie - v_requin)`, avec `δ = |p_proie - p_requin|`, puis la force s'ajoute avec le poids `w_p`.
+`F = normaliser(c + T · v_thons - p_requin) · borner(|v_thons| + δ - d, 0, v_chasse) - v_requin`, avec `δ = |c - p_requin|`, puis la force s'ajoute avec le poids `w_p`.
 
-- Plus loin que `d` : la force tire le requin vers la proie, il accélère.
-- Plus près que `d` : la force le repousse, il ralentit.
-- Le second terme, l'amortissement (v3.2.1), rapproche la vitesse du requin de celle de sa proie : c'est l'alignement d'un thon (voir [Alignement et cohésion](#alignement-cohesion)), avec un seul voisin, la proie. Sans lui, le ressort fait osciller le requin autour de `d`.
-- Sans thon vu, elle vaut zéro : le requin garde l'errance, l'évitement et le contournement.
+- La vitesse voulue va vers là où sera le centre dans `T` secondes (« pursuit » de Reynolds 1999, à vérifier dans l'article) : elle va toujours vers les thons, le requin ne se détourne jamais d'eux.
+- Sa longueur est la vitesse moyenne des thons, plus l'écart à `d` : plus loin, il accélère ; plus près, il ralentit.
+- La force est l'écart entre cette vitesse voulue et la vitesse du requin, comme l'alignement d'un thon : c'est ce qui l'empêche d'osciller autour de `d`.
+- Il charge le centre, et non le thon le plus proche, pour entrer dans le banc : les thons de part et d'autre fuient alors dans des directions opposées, et le banc éclate. Le plus proche est au bord du banc ; le charger poussait tout le banc du même côté (mesures plus bas).
+
+Pauses (v3.2.1) : le requin chasse dès qu'il voit un thon. Après `duree_chasse` secondes de chasse cumulées, il patrouille `duree_repos` secondes sans chasser.
+
+Éloignement (v3.2.1), quand il ne chasse pas : `E = -normaliser(c - p_requin) · v_patrouille - v_requin`, où `c` est le centre des thons qu'il voit (l'inverse de la cohésion d'un thon), avec le poids `w_e`. Il prend du large : le banc se reforme, et sa prochaine attaque part de loin, avec de l'élan. Sans thon vu, elle vaut zéro.
+
+Le requin seul a deux autres réglages (v3.2.1) :
+- la somme de ses forces est bornée à `force_max` : il ne peut ni se retourner d'un coup, ni tourner aussi sec qu'un thon (force bornée de Reynolds 1999, à vérifier) ;
+- une force de redressement `(0, -v_requin.y, 0)`, de poids `w_r`, ramène sa vitesse verticale vers zéro : il nage plutôt à plat.
 
 | Symbole | Sens |
 | --- | --- |
-| `p_proie` | position de la proie |
+| `c` | centre des thons vus par le requin |
 | `p_requin` | position du requin |
-| `v_proie`, `v_requin` | vitesses de la proie et du requin |
-| `k` | amortissement |
-| `δ` | distance entre le requin et sa proie |
+| `v_thons`, `v_requin` | vitesse moyenne des thons vus, vitesse du requin |
+| `T` | anticipation, en secondes |
+| `v_chasse` | vitesse de chasse |
+| `δ` | distance entre le requin et le centre des thons vus |
 | `d` | distance de suivi |
 | `w_p` | poids de la poursuite |
 
-Le requin n'a ni séparation, ni alignement, ni cohésion. Il n'y a ni capture ni compteur : les prises sont prévues pour le filet (v3.4.0).
+Le requin n'a ni séparation, ni alignement, ni cohésion comme forces : il n'en reprend que les calculs, pour viser. Il n'y a ni capture ni compteur : les prises sont prévues pour le filet (v3.4.0).
 
 Source : pas d'article, proposition de Claude retenue par Lou. Première idée, abandonnée le 10 octobre 2026 : `F = p_proie - p_requin` avec capture à moins de 2. Sur un essai sans fenêtre (graine 1), le requin capturait 27 thons sur 30 en 25 secondes.
 
@@ -276,6 +287,62 @@ Mesures : essais sans fenêtre faits par Claude (Godot 4.7.2, 30 thons, fuite 50
 Garder la proie suffit presque contre le zigzag, mais le requin colle alors les thons de plus près. L'amortissement corrige cela et réduit encore le va-et-vient. À `k = 2`, le requin recopie les à-coups de sa proie et tourne plus brusquement. Le banc reste moins souvent entier, parce que le requin chasse mieux : c'est le point « le requin lâche rarement le banc » de la [Fuite](#fuite), encore à traiter. Pas encore regardé à l'écran.
 
 À surveiller : la vitesse du requin ne descend pas sous sa vitesse minimale (2, héritée du thon). Il ne peut donc pas s'arrêter : s'il est trop près, il ralentit jusqu'à 2 ou se détourne.
+
+Poursuite de Reynolds, pauses, braquage et redressement (Simon, 12 octobre 2026, v3.2.1). Constat à l'écran : les mouvements du requin restent peu réalistes, il reste collé à sa proie. Les mesures ont montré pourquoi : il avait une proie 100 % du temps et ne patrouillait jamais. Il nageait entre 3 et 5 de sa proie 78 à 88 % du temps. Il tournait plus vite que les thons, avec des pics à plus de 1000 °/s, et piquait autant qu'eux. Trop près de sa proie, le ressort le repoussait, et il nageait de côté par rapport à elle 17 à 20 % du temps. L'amortissement `k` est supprimé. Propositions de Claude, retenues par Simon ; `force_max` et `w_r` choisis sur les mesures ci-dessous.
+
+Mesures : essais sans fenêtre faits par Claude (Godot 4.7.2, 30 thons, fuite 50, 5 minutes simulées, graines 1 à 3) avec un script de diagnostic hors du dépôt. « De côté » : part des pas avec proie où le requin nage à plus de 90° de la direction de sa proie. « Demi-tours » : virages de plus de 120° en moins d'une seconde, sur les 5 minutes. « Pente » : moyenne de `|v.y| / |v|` (0 : à plat). « Aucun thon à moins de 8 » : part des pas où le requin est loin du banc.
+
+| Réglage | Avec proie | De côté | Virage max | Demi-tours | Pente | À moins de 2 | Aucun thon à moins de 8 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Avant (ressort, `k = 1`) | 100 % | 17 à 20 % | 1087 à 1431 °/s | 35 à 50 | 0,42 à 0,46 | 0 à 1 % | 0 % |
+| Reynolds et pauses, `force_max = 8`, sans redressement | 40 à 48 % | 1 à 2 % | 229 °/s | 26 à 37 | 0,39 à 0,44 | 6 à 7 % | 24 à 39 % |
+| `force_max = 8`, `w_r = 3` | 40 à 48 % | 0 à 2 % | 229 °/s | 54 à 65 | 0,26 à 0,31 | 4 à 7 % | 22 à 37 % |
+| `force_max = 5`, `w_r = 3` (retenu) | 43 à 48 % | 1 à 3 % | 143 °/s | 4 à 12 | 0,27 à 0,30 | 0,3 à 1,4 % | 22 à 35 % |
+
+Dans les trois premières versions de la nouvelle poursuite, la vitesse voulue valait au plus près celle de la proie, sans descendre en dessous : le requin collait les thons (à moins de 2 jusqu'à 7 % du temps). La règle « vitesse de la proie plus l'écart à `d` » de la formule ci-dessus corrige cela (dernière ligne). Adoucir aussi l'errance du requin (`hasard_errance = 1,5`) l'a fait sortir de la boîte sur une graine : écarté.
+
+Effet sur le banc (`mesure_banc.gd`, graines 1 à 3, avant → après) : banc entier 38 à 46 % → 61 à 79 % ; thons vus hors de la boîte 125 à 273 → 19 à 31 pas, sous le sable 49 à 291 → 0 à 83. Le requin plaquait les thons contre les parois ; il les laisse maintenant se reformer entre deux chasses.
+
+Attaques de plus loin et plus rapides (Simon, 12 octobre 2026, v3.2.1). Constat à l'écran : les attaques partent de trop près et sont lentes. Mesures (même diagnostic) : le requin prenait sa proie à 6,4 à 7,9 en médiane, parce que les thons le fuient dès 8. Il n'avait donc que 3 d'élan avant la distance de suivi, et sa vitesse de pointe en chasse restait de 4,2 à 4,3. Sa vitesse de chasse (4,5) était aussi sous la vitesse max d'un thon (5). Propositions de Claude, retenues par Simon : vision 14, vitesse de chasse 7, accélération 6 par seconde, chasses de 5 s, et l'éloignement ci-dessus. « Prise » : distance à la proie quand il la choisit. « Pointe » : moyenne, sur les chasses, de la vitesse la plus haute atteinte.
+
+| Réglage (vision, vitesse de chasse, accélération, chasse) | Prise (médiane) | Pointe | À moins de 2 | Requin hors de la boîte |
+| --- | --- | --- | --- | --- |
+| Avant : 8, 4,5, 2, 8 s | 6,4 à 7,9 | 4,2 à 4,3 | 0,3 à 1,4 % | 0 |
+| 12 ou 14, 6 ou 7, 2, 5 s | 6,4 à 8,7 | 4,7 à 5,3 | 1,0 à 3,0 % | 0 |
+| 8 ou 12, 7, 6 ou instantanée, 5 s | 6,1 à 9,7 | 4,6 à 5,4 | 0,4 à 1,8 % | 0 à 83 pas |
+| 14, 7, 6, 5 s, éloignement de poids 10 | 11,5 à 12,9 | 5,4 à 5,9 | 0,3 à 0,4 % | 162 à 773 pas |
+| 14, 7, 6, 5 s, éloignement de poids 3 | 8,4 à 13,0 | 5,2 à 5,4 | 0,5 à 1,3 % | 0 à 60 pas |
+| 14, 7, 6, 5 s, éloignement de poids 2 (retenu) | 9,6 à 11,7 | 5,2 à 5,6 | 0,8 à 1,2 % | 0 |
+| 14, 7, 6, 5 s, éloignement de poids 1 | 8,0 à 13,0 | 5,4 à 5,6 | 0,1 à 0,9 % | 0 |
+
+Sans éloignement, ni la vision ni la vitesse ne font partir l'attaque de plus loin : les thons restent à environ 7 du requin, et 3 d'élan ne suffisent pas pour accélérer avec une force bornée à 5. Essai écarté : remplacer la vitesse voulue par celle d'un freinage uniforme, `√(|v_proie|² + 2 · force_max · (δ - d))` ; le requin arrivait trop vite et passait à moins de 2 d'un thon 4 à 9 % du temps.
+
+Effet sur le banc (graines 1 à 3) : banc entier 69 à 96 % ; thons vus hors de la boîte 0 à 47 pas, sous le sable 0 à 31. Constat à l'écran (Simon) : le banc éclate moins.
+
+Charge du centre (Simon, 12 octobre 2026, v3.2.1). Mesures (même diagnostic, graines 1 à 3). « Coupures » : nombre de fois par minute où le banc passe à plus de groupes (seuil 8). D'abord, la taille de l'aquarium, avec le requin d'alors (plus proche, distance 4) :
+
+| Aquarium | Coupures / min | Banc entier |
+| --- | --- | --- |
+| 40 × 20 × 20 (actuel) | 0,6 à 1,2 | 69 à 96 % |
+| 60 × 20 × 30 | 0,6 à 1,0 | 79 à 95 % |
+| 60 × 30 × 30 | 0,4 à 0,6 | 92 à 96 % |
+| 80 × 30 × 40 | 0,2 à 0,6 | 21 à 87 % |
+| 40 × 20 × 20, requin d'avant la v3.2.1 (graines 1 et 2) | 4,8 à 5,6 | 38 à 46 % |
+
+Agrandir l'aquarium ne fait pas plus éclater le banc : il fuit d'un bloc. En 80 × 30 × 40, le banc est souvent en plusieurs groupes parce qu'il se disperse, pas parce que le requin le coupe. La baisse venait du comportement du requin, qui chargeait le thon le plus proche, au bord du banc. Puis, dans l'aquarium actuel :
+
+| Réglage | Coupures / min | Banc entier | À moins de 2 | Pointe |
+| --- | --- | --- | --- | --- |
+| Plus proche, `d = 4` | 0,6 à 1,2 | 69 à 96 % | 0,8 à 1,2 % | 5,2 à 5,6 |
+| Plus proche, `d = 3` | 0,8 à 2,6 | 70 à 89 % | 1,3 à 2,0 % | 5,8 à 6,1 |
+| Plus proche, `d = 2,5` | 0,6 à 2,2 | 76 à 91 % | 3,2 à 4,5 % | 5,5 à 6,2 |
+| Centre, `d = 4` (essai) | 2,6 à 4,0 | 41 à 70 % | 0,9 à 2,2 % | 5,9 à 6,0 |
+| Centre, `d = 2` | 4,0 à 4,4 | 43 à 46 % | 2,9 à 4,1 % | 6,2 à 6,3 |
+| Centre, `d = 4`, code final (retenu) | 2,4 à 3,0 | 48 à 70 % | 1,1 à 2,6 % | 5,7 à 6,2 |
+
+Le requin ne sort jamais de la boîte. Le code final retire la proie, devenue inutile : elle ne servait plus qu'à savoir s'il voit un thon. Ses trajectoires diffèrent donc un peu de l'essai. Choix arbitré par Claude sur ces mesures, à valider par Simon et Lou : il remplace la proie gardée choisie par Simon plus haut.
+
+Effet sur le banc (`mesure_banc.gd`, graines 1 à 3) : banc entier 48 à 70 % ; thons vus hors de la boîte 41 à 105 pas, sous le sable 6 à 63 (avant la v3.2.1 : 125 à 273 et 49 à 291). Quand le banc éclate, quelques thons sont poussés contre les parois. Pas encore regardé à l'écran.
 
 ### Fuite (requin) {#fuite}
 
@@ -316,6 +383,6 @@ Mesures : faites par Claude le 12 octobre 2026 avec `godot/mesures/mesure_banc.g
 
 Le banc se coupe à partir de 40. À partir de 80, la fuite l'emporte sur l'évitement des parois (poids 30) et les thons sortent de la boîte. Retenu : 50, proposition de Claude retenue par Lou. Trois graines seulement : l'écart entre 40, 50 et 60 n'est pas sûr.
 
-À surveiller : jusqu'à `w_f = 100`, un thon est à portée de fuite du requin pendant 94 à 100 % des pas. Le requin lâche rarement le banc, qui a peu de répit pour se reformer. Si cela gêne à l'écran, le réglage à revoir est la poursuite du requin, pas seulement le poids de la fuite.
+À surveiller : jusqu'à `w_f = 100`, un thon est à portée de fuite du requin pendant 94 à 100 % des pas. Le requin lâche rarement le banc, qui a peu de répit pour se reformer. Si cela gêne à l'écran, le réglage à revoir est la poursuite du requin, pas seulement le poids de la fuite. Traité en v3.2.1 par les pauses du requin (voir [Poursuite](#poursuite)).
 
 Depuis la v3.2.0, l'aquarium crée le requin avant le banc : à graine égale, les positions de départ ne sont plus celles des mesures plus anciennes de ce fichier. Ne pas comparer graine par graine avec elles.
