@@ -32,8 +32,7 @@ Chaque petite version ci-dessous est une étape qu'on peut montrer : on la déve
 | [v3.0.0](#v3-0-0) | Un requin qui nage | Terminée |
 | [v3.1.0](#v3-1-0) | Le requin suit le banc | Terminée |
 | [v3.2.0](#v3-2-0) | Les thons fuient le requin | Terminée |
-| [v3.3.0](#v3-3-0) | Un bateau de pêche qui traîne un filet | À faire |
-| [v3.4.0](#v3-4-0) | Le filet attrape les thons, qui le fuient | À faire |
+
 
 ## V1 — L'aquarium
 
@@ -173,19 +172,6 @@ Les versions v1.6.0 à v1.9.0 viennent du brainstorm de l'[écran de démarrage]
 
 **Terminée quand** : le banc éclate à l'approche du requin puis se reforme après son passage.
 
-### v3.3.0 — Un bateau de pêche qui traîne un filet {#v3-3-0}
-
-- Un bateau de pêche qui avance à la surface, d'un bout à l'autre de l'aquarium, puis repart.
-- Il traîne derrière lui un filet : une zone sous l'eau (une nappe ou une poche) qui suit le bateau.
-
-**Terminée quand** : le bateau traverse l'aquarium avec son filet, sans que les thons réagissent encore.
-
-### v3.4.0 — Le filet attrape les thons, qui le fuient {#v3-4-0}
-
-- Un thon qui entre dans le filet est capturé : il disparaît et on compte les prises.
-- Force de **fuite** face au filet, comme pour le requin : un thon qui voit le filet s'en éloigne.
-
-**Terminée quand** : le banc s'écarte au passage du filet, et les thons trop lents sont comptés comme pêchés.
 
 ## Idées pour plus tard
 
