@@ -1,6 +1,6 @@
 # Interface et ergonomie
 
-*Proposition de Claude (8 octobre 2026), à valider par Lou et Simon. Les décisions de la v1.3.0 (touche `Tab`, panneau « Réglages », pas de rappel des contrôles à l'écran) sont validées par Lou.*
+*Les décisions de la v1.3.0 (touche `Tab`, panneau « Réglages », pas de rappel des contrôles à l'écran) sont validées par Lou.*
 
 Cette page est la référence pour tout ce qui s'affiche à l'écran : la scène 3D, les contrôles, les curseurs, l'écran de démarrage, et le site de documentation. La commande [`/ui`](#la-commande-ui) s'appuie sur elle.
 

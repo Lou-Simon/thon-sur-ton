@@ -1,7 +1,5 @@
 # Le requin
 
-*Schémas et textes proposés par Claude (12 octobre 2026) à partir du code du 12 octobre 2026 (charge du banc), à relire et valider par Lou et Simon.*
-
 Le comportement du requin est dans `godot/obstacles/requin.gd`. Contrairement au thon, il a deux états : il patrouille ou il chasse.
 
 ## Un thon qui n'est pas dans le banc {#heritage}

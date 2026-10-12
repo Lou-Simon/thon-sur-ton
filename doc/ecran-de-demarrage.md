@@ -1,6 +1,6 @@
 # Écran de démarrage
 
-*Brainstorm de Lou et Simon avec Claude (8 octobre 2026). Les choix sont ceux de Lou et Simon ; ce qui reste ouvert est marqué « à décider ».*
+*Brainstorm de Lou et Simon (8 octobre 2026). Les choix sont ceux de Lou et Simon ; ce qui reste ouvert est marqué « à décider ».*
 
 C'est la première image que le jury verra. Les règles générales de l'interface sont dans [Interface et ergonomie](/interface).
 
