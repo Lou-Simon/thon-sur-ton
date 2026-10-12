@@ -36,6 +36,7 @@ export default defineConfig({
         items: [
           { text: 'Interface et ergonomie', link: '/interface' },
           { text: 'Écran de démarrage', link: '/ecran-de-demarrage' },
+          { text: 'Trailer', link: '/trailer' },
         ],
       },
       {

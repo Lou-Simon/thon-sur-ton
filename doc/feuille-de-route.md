@@ -69,5 +69,6 @@ Une grande version par itération. Chaque petite version `vX.Y.Z` : tâches sur 
 - [x] Écran de démarrage : brainstorm ([écran de démarrage](/ecran-de-demarrage)), réalisé en V1 ([v1.6.0](/versions#v1-6-0) à [v1.9.0](/versions#v1-9-0))
 - [ ] Préparer des scénarios de démo (réglages prêts, reproductibles)
 - [ ] Enregistrer une vidéo de secours si la démo en direct plante
+- [ ] Trailer ([trailer](/trailer)) : tournage, son et montage faits ; reste à écouter, à régler et à écrire les cartons
 - [ ] Rapport : modèle, résultats, usage des agents Claude
 - [ ] Slides de soutenance + répétition, chacun capable d'expliquer tout le code

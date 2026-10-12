@@ -21,6 +21,7 @@ doc/                   site VitePress (en français)
   memoire/             consignes à lire et à suivre, jamais publiées sur le site
 .claude/skills/        commandes Claude (/ship, /ui, /tache), références (gdscript, boids)
 .claude/agents/        agents Claude Code
+trailer/               son et montage du trailer (Python : numpy, scipy, Pillow ; ffmpeg)
 PRATIQUES-GIT.md       conventions git (source unique)
 setup-doc.sh           script qui a créé le site VitePress
 ```
@@ -37,9 +38,10 @@ godot/
   obstacles/  rocher (v2.2.0), requin (v3.0.0)
   interface/  thème, panneau de réglage, police Rubik Dirt (OFL)
   mesures/    scripts de mesure sans fenêtre (hors du jeu), pour choisir les poids sur des chiffres
+  tournage/   scène de tournage du trailer (hors du jeu), enregistrée par Movie Maker
 ```
 
-Fichiers générés, jamais committés : `godot/.godot/`, `node_modules/`, `doc/.vitepress/cache|dist`.
+Fichiers générés, jamais committés : `godot/.godot/`, `node_modules/`, `doc/.vitepress/cache|dist`, `rushes/`.
 
 ## Commandes
 
@@ -53,6 +55,12 @@ cd doc && npm run build
 # Mesurer le banc sans fenêtre (5 minutes simulées ; `godot` = le binaire Godot 4)
 # (arguments facultatifs : pa, pc, ps, pf, rv, thons, hr, rocher=0, graine, n — voir l'en-tête du script)
 godot --headless --path godot/ --fixed-fps 60 -s mesures/mesure_banc.gd -- graine=1 n=18000
+
+# Tourner les rushes du trailer en 1080p (fenêtre ouverte, ne pas y toucher ; voir doc/trailer.md)
+GODOT=godot sh godot/tournage/tourner.sh 1
+
+# Monter le trailer à partir des rushes (rushes/trailer.mp4 ; voir doc/trailer.md)
+.venv/bin/python trailer/montage.py
 ```
 
 ## Conventions
