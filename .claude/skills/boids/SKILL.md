@@ -27,7 +27,7 @@ demande. On n'invente ni formule, ni valeur, ni référence.
 | Alignement | v2.1.0 | Le thon nage dans la même direction que ses voisins. | voir [Alignement et cohésion](#alignement-cohesion) | Reynolds, à vérifier |
 | Cohésion | v2.1.0 | Le thon se rapproche du centre de ses voisins. | voir [Alignement et cohésion](#alignement-cohesion) | Reynolds, à vérifier |
 | Poursuite (requin) | v3.1.0 | Le requin suit le thon le plus proche qu'il voit, sans jamais l'attraper. | voir [Poursuite](#poursuite) | choix de Lou |
-| Fuite | v3.2.0, v3.4.0 | Un thon qui voit le requin ou le filet s'en éloigne, d'autant plus fort qu'il est proche. | à écrire | à renseigner |
+| Fuite | v3.2.0, v3.4.0 | Un thon qui voit le requin ou le filet s'en éloigne, d'autant plus fort qu'il est proche. | requin : voir [Fuite](#fuite) ; filet : à écrire | choix de Lou |
 
 ## Les paramètres
 
@@ -45,12 +45,12 @@ demande. On n'invente ni formule, ni valeur, ni référence.
 | Distance, rayon, hasard de l'errance | Forme de l'errance (voir [Errance](#errance)). | 2, 2 et 3 : proposition de Claude, à régler à l'écran |
 | Poids de l'errance | Importance de l'errance dans la somme. | 1 (valeur du code depuis la v1.4.0, source à noter par Lou et Simon) |
 | Poids de la poursuite et distance de suivi | Requin seulement (voir [Poursuite](#poursuite)). | 10 et 4 (Lou, 10 oct. 2026, d'après des mesures : voir [Poursuite](#poursuite)), à régler à l'écran et à valider par Simon |
-| Poids de la fuite | Importance de la fuite dans la somme (v3). | à fixer |
+| Poids de la fuite | Importance de la fuite dans la somme (voir [Fuite](#fuite)). | 50 (Lou, 12 oct. 2026, d'après des mesures), à régler à l'écran et à valider par Simon |
 
 Les poids, les vitesses et le rayon de vision sont réglables par curseur (v2.3.0).
 
 ## Questions à trancher avant de coder
-- Fuite : comment la force grandit quand le requin ou le filet se rapproche.
+- Fuite devant le filet (v3.4.0) : même formule que devant le requin, ou une autre.
 
 Tranché par Simon le 8 octobre 2026 (v2.2.0) :
 - Le rocher est un obstacle comme les plantes, avec la même force de contournement. Chaque thon ne le sent qu'à portée : le contournement par le banc doit émerger, sans coordination. Un thon qui passe par-dessus est un comportement émergent, pas un défaut.
@@ -221,7 +221,7 @@ Retenu : 6 et 1, le couple qui forme un seul banc en gardant les thons le plus �
 
 Choisie par Lou le 10 octobre 2026 (v3.1.0), à valider par Simon. Code : `godot/obstacles/requin.gd`.
 
-Le requin voit les thons comme un thon voit ses voisins (voir [Vision et séparation](#separation)), avec les mêmes valeurs par défaut (rayon de vision 8, angle mort 90°). Les curseurs ne règlent que les thons : le requin garde ces valeurs. Les thons, eux, ne le voient pas encore. Sa proie est le plus proche des thons qu'il voit.
+Le requin voit les thons comme un thon voit ses voisins (voir [Vision et séparation](#separation)), avec les mêmes valeurs par défaut (rayon de vision 8, angle mort 90°). Les curseurs ne règlent que les thons : le requin garde ces valeurs. Les thons, eux, le fuient depuis la v3.2.0 (voir [Fuite](#fuite)). Sa proie est le plus proche des thons qu'il voit.
 
 Le requin ne l'attrape jamais : il se tient à la distance de suivi `d`, comme au bout d'un ressort.
 
@@ -257,3 +257,46 @@ Mesures : essais sans fenêtre faits par Claude (Godot 4.7.2, 30 thons, 5 minute
 Avec un poids de 3, Lou a constaté à l'écran que le requin ne chassait pas : il faisait à peine mieux que le témoin. Le requin passe encore à moins de 2 d'un thon : les thons ne l'évitent pas avant la v3.2.0.
 
 À surveiller : la vitesse du requin ne descend pas sous sa vitesse minimale (2, héritée du thon). Il ne peut donc pas s'arrêter : s'il est trop près, il ralentit jusqu'à 2 ou se détourne.
+
+### Fuite (requin) {#fuite}
+
+Choisie par Lou le 12 octobre 2026 (v3.2.0), à valider par Simon. Code : `_fuite()` dans `godot/thon/thon.gd`.
+
+`F = normaliser(p_thon - p_requin) / δ`, avec `δ = |p_thon - p_requin|`, puis la force s'ajoute avec le poids `w_f`.
+
+- Elle vaut zéro si `δ ≥ R`, le rayon de vision : pas de portée à part.
+- Pas d'angle mort pour le requin : le thon le sent tout autour de lui. C'est une exception voulue à la règle de vision des voisins.
+- Pas de borne sur `δ` : tout près, la force est très grande, mais la vitesse reste bornée par `v_max`. Seul `δ = 0` est écarté, pour ne pas diviser par zéro.
+- Sans requin, elle vaut zéro. Le requin, qui hérite du thon, n'a pas de fuite.
+
+| Symbole | Sens | Variable |
+| --- | --- | --- |
+| `p_thon` | position du thon | `position` |
+| `p_requin` | position du requin | `_requin.position` |
+| `δ` | distance entre le thon et le requin | `distance` |
+| `R` | rayon de vision | `rayon_vision` |
+| `w_f` | poids de la fuite | `poids_fuite` |
+
+Source : pas d'article. Formule choisie par Lou parmi trois propositions de Claude (rampe linéaire, inverse de la distance, constante).
+
+Mesures : faites par Claude le 12 octobre 2026 avec `godot/mesures/mesure_banc.gd` (Godot 4.7.2, 30 thons, 5 minutes simulées, graines 1 à 3, argument `pf`). Chaque case donne la fourchette sur les 3 graines. « Banc entier » : part des pas, sur toute la simulation, où les thons forment un seul groupe (début et coupures du rocher compris : à lire à côté du témoin). Les deux dernières colonnes sont sur 540 000 pas×thons.
+
+| `w_f` | Banc entier, toute la simulation | Un seul banc, dernière minute | Pas×thons hors de la boîte | Pas×thons sous le sable |
+| --- | --- | --- | --- | --- |
+| 0 (témoin) | 84 à 99 % | 67 à 100 % | 0 à 15 | 0 à 9 |
+| 10 | 89 à 96 % | 60 à 100 % | 0 à 15 | 0 |
+| 20 | 78 à 100 % | 100 % | 0 à 34 | 0 |
+| 30 | 88 à 95 % | 100 % | 0 | 0 à 28 |
+| 40 | 55 à 83 % | 3 à 89 % | 0 à 35 | 0 à 74 |
+| 50 (retenu) | 43 à 79 % | 53 à 100 % | 2 à 42 | 0 à 89 |
+| 60 | 51 à 71 % | 31 à 71 % | 56 à 78 | 0 à 64 |
+| 80 | 34 à 55 % | 35 à 72 % | 93 à 648 | 102 à 696 |
+| 100 | 44 à 51 % | 40 à 89 % | 764 à 1 257 | 504 à 1 592 |
+| 300 | 12 à 36 % | 0 à 81 % | 16 197 à 21 819 | 2 448 à 7 769 |
+| 1000 | 7 à 19 % | 0 à 27 % | 25 204 à 32 914 | 8 615 à 14 778 |
+
+Le banc se coupe à partir de 40. À partir de 80, la fuite l'emporte sur l'évitement des parois (poids 30) et les thons sortent de la boîte. Retenu : 50, proposition de Claude retenue par Lou. Trois graines seulement : l'écart entre 40, 50 et 60 n'est pas sûr.
+
+À surveiller : jusqu'à `w_f = 100`, un thon est à portée de fuite du requin pendant 94 à 100 % des pas. Le requin lâche rarement le banc, qui a peu de répit pour se reformer. Si cela gêne à l'écran, le réglage à revoir est la poursuite du requin, pas seulement le poids de la fuite.
+
+Depuis la v3.2.0, l'aquarium crée le requin avant le banc : à graine égale, les positions de départ ne sont plus celles des mesures plus anciennes de ce fichier. Ne pas comparer graine par graine avec elles.
