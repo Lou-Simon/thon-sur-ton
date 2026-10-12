@@ -9,7 +9,10 @@ class_name Thon
 ##
 ## Trois forces viennent de ses voisins : la séparation l'écarte de ceux qui sont trop proches,
 ## l'alignement le fait nager dans la même direction qu'eux, la cohésion le rapproche de leur centre.
-## Sans voisin, l'alignement et la cohésion valent zéro : il lui reste l'errance, l'évitement et le contournement.
+## Sans voisin, l'alignement et la cohésion valent zéro : il lui reste l'errance, l'évitement, le contournement et la fuite.
+##
+## Il fuit le requin : dès que le requin est dans son rayon de vision, il s'en éloigne,
+## d'autant plus fort qu'il est proche.
 ##
 ## Errance de Reynolds : une cible glisse au hasard sur une sphère placée devant le thon,
 ## et le thon est attiré vers elle. Comme la cible bouge peu d'une image à l'autre,
@@ -51,6 +54,9 @@ class_name Thon
 @export var poids_alignement: float = 6.0
 ## Poids de la cohésion dans la somme des forces.
 @export var poids_cohesion: float = 1.0
+## Poids de la fuite dans la somme des forces.
+## Valeur choisie par Lou sur mesures, à régler à l'écran et à valider par Simon.
+@export var poids_fuite: float = 50.0
 
 # Vitesse actuelle : sa direction est le sens de nage, sa longueur la vitesse.
 var _vitesse: Vector3
@@ -66,6 +72,8 @@ var _sol: Sol
 var _obstacles: Array[Obstacle] = []
 # Tous les thons de l'aquarium : le thon n'y cherche que ses voisins (voir `_voisins`).
 var _banc: Array[Thon] = []
+# Le requin que le thon fuit, ou `null` s'il n'y en a pas. Le thon ne lit que sa position.
+var _requin: Node3D
 
 
 func _ready() -> void:
@@ -77,12 +85,14 @@ func _ready() -> void:
 
 
 # C'est l'aquarium qui appelle cette fonction : lui seul connaît ses dimensions, son sol,
-# son décor et la liste de ses thons (la même liste pour tous).
-func installer(dimensions: Vector3, sol: Sol, obstacles: Array[Obstacle], banc: Array[Thon]) -> void:
+# son décor, la liste de ses thons (la même liste pour tous) et son requin.
+# Sans requin donné, le thon n'a rien à fuir : c'est le cas du requin lui-même (voir requin.gd).
+func installer(dimensions: Vector3, sol: Sol, obstacles: Array[Obstacle], banc: Array[Thon], requin: Node3D = null) -> void:
 	_demi = dimensions / 2.0
 	_sol = sol
 	_obstacles = obstacles
 	_banc = banc
+	_requin = requin
 
 
 ## Calcule la somme des forces et la vitesse suivante à partir des positions et des vitesses
@@ -94,7 +104,8 @@ func decider(delta: float) -> void:
 	var voisins: Array[Thon] = _voisins()
 	var force: Vector3 = _errance(delta) * poids_errance + _evitement() * poids_evitement \
 			+ _contournement() * poids_obstacles + _separation(voisins) * poids_separation \
-			+ _alignement(voisins) * poids_alignement + _cohesion(voisins) * poids_cohesion
+			+ _alignement(voisins) * poids_alignement + _cohesion(voisins) * poids_cohesion \
+			+ _fuite() * poids_fuite
 	_vitesse_suivante = _borner(_vitesse + force * delta)
 
 
@@ -153,6 +164,24 @@ func _cohesion(voisins: Array[Thon]) -> Vector3:
 	for voisin: Thon in voisins:
 		somme += voisin.position
 	return somme / voisins.size() - position
+
+
+# Force de fuite : le thon s'éloigne du requin, d'autant plus fort qu'il est proche
+# (l'inverse de la distance). Au-delà du rayon de vision, elle vaut zéro.
+# Exception voulue à la règle de vision des voisins : pas d'angle mort pour le requin,
+# le thon le sent tout autour de lui.
+func _fuite() -> Vector3:
+	# Sans requin, rien à fuir.
+	if _requin == null:
+		return Vector3.ZERO
+	var ecart: Vector3 = position - _requin.position
+	var distance: float = ecart.length()
+	# À distance nulle, on ne peut pas diviser : la force vaut zéro.
+	if distance >= rayon_vision or is_zero_approx(distance):
+		return Vector3.ZERO
+	# Pas de borne sur la force : tout près, elle est très grande, mais `_borner` limite la vitesse,
+	# elle tourne donc le thon et le fait accélérer jusqu'à sa vitesse max, pas plus.
+	return ecart.normalized() / distance
 
 
 # Force d'évitement : chaque paroi proche pousse le thon vers l'intérieur, le sol le pousse vers le haut.
