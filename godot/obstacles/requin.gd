@@ -1,7 +1,8 @@
 extends Thon
 class_name Requin
 ## Le requin : il erre dans l'aquarium en évitant les parois, le sol, les plantes, les coraux
-## et le rocher, et il suit le thon le plus proche qu'il voit, sans jamais l'attraper.
+## et le rocher. Il prend pour proie le thon le plus proche qu'il voit, et la suit sans jamais
+## l'attraper, tant qu'il la voit.
 ## Les thons le fuient (voir `_fuite` dans thon.gd).
 ##
 ## Héritage : le requin est un `Thon` qui ne fait pas partie du banc. Il garde donc, sans les
@@ -26,6 +27,12 @@ class_name Requin
 @export var vitesse_chasse: float = 4.5
 ## Ce que la vitesse max gagne ou perd par seconde quand il change d'allure.
 @export var acceleration: float = 2.0
+## Part de l'écart de vitesse avec la proie que la poursuite corrige : elle freine le va-et-vient
+## autour de la distance de suivi. Valeur choisie par Simon sur mesures.
+@export var amortissement: float = 1.0
+
+# La proie suivie, ou `null` s'il n'en voit aucune.
+var _proie: Thon = null
 
 
 # Les réglages du requin qui diffèrent de ceux du thon, donnés à sa création.
@@ -40,13 +47,17 @@ func _init() -> void:
 
 ## Comme pour le thon, mais sans les trois forces du banc ni la fuite, et avec la poursuite en plus.
 func decider(delta: float) -> void:
-	var proie: Thon = _plus_proche(_voisins())
+	var vus: Array[Thon] = _voisins()
+	# Il garde sa proie tant qu'il la voit. Reprendre le plus proche à chaque pas le faisait
+	# changer de cible dès que deux thons échangeaient leur rang, et zigzaguer.
+	if not vus.has(_proie):
+		_proie = _plus_proche(vus)
 	# Deux allures : la vitesse max glisse vers celle de la chasse ou de la patrouille,
 	# sans changer d'un coup. `_borner` s'en sert plus bas.
-	var allure: float = vitesse_chasse if proie != null else vitesse_patrouille
+	var allure: float = vitesse_chasse if _proie != null else vitesse_patrouille
 	vitesse_max = move_toward(vitesse_max, allure, acceleration * delta)
 	var force: Vector3 = _errance(delta) * poids_errance + _evitement() * poids_evitement \
-			+ _contournement() * poids_obstacles + _poursuite(proie) * poids_poursuite
+			+ _contournement() * poids_obstacles + _poursuite(_proie) * poids_poursuite
 	_vitesse_suivante = _borner(_vitesse + force * delta)
 
 
@@ -59,12 +70,14 @@ func _plus_proche(vus: Array[Thon]) -> Thon:
 	return proche
 
 
-# Force de poursuite : un ressort entre le requin et sa proie, au repos à la distance de suivi.
+# Force de poursuite : un ressort amorti entre le requin et sa proie, au repos à la distance de suivi.
 # Plus loin, elle tire le requin vers la proie ; plus près, elle le repousse et il ralentit.
+# L'amortissement le rapproche aussi de la vitesse de sa proie (comme l'alignement d'un thon,
+# avec un seul voisin) : sans lui, le ressort le fait osciller autour de la distance de suivi.
 # Sans proie, la force est nulle : il reste au requin l'errance, l'évitement et le contournement.
 func _poursuite(proie: Thon) -> Vector3:
 	if proie == null:
 		return Vector3.ZERO
 	var ecart: Vector3 = proie.position - position
 	# Si le requin est exactement sur sa proie, `normalized` rend le vecteur nul : la force vaut zéro.
-	return ecart.normalized() * (ecart.length() - distance_suivi)
+	return ecart.normalized() * (ecart.length() - distance_suivi) + amortissement * (proie._vitesse - _vitesse)
