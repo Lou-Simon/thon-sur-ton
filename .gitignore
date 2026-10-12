@@ -26,3 +26,7 @@ node_modules/
 .DS_Store
 Thumbs.db
 *.swp
+
+# Trailer : rushes (lourds) et réglage temporaire du tournage (voir godot/tournage/tourner.sh)
+rushes/
+godot/override.cfg
