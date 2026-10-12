@@ -31,7 +31,7 @@ Chaque petite version ci-dessous est une étape qu'on peut montrer : on la déve
 | [v2.3.0](#v2-3-0) | Curseurs de réglage | Terminée |
 | [v3.0.0](#v3-0-0) | Un requin qui nage | Terminée |
 | [v3.1.0](#v3-1-0) | Le requin suit le banc | Terminée |
-| [v3.2.0](#v3-2-0) | Les thons fuient le requin | À faire |
+| [v3.2.0](#v3-2-0) | Les thons fuient le requin | Terminée |
 | [v3.3.0](#v3-3-0) | Un bateau de pêche qui traîne un filet | À faire |
 | [v3.4.0](#v3-4-0) | Le filet attrape les thons, qui le fuient | À faire |
 

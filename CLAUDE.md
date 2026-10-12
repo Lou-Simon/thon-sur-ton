@@ -48,7 +48,7 @@ cd doc && npm install && npm run dev
 cd doc && npm run build
 
 # Mesurer le banc sans fenêtre (5 minutes simulées ; `godot` = le binaire Godot 4)
-# (arguments facultatifs : pa, pc, ps, rv, thons, hr, rocher=0, graine, n — voir l'en-tête du script)
+# (arguments facultatifs : pa, pc, ps, pf, rv, thons, hr, rocher=0, graine, n — voir l'en-tête du script)
 godot --headless --path godot/ --fixed-fps 60 -s mesures/mesure_banc.gd -- graine=1 n=18000
 ```
 
